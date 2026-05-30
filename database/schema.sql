@@ -126,31 +126,19 @@ CREATE TABLE menus (
         ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
--- Enregistre les images de chaque menu.
-CREATE TABLE menu_images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    menu_id INT NOT NULL,
-    image_path VARCHAR(255) NOT NULL,
-    alt_text VARCHAR(255) NOT NULL,
-    display_order INT NOT NULL DEFAULT 1,
-
-    CONSTRAINT fk_menu_images_menu
-        FOREIGN KEY (menu_id)
-        REFERENCES menus(id)
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-
 -- --------------------------------------------------
 -- plats et allergènes
 -- --------------------------------------------------
 
 -- Enregistre les plats disponibles dans les différents menus.
+-- La photo est stockée directement dans la base de données.
 CREATE TABLE dishes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
+    name VARCHAR(150) NOT NULL UNIQUE,
     description TEXT NULL,
     dish_type ENUM('starter', 'main_course', 'dessert') NOT NULL,
+    photo LONGBLOB NULL,
+    photo_mime_type VARCHAR(100) NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE
 ) ENGINE=InnoDB;
 

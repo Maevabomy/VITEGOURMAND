@@ -349,11 +349,11 @@ p {
     width: 4rem;
 }
 
-/* Utilise la couleur sauge pour les flèches. */
+/* Utilise la couleur lie-de-vin pour les flèches. */
 #reviews-carousel .carousel-control-prev-icon,
 #reviews-carousel .carousel-control-next-icon {
     padding: 1.3rem;
-    background-color: var(--color-sage);
+    background-color: var(--color-wine);
     background-size: 55%;
     border-radius: 50%;
 }
@@ -400,6 +400,163 @@ p {
 }
 
 /* -------------------------------------------------- */
+/* page catalogue des menus */
+/* -------------------------------------------------- */
+
+/* Crée une bannière sombre pour introduire la page. */
+.menus-hero-section {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(116, 37, 58, 0.18),
+            rgba(145, 159, 132, 0.05)
+        ),
+        var(--color-background-soft);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Met en valeur le titre principal du catalogue. */
+.menus-page-title {
+    margin-bottom: 1rem;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+}
+
+/* Limite la largeur du texte d'introduction. */
+.menus-page-description {
+    max-width: 700px;
+    color: var(--color-text-soft);
+    font-size: 1.05rem;
+}
+
+/* Différencie le fond du catalogue. */
+.menus-catalog-section {
+    background-color: var(--color-background);
+}
+
+/* Crée une carte horizontale pour chaque menu. */
+.menu-card {
+    min-height: 340px;
+    display: grid;
+    grid-template-columns: minmax(210px, 42%) 1fr;
+    overflow: hidden;
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+    transition: 0.2s ease;
+}
+
+/* Anime légèrement la carte au survol. */
+.menu-card:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--color-border-strong);
+}
+
+/* Conserve une hauteur régulière pour la galerie. */
+.menu-card-gallery {
+    min-height: 340px;
+    overflow: hidden;
+    background-color: rgba(12, 10, 11, 1);
+}
+
+/* Adapte la photo à la zone disponible. */
+.menu-card-image {
+    width: 100%;
+    height: 100%;
+    min-height: 340px;
+    object-fit: cover;
+}
+
+/* Ajoute de l'espace autour des informations. */
+.menu-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+/* Style les badges affichés au-dessus du titre. */
+.menu-badge {
+    display: inline-block;
+    padding: 0.28rem 0.65rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Utilise la couleur champagne pour le thème. */
+.menu-badge-theme {
+    background-color: var(--color-champagne-soft);
+    color: var(--color-champagne);
+}
+
+/* Utilise la couleur sauge pour le régime. */
+.menu-badge-diet {
+    background-color: var(--color-sage-soft);
+    color: var(--color-sage);
+}
+
+/* Met en valeur le nom du menu. */
+.menu-card-title {
+    margin-bottom: 0.9rem;
+    color: var(--color-champagne);
+    font-size: 1.9rem;
+}
+
+/* Adoucit le texte de présentation. */
+.menu-card-description {
+    color: var(--color-text-soft);
+    font-size: 0.95rem;
+}
+
+/* Affiche les informations tarifaires sur deux lignes. */
+.menu-card-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* Met en valeur le prix par personne. */
+.menu-card-price strong {
+    color: var(--color-sage);
+    font-size: 1.1rem;
+}
+
+/* Affiche le prix minimum de manière plus discrète. */
+.menu-card-price span {
+    color: var(--color-text-soft);
+    font-size: 0.86rem;
+}
+
+/* Réduit la largeur des zones cliquables des flèches. */
+.menu-card-gallery .carousel-control-prev,
+.menu-card-gallery .carousel-control-next {
+    width: 3rem;
+}
+
+/* Rend les flèches visibles sur les photos. */
+.menu-card-gallery .carousel-control-prev-icon,
+.menu-card-gallery .carousel-control-next-icon {
+    padding: 1rem;
+    background-color: var(--color-wine);
+    background-size: 52%;
+    border-radius: 50%;
+}
+
+/* Éclaircit les flèches au survol. */
+.menu-card-gallery .carousel-control-prev:hover
+    .carousel-control-prev-icon,
+.menu-card-gallery .carousel-control-next:hover
+    .carousel-control-next-icon,
+#reviews-carousel .carousel-control-prev:hover
+    .carousel-control-prev-icon,
+#reviews-carousel .carousel-control-next:hover
+    .carousel-control-next-icon {
+    background-color: var(--color-wine-hover);
+}
+
+/* -------------------------------------------------- */
 /* adaptation mobile */
 /* -------------------------------------------------- */
 
@@ -437,5 +594,21 @@ p {
     #reviews-carousel .carousel-control-prev,
     #reviews-carousel .carousel-control-next {
         width: 2.5rem;
+    }
+        /* Affiche la photo au-dessus du texte sur mobile. */
+    .menu-card {
+        grid-template-columns: 1fr;
+    }
+
+    /* Réduit la hauteur de la galerie sur mobile. */
+    .menu-card-gallery,
+    .menu-card-image {
+        min-height: 250px;
+        height: 250px;
+    }
+
+    /* Réduit légèrement les espaces internes. */
+    .menu-card-content {
+        padding: 1.3rem;
     }
 }

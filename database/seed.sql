@@ -195,6 +195,7 @@ INSERT INTO menus (
 -- --------------------------------------------------
 
 -- Ajoute les entrées, plats et desserts disponibles.
+-- Un même plat peut ensuite être associé à plusieurs menus.
 INSERT INTO dishes (
     name,
     description,
@@ -244,8 +245,8 @@ INSERT INTO dishes (
     TRUE
 ),
 (
-    'Suprême de volaille fermière',
-    'Suprême de volaille accompagné d’un jus corsé et d’un écrasé de pommes de terre à la truffe.',
+    'Filet de bœuf aux morilles',
+    'Filet de bœuf accompagné d’une sauce aux morilles et d’un gratin dauphinois.',
     'main_course',
     TRUE
 ),
@@ -280,12 +281,6 @@ INSERT INTO dishes (
     TRUE
 ),
 (
-    'Filet de bœuf aux morilles',
-    'Filet de bœuf accompagné d’une sauce aux morilles et d’un gratin dauphinois.',
-    'main_course',
-    TRUE
-),
-(
     'Bûche chocolat et praliné',
     'Bûche au chocolat, noisette et croustillant praliné.',
     'dessert',
@@ -302,14 +297,7 @@ INSERT INTO dishes (
     'Ravioles aux légumes printaniers accompagnées d’une sauce crémeuse au parmesan.',
     'main_course',
     TRUE
-),
-(
-    'Dôme chocolat au lait',
-    'Dôme au chocolat au lait, cœur praliné et biscuit croustillant.',
-    'dessert',
-    TRUE
 );
-
 
 -- --------------------------------------------------
 -- allergènes
@@ -334,89 +322,102 @@ INSERT INTO dish_allergen (
     dish_id,
     allergen_id
 ) VALUES
+-- Tartare de saumon aux agrumes.
 (1, 5),
 
+-- Canelé bordelais revisité.
 (3, 1),
 (3, 2),
 (3, 3),
 
+-- Burrata et légumes rôtis.
 (4, 2),
 
+-- Risotto aux champignons.
 (5, 2),
 (5, 4),
 
+-- Tarte fine aux pommes.
 (6, 1),
 (6, 2),
 (6, 4),
 
+-- Foie gras mi-cuit et pain brioché.
 (7, 1),
 
+-- Filet de bœuf aux morilles et gratin dauphinois.
 (8, 2),
 
+-- Entremets chocolat noir.
 (9, 1),
 (9, 2),
 (9, 3),
 (9, 4),
 
+-- Houmous de betterave et crackers.
 (10, 1),
 (10, 6),
 
+-- Mousse au chocolat noir et praliné végétal.
 (12, 4),
 
+-- Velouté de potimarron et crème.
 (13, 2),
 
+-- Bûche chocolat et praliné.
+(14, 1),
 (14, 2),
+(14, 3),
+(14, 4),
 
-(15, 1),
+-- Asperges rôties et œuf parfait.
 (15, 2),
 (15, 3),
-(15, 4),
 
+-- Ravioles printanières.
+(16, 1),
 (16, 2),
-(16, 3),
-
-(17, 1),
-(17, 2),
-(17, 3),
-
-(18, 1),
-(18, 2),
-(18, 3),
-(18, 4);
-
+(16, 3);
 
 -- --------------------------------------------------
 -- association des menus et plats
 -- --------------------------------------------------
 
 -- Associe une entrée, un plat et un dessert à chaque menu.
+-- Certains plats sont volontairement présents dans plusieurs menus.
 INSERT INTO menu_dish (
     menu_id,
     dish_id
 ) VALUES
+-- Menu Terroir.
 (1, 1),
 (1, 2),
 (1, 3),
 
+-- Menu Primeur.
 (2, 4),
 (2, 5),
 (2, 6),
 
+-- Menu Millésime.
 (3, 7),
 (3, 8),
 (3, 9),
 
+-- Menu Éclosion.
 (4, 10),
 (4, 11),
 (4, 12),
 
+-- Menu Minuit.
 (5, 13),
+(5, 8),
 (5, 14),
-(5, 15),
 
+-- Menu Floraison.
+(6, 15),
 (6, 16),
-(6, 17),
-(6, 18);
+(6, 9);
 
 -- --------------------------------------------------
 -- clients de démonstration
