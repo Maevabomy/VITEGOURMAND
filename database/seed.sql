@@ -1,5 +1,771 @@
-CREATE DATABASE IF NOT EXISTS vite_gourmand
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
+-- --------------------------------------------------
+-- sélection de la base
+-- --------------------------------------------------
 
+-- Utilise la base du projet.
 USE vite_gourmand;
+
+
+-- --------------------------------------------------
+-- rôles utilisateurs
+-- --------------------------------------------------
+
+-- Ajoute les rôles disponibles dans l'application.
+INSERT INTO roles (name) VALUES
+('user'),
+('employee'),
+('admin');
+
+
+-- --------------------------------------------------
+-- horaires d'ouverture
+-- --------------------------------------------------
+
+-- Ajoute les horaires visibles dans le pied de page.
+INSERT INTO opening_hours (
+    day_number,
+    day_name,
+    opening_time,
+    closing_time,
+    is_closed
+) VALUES
+(1, 'Lundi', '09:00:00', '18:00:00', FALSE),
+(2, 'Mardi', '09:00:00', '18:00:00', FALSE),
+(3, 'Mercredi', '09:00:00', '18:00:00', FALSE),
+(4, 'Jeudi', '09:00:00', '18:00:00', FALSE),
+(5, 'Vendredi', '09:00:00', '18:00:00', FALSE),
+(6, 'Samedi', '09:00:00', '18:00:00', FALSE),
+(7, 'Dimanche', '09:00:00', '18:00:00', FALSE);
+
+
+-- --------------------------------------------------
+-- thèmes des menus
+-- --------------------------------------------------
+
+-- Ajoute les thèmes disponibles pour classer les menus.
+INSERT INTO themes (name) VALUES
+('Classique'),
+('Noël'),
+('Pâques'),
+('Événement');
+
+
+-- --------------------------------------------------
+-- régimes alimentaires
+-- --------------------------------------------------
+
+-- Ajoute les régimes proposés par le traiteur.
+INSERT INTO dietary_types (name) VALUES
+('Classique'),
+('Végétarien'),
+('Vegan');
+
+
+-- --------------------------------------------------
+-- statuts des commandes
+-- --------------------------------------------------
+
+-- Ajoute les états possibles d'une commande.
+INSERT INTO order_statuses (name) VALUES
+('En attente'),
+('Acceptée'),
+('En préparation'),
+('En cours de livraison'),
+('Livrée'),
+('En attente du retour de matériel'),
+('Terminée'),
+('Annulée');
+
+
+-- --------------------------------------------------
+-- compte administrateur
+-- --------------------------------------------------
+
+-- Ajoute un compte administrateur temporaire pour les tests.
+-- Le mot de passe devra être généré proprement avec password_hash en PHP.
+INSERT INTO users (
+    role_id,
+    first_name,
+    last_name,
+    phone,
+    email,
+    address,
+    postal_code,
+    city,
+    password_hash,
+    is_active
+) VALUES (
+    3,
+    'José',
+    'Administrateur',
+    '0600000000',
+    'admin@vitegourmand.fr',
+    '10 rue de Bordeaux',
+    '33000',
+    'Bordeaux',
+    'TEMPORARY_PASSWORD_HASH',
+    TRUE
+);
+
+-- menus de démonstration
+-- --------------------------------------------------
+
+-- Ajoute les menus proposés par le traiteur.
+INSERT INTO menus (
+    theme_id,
+    dietary_type_id,
+    title,
+    description,
+    conditions,
+    minimum_people,
+    base_price,
+    stock_quantity,
+    is_active
+) VALUES
+(
+    1,
+    1,
+    'Terroir',
+    'Une escale raffinée au cœur du Sud-Ouest, entre produits généreux et saveurs délicates.',
+    'Commande à effectuer au minimum 5 jours avant la prestation.',
+    6,
+    210.00,
+    8,
+    TRUE
+),
+(
+    1,
+    2,
+    'Primeur',
+    'Une composition végétarienne fraîche et élégante, inspirée des produits de saison.',
+    'Commande à effectuer au minimum 4 jours avant la prestation.',
+    4,
+    140.00,
+    10,
+    TRUE
+),
+(
+    4,
+    1,
+    'Millésime',
+    'Une proposition haut de gamme pensée pour les réceptions et les événements importants.',
+    'Commande à effectuer au minimum 7 jours avant la prestation. Conservation au frais obligatoire avant le service.',
+    10,
+    420.00,
+    5,
+    TRUE
+),
+(
+    4,
+    3,
+    'Éclosion',
+    'Une expérience végétale moderne et colorée qui conjugue gourmandise et légèreté.',
+    'Commande à effectuer au minimum 4 jours avant la prestation.',
+    6,
+    180.00,
+    8,
+    TRUE
+),
+(
+    2,
+    1,
+    'Minuit',
+    'Une parenthèse festive et chaleureuse pour célébrer les fêtes autour d’une table généreuse.',
+    'Commande à effectuer au minimum 10 jours avant la prestation. Disponible uniquement pendant la période des fêtes.',
+    8,
+    320.00,
+    5,
+    TRUE
+),
+(
+    3,
+    2,
+    'Floraison',
+    'Une composition printanière douce et lumineuse, imaginée pour un déjeuner de Pâques convivial.',
+    'Commande à effectuer au minimum 7 jours avant la prestation. Disponible uniquement pendant la période de Pâques.',
+    6,
+    240.00,
+    6,
+    TRUE
+);
+
+
+-- --------------------------------------------------
+-- plats de démonstration
+-- --------------------------------------------------
+
+-- Ajoute les entrées, plats et desserts disponibles.
+INSERT INTO dishes (
+    name,
+    description,
+    dish_type,
+    is_active
+) VALUES
+(
+    'Tartare de saumon aux agrumes',
+    'Tartare de saumon accompagné d’agrumes et d’herbes fraîches.',
+    'starter',
+    TRUE
+),
+(
+    'Magret de canard',
+    'Magret de canard servi avec une sauce aux échalotes confites et des pommes grenailles.',
+    'main_course',
+    TRUE
+),
+(
+    'Canelé bordelais revisité',
+    'Canelé bordelais accompagné d’une crème légère à la vanille.',
+    'dessert',
+    TRUE
+),
+(
+    'Burrata et légumes rôtis',
+    'Burrata crémeuse accompagnée de légumes rôtis et d’un pesto de roquette.',
+    'starter',
+    TRUE
+),
+(
+    'Risotto aux champignons',
+    'Risotto crémeux accompagné de parmesan affiné et de noisettes torréfiées.',
+    'main_course',
+    TRUE
+),
+(
+    'Tarte fine aux pommes',
+    'Tarte fine aux pommes accompagnée de caramel doux et d’éclats d’amandes.',
+    'dessert',
+    TRUE
+),
+(
+    'Foie gras mi-cuit',
+    'Foie gras mi-cuit accompagné d’un chutney de figues et de pain brioché.',
+    'starter',
+    TRUE
+),
+(
+    'Suprême de volaille fermière',
+    'Suprême de volaille accompagné d’un jus corsé et d’un écrasé de pommes de terre à la truffe.',
+    'main_course',
+    TRUE
+),
+(
+    'Entremets chocolat noir',
+    'Entremets au chocolat noir, noisette et cœur fondant.',
+    'dessert',
+    TRUE
+),
+(
+    'Houmous de betterave',
+    'Houmous de betterave accompagné de légumes croquants et de crackers aux graines.',
+    'starter',
+    TRUE
+),
+(
+    'Parmentier de patate douce',
+    'Parmentier végétal composé de patate douce, de lentilles mijotées et de légumes de saison.',
+    'main_course',
+    TRUE
+),
+(
+    'Mousse au chocolat noir',
+    'Mousse au chocolat noir accompagnée d’un praliné végétal.',
+    'dessert',
+    TRUE
+),
+(
+    'Velouté de potimarron',
+    'Velouté de potimarron accompagné d’éclats de châtaignes et d’une crème parfumée.',
+    'starter',
+    TRUE
+),
+(
+    'Filet de bœuf aux morilles',
+    'Filet de bœuf accompagné d’une sauce aux morilles et d’un gratin dauphinois.',
+    'main_course',
+    TRUE
+),
+(
+    'Bûche chocolat et praliné',
+    'Bûche au chocolat, noisette et croustillant praliné.',
+    'dessert',
+    TRUE
+),
+(
+    'Asperges rôties',
+    'Asperges rôties accompagnées d’un œuf parfait et d’une crème légère aux herbes.',
+    'starter',
+    TRUE
+),
+(
+    'Ravioles printanières',
+    'Ravioles aux légumes printaniers accompagnées d’une sauce crémeuse au parmesan.',
+    'main_course',
+    TRUE
+),
+(
+    'Dôme chocolat au lait',
+    'Dôme au chocolat au lait, cœur praliné et biscuit croustillant.',
+    'dessert',
+    TRUE
+);
+
+
+-- --------------------------------------------------
+-- allergènes
+-- --------------------------------------------------
+
+-- Ajoute les allergènes utilisés dans les plats.
+INSERT INTO allergens (name) VALUES
+('Gluten'),
+('Lait'),
+('Œufs'),
+('Fruits à coque'),
+('Poisson'),
+('Sésame');
+
+
+-- --------------------------------------------------
+-- association des plats et allergènes
+-- --------------------------------------------------
+
+-- Associe chaque plat à ses allergènes connus.
+INSERT INTO dish_allergen (
+    dish_id,
+    allergen_id
+) VALUES
+(1, 5),
+
+(3, 1),
+(3, 2),
+(3, 3),
+
+(4, 2),
+
+(5, 2),
+(5, 4),
+
+(6, 1),
+(6, 2),
+(6, 4),
+
+(7, 1),
+
+(8, 2),
+
+(9, 1),
+(9, 2),
+(9, 3),
+(9, 4),
+
+(10, 1),
+(10, 6),
+
+(12, 4),
+
+(13, 2),
+
+(14, 2),
+
+(15, 1),
+(15, 2),
+(15, 3),
+(15, 4),
+
+(16, 2),
+(16, 3),
+
+(17, 1),
+(17, 2),
+(17, 3),
+
+(18, 1),
+(18, 2),
+(18, 3),
+(18, 4);
+
+
+-- --------------------------------------------------
+-- association des menus et plats
+-- --------------------------------------------------
+
+-- Associe une entrée, un plat et un dessert à chaque menu.
+INSERT INTO menu_dish (
+    menu_id,
+    dish_id
+) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+
+(2, 4),
+(2, 5),
+(2, 6),
+
+(3, 7),
+(3, 8),
+(3, 9),
+
+(4, 10),
+(4, 11),
+(4, 12),
+
+(5, 13),
+(5, 14),
+(5, 15),
+
+(6, 16),
+(6, 17),
+(6, 18);
+
+-- --------------------------------------------------
+-- clients de démonstration
+-- --------------------------------------------------
+
+-- Ajoute plusieurs clients fictifs pour préparer les tests.
+-- Le mot de passe commun sera configuré proprement plus tard.
+INSERT INTO users (
+    role_id,
+    first_name,
+    last_name,
+    phone,
+    email,
+    address,
+    postal_code,
+    city,
+    password_hash,
+    is_active
+) VALUES
+(
+    1,
+    'Célia',
+    'Dezalles',
+    '0611111111',
+    'celia.dezalles@example.com',
+    '12 rue Sainte-Catherine',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Kenza',
+    'Mares',
+    '0622222222',
+    'kenza.mares@example.com',
+    '8 rue du Palais Gallien',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Bob',
+    'Souldadier',
+    '0633333333',
+    'bob.souldadier@example.com',
+    '24 rue Fondaudège',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Evan',
+    'Brandac',
+    '0644444444',
+    'evan.brandac@example.com',
+    '5 cours de Verdun',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Camille',
+    'Plet',
+    '0655555555',
+    'camille.plet@example.com',
+    '17 rue Judaïque',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Philippe',
+    'Denard',
+    '0666666666',
+    'philippe.denard@example.com',
+    '31 rue Notre-Dame',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+),
+(
+    1,
+    'Aeko',
+    'Nashi',
+    '0677777777',
+    'aeko.nashi@example.com',
+    '4 rue des Remparts',
+    '33000',
+    'Bordeaux',
+    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    TRUE
+);
+
+-- --------------------------------------------------
+-- commandes terminées de démonstration
+-- --------------------------------------------------
+
+-- Ajoute des commandes terminées afin de permettre la création des avis.
+INSERT INTO orders (
+    order_number,
+    user_id,
+    menu_id,
+    current_status_id,
+    customer_first_name,
+    customer_last_name,
+    customer_email,
+    customer_phone,
+    delivery_address,
+    delivery_postal_code,
+    delivery_city,
+    event_date,
+    delivery_time,
+    people_count,
+    menu_price,
+    delivery_price,
+    total_price,
+    equipment_loaned
+) VALUES
+(
+    'CMD-2026-001',
+    2,
+    1,
+    7,
+    'Célia',
+    'Dezalles',
+    'celia.dezalles@example.com',
+    '0611111111',
+    '12 rue Sainte-Catherine',
+    '33000',
+    'Bordeaux',
+    '2026-01-12',
+    '12:30:00',
+    8,
+    240.00,
+    0.00,
+    240.00,
+    FALSE
+),
+(
+    'CMD-2026-002',
+    3,
+    2,
+    7,
+    'Kenza',
+    'Mares',
+    'kenza.mares@example.com',
+    '0622222222',
+    '8 rue du Palais Gallien',
+    '33000',
+    'Bordeaux',
+    '2026-01-25',
+    '19:00:00',
+    6,
+    180.00,
+    0.00,
+    180.00,
+    FALSE
+),
+(
+    'CMD-2026-003',
+    4,
+    3,
+    7,
+    'Bob',
+    'Souldadier',
+    'bob.souldadier@example.com',
+    '0633333333',
+    '24 rue Fondaudège',
+    '33000',
+    'Bordeaux',
+    '2026-02-08',
+    '12:00:00',
+    10,
+    350.00,
+    0.00,
+    350.00,
+    FALSE
+),
+(
+    'CMD-2026-004',
+    5,
+    1,
+    7,
+    'Evan',
+    'Brandac',
+    'evan.brandac@example.com',
+    '0644444444',
+    '5 cours de Verdun',
+    '33000',
+    'Bordeaux',
+    '2026-02-21',
+    '19:30:00',
+    12,
+    360.00,
+    0.00,
+    360.00,
+    FALSE
+),
+(
+    'CMD-2026-005',
+    6,
+    2,
+    7,
+    'Camille',
+    'Plet',
+    'camille.plet@example.com',
+    '0655555555',
+    '17 rue Judaïque',
+    '33000',
+    'Bordeaux',
+    '2026-03-06',
+    '13:00:00',
+    7,
+    210.00,
+    0.00,
+    210.00,
+    FALSE
+),
+(
+    'CMD-2026-006',
+    7,
+    1,
+    7,
+    'Philippe',
+    'Denard',
+    'philippe.denard@example.com',
+    '0666666666',
+    '31 rue Notre-Dame',
+    '33000',
+    'Bordeaux',
+    '2026-03-15',
+    '12:30:00',
+    6,
+    180.00,
+    0.00,
+    180.00,
+    FALSE
+),
+(
+    'CMD-2026-007',
+    8,
+    3,
+    7,
+    'Aeko',
+    'Nashi',
+    'aeko.nashi@example.com',
+    '0677777777',
+    '4 rue des Remparts',
+    '33000',
+    'Bordeaux',
+    '2026-04-04',
+    '19:00:00',
+    9,
+    315.00,
+    0.00,
+    315.00,
+    FALSE
+);
+
+
+-- --------------------------------------------------
+-- historique des commandes
+-- --------------------------------------------------
+
+-- Conserve une première trace du statut terminé pour chaque commande fictive.
+INSERT INTO order_status_history (
+    order_id,
+    status_id,
+    changed_by_user_id,
+    note
+) VALUES
+(1, 7, NULL, 'Commande terminée avec succès.'),
+(2, 7, NULL, 'Commande terminée avec succès.'),
+(3, 7, NULL, 'Commande terminée avec succès.'),
+(4, 7, NULL, 'Commande terminée avec succès.'),
+(5, 7, NULL, 'Commande terminée avec succès.'),
+(6, 7, NULL, 'Commande terminée avec succès.'),
+(7, 7, NULL, 'Commande terminée avec succès.');
+
+
+-- --------------------------------------------------
+-- avis clients validés
+-- --------------------------------------------------
+
+-- Ajoute plusieurs avis validés pour les afficher sur la page d'accueil.
+INSERT INTO reviews (
+    order_id,
+    user_id,
+    rating,
+    comment,
+    moderation_status
+) VALUES
+(
+    1,
+    2,
+    5,
+    'Une prestation très soignée et des plats appréciés par tous nos invités.',
+    'approved'
+),
+(
+    2,
+    3,
+    5,
+    'Une équipe disponible, ponctuelle et très professionnelle. Je recommande vivement.',
+    'approved'
+),
+(
+    3,
+    4,
+    4,
+    'Le repas était délicieux et les quantités généreuses. Une très belle expérience.',
+    'approved'
+),
+(
+    4,
+    5,
+    5,
+    'Nous avons choisi Vite & Gourmand pour un anniversaire et tout était parfait.',
+    'approved'
+),
+(
+    5,
+    6,
+    5,
+    'Des plats savoureux, une présentation élégante et une livraison parfaitement organisée.',
+    'approved'
+),
+(
+    6,
+    7,
+    4,
+    'Très bon rapport qualité-prix et un accueil chaleureux. Nous referons appel à cette équipe.',
+    'approved'
+),
+(
+    7,
+    8,
+    5,
+    'Une prestation de grande qualité qui a beaucoup plu à nos convives.',
+    'approved'
+);

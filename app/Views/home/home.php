@@ -100,6 +100,11 @@
 
 <section class="reviews-section py-5">
     <div class="container py-4">
+
+        <!-- -------------------------------------------------- -->
+        <!-- titre de la section -->
+        <!-- -------------------------------------------------- -->
+
         <div class="text-center mb-5">
             <p class="section-subtitle">
                 Avis clients
@@ -110,36 +115,109 @@
             </h2>
         </div>
 
-        <div class="row gy-4">
-            <div class="col-md-6">
-                <article class="review-card">
-                    <p class="review-stars">★★★★★</p>
+        <!-- -------------------------------------------------- -->
+        <!-- carrousel des avis validés -->
+        <!-- -------------------------------------------------- -->
 
-                    <p>
-                        « Une prestation très professionnelle et un repas apprécié
-                        par l'ensemble de nos invités. »
-                    </p>
+        <?php if (!empty($reviews)): ?>
 
-                    <p class="review-author mb-0">
-                        — Avis de démonstration
-                    </p>
-                </article>
+            <div
+                id="reviews-carousel"
+                class="carousel slide"
+                data-bs-ride="carousel"
+                data-bs-interval="6000"
+                data-bs-pause="hover">
+
+                <!-- Affiche un indicateur pour chaque avis. -->
+                <div class="carousel-indicators">
+
+                    <?php foreach ($reviews as $index => $review): ?>
+                        <button
+                            type="button"
+                            data-bs-target="#reviews-carousel"
+                            data-bs-slide-to="<?php echo $index; ?>"
+                            class="<?php echo $index === 0 ? 'active' : ''; ?>"
+                            aria-current="<?php echo $index === 0 ? 'true' : 'false'; ?>"
+                            aria-label="Afficher l'avis <?php echo $index + 1; ?>"></button>
+                    <?php endforeach; ?>
+
+                </div>
+
+                <!-- Affiche les avis un par un. -->
+                <div class="carousel-inner">
+
+                    <?php foreach ($reviews as $index => $review): ?>
+                        <div
+                            class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                            <article class="review-card review-card-carousel mx-auto">
+
+                                <p class="review-stars">
+                                    <?php
+                                    echo str_repeat('★', (int) $review['rating']);
+                                    echo str_repeat('☆', 5 - (int) $review['rating']);
+                                    ?>
+                                </p>
+
+                                <p class="review-comment">
+                                    « <?php echo htmlspecialchars($review['comment']); ?> »
+                                </p>
+
+                                <p class="review-author mb-0">
+                                    —
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $review['first_name']
+                                            . ' '
+                                            . $review['last_name']
+                                    );
+                                    ?>
+                                </p>
+
+                            </article>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div>
+
+                <!-- Affiche la flèche précédente. -->
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#reviews-carousel"
+                    data-bs-slide="prev">
+                    <span
+                        class="carousel-control-prev-icon"
+                        aria-hidden="true"></span>
+
+                    <span class="visually-hidden">
+                        Avis précédent
+                    </span>
+                </button>
+
+                <!-- Affiche la flèche suivante. -->
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#reviews-carousel"
+                    data-bs-slide="next">
+                    <span
+                        class="carousel-control-next-icon"
+                        aria-hidden="true"></span>
+
+                    <span class="visually-hidden">
+                        Avis suivant
+                    </span>
+                </button>
+
             </div>
 
-            <div class="col-md-6">
-                <article class="review-card">
-                    <p class="review-stars">★★★★★</p>
+        <?php else: ?>
 
-                    <p>
-                        « Une équipe disponible et des plats généreux.
-                        Nous recommandons Vite & Gourmand. »
-                    </p>
+            <p class="text-center mb-0">
+                Aucun avis client n'est disponible pour le moment.
+            </p>
 
-                    <p class="review-author mb-0">
-                        — Avis de démonstration
-                    </p>
-                </article>
-            </div>
-        </div>
+        <?php endif; ?>
+
     </div>
 </section>

@@ -306,6 +306,59 @@ p {
 }
 
 /* -------------------------------------------------- */
+/* carrousel des avis */
+/* -------------------------------------------------- */
+
+/* Ajoute un espace pour les indicateurs du carrousel. */
+#reviews-carousel {
+    padding: 0 5rem 3rem;
+}
+
+/* Limite la largeur de l'avis affiché. */
+.review-card-carousel {
+    max-width: 760px;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Agrandit légèrement le commentaire. */
+.review-comment {
+    font-size: 1.1rem;
+}
+
+/* Personnalise les petits indicateurs du carrousel. */
+#reviews-carousel .carousel-indicators {
+    margin-bottom: 0;
+}
+
+/* Utilise la couleur champagne pour les indicateurs. */
+#reviews-carousel .carousel-indicators button {
+    width: 8px;
+    height: 8px;
+    margin: 0 0.3rem;
+    background-color: var(--color-champagne);
+    border-radius: 50%;
+}
+
+/* Réduit la largeur des zones cliquables des flèches. */
+#reviews-carousel .carousel-control-prev,
+#reviews-carousel .carousel-control-next {
+    width: 4rem;
+}
+
+/* Utilise la couleur sauge pour les flèches. */
+#reviews-carousel .carousel-control-prev-icon,
+#reviews-carousel .carousel-control-next-icon {
+    padding: 1.3rem;
+    background-color: var(--color-sage);
+    background-size: 55%;
+    border-radius: 50%;
+}
+
+/* -------------------------------------------------- */
 /* pied de page */
 /* -------------------------------------------------- */
 
@@ -319,6 +372,20 @@ p {
 .footer-title {
     color: var(--color-champagne);
     font-size: 1.05rem;
+}
+
+/* Affiche les horaires sur des lignes bien alignées. */
+.opening-hours-list {
+    max-width: 290px;
+}
+
+/* Sépare le jour et les heures d'ouverture. */
+.opening-hours-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--color-text-soft);
+    font-size: 0.92rem;
 }
 
 /* Style les liens du footer. */
@@ -349,5 +416,26 @@ p {
     .value-card,
     .review-card {
         padding: 1.4rem;
+    }
+        /* Réduit les espaces autour du carrousel sur mobile. */
+    #reviews-carousel {
+        padding: 0 2.5rem 3rem;
+    }
+
+    /* Réduit la hauteur minimale des avis sur mobile. */
+    .review-card-carousel {
+        min-height: 280px;
+        padding: 1.2rem;
+    }
+
+    /* Réduit la taille du commentaire sur mobile. */
+    .review-comment {
+        font-size: 1rem;
+    }
+
+    /* Réduit les flèches sur mobile. */
+    #reviews-carousel .carousel-control-prev,
+    #reviews-carousel .carousel-control-next {
+        width: 2.5rem;
     }
 }
