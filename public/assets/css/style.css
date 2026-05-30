@@ -1,61 +1,53 @@
+/* -------------------------------------------------- */
+/* variables générales */
+/* -------------------------------------------------- */
+
 :root {
-    --color-background: #111111;
-    --color-background-soft: #1b1b1b;
-    --color-text: #f8f5ef;
-    --color-text-soft: #c8c1b7;
-    --color-accent: #c99a5b;
-    --color-accent-hover: #dfb578;
-    --color-border: rgba(255, 255, 255, 0.12);
+    --color-background: rgba(18, 15, 16, 1);
+    --color-background-soft: rgba(27, 23, 24, 1);
+    --color-background-light: rgba(35, 30, 31, 1);
+    --color-background-card: rgba(255, 255, 255, 0.04);
+
+    --color-text: rgba(248, 241, 235, 1);
+    --color-text-soft: rgba(222, 213, 205, 0.88);
+
+    --color-wine: rgba(116, 37, 58, 1);
+    --color-wine-hover: rgba(145, 48, 72, 1);
+    --color-wine-soft: rgba(116, 37, 58, 0.16);
+
+    --color-sage: rgba(145, 159, 132, 1);
+    --color-sage-hover: rgba(166, 181, 151, 1);
+    --color-sage-soft: rgba(145, 159, 132, 0.13);
+
+    --color-champagne: rgba(222, 194, 183, 1);
+    --color-champagne-hover: rgba(239, 214, 204, 1);
+    --color-champagne-soft: rgba(222, 194, 183, 0.1);
+
+    --color-border: rgba(248, 241, 235, 0.12);
+    --color-border-strong: rgba(248, 241, 235, 0.22);
 }
 
+/* -------------------------------------------------- */
+/* style général */
+/* -------------------------------------------------- */
+
+/* Applique le fond principal et la couleur des textes. */
 body {
+    margin: 0;
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: Arial, sans-serif;
 }
 
-.navbar {
-    background-color: rgba(10, 10, 10, 0.96);
-    border-bottom: 1px solid var(--color-border);
+/* Supprime les marges hautes inutiles. */
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
 }
 
-.navbar-brand {
-    color: var(--color-accent);
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 0.04rem;
-}
-
-.navbar-brand:hover {
-    color: var(--color-accent-hover);
-}
-
-.hero-section {
-    min-height: 620px;
-    display: flex;
-    align-items: center;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.94),
-            rgba(0, 0, 0, 0.64)
-        );
-}
-
-.hero-content {
-    max-width: 720px;
-    padding: 5rem 0;
-}
-
-.hero-subtitle,
-.section-subtitle {
-    color: var(--color-accent);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.16rem;
-    text-transform: uppercase;
-}
-
+/* Met en valeur le titre principal. */
 h1 {
     margin-top: 1rem;
     font-size: clamp(2.8rem, 7vw, 5.5rem);
@@ -63,11 +55,95 @@ h1 {
     line-height: 1;
 }
 
+/* Uniformise les titres de sections. */
 h2 {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
 }
 
+/* Améliore la lecture des paragraphes. */
+p {
+    line-height: 1.7;
+}
+
+/* -------------------------------------------------- */
+/* barre de navigation */
+/* -------------------------------------------------- */
+
+/* Crée une barre de navigation sombre. */
+.navbar {
+    background-color: rgba(14, 12, 13, 0.97);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Met en valeur le nom du site. */
+.navbar-brand {
+    color: var(--color-champagne);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04rem;
+}
+
+/* Change la couleur du nom au survol. */
+.navbar-brand:hover {
+    color: var(--color-champagne-hover);
+}
+
+/* Définit la couleur des liens du menu. */
+.nav-link {
+    color: rgba(248, 241, 235, 0.82);
+}
+
+/* Affiche une couleur sauge au survol. */
+.nav-link:hover {
+    color: var(--color-sage);
+}
+
+/* Met en valeur la page active. */
+.nav-link.active {
+    color: var(--color-champagne) !important;
+}
+
+/* -------------------------------------------------- */
+/* section principale */
+/* -------------------------------------------------- */
+
+/* Crée une grande zone d'accueil sombre et élégante. */
+.hero-section {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(16, 13, 14, 0.98),
+            rgba(16, 13, 14, 0.74)
+        ),
+        linear-gradient(
+            180deg,
+            rgba(116, 37, 58, 0.2),
+            rgba(222, 194, 183, 0.05)
+        );
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Limite la largeur du texte principal. */
+.hero-content {
+    max-width: 720px;
+    padding: 5rem 0;
+}
+
+/* Style les petits titres décoratifs. */
+.hero-subtitle,
+.section-subtitle {
+    color: var(--color-champagne);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.16rem;
+    text-transform: uppercase;
+}
+
+/* Adoucit le texte de présentation. */
 .hero-description {
     max-width: 620px;
     margin: 1.5rem 0 2rem;
@@ -75,73 +151,203 @@ h2 {
     font-size: 1.15rem;
 }
 
+/* -------------------------------------------------- */
+/* boutons principaux */
+/* -------------------------------------------------- */
+
+/* Crée un bouton principal lie-de-vin. */
 .btn-custom {
-    padding: 0.85rem 1.6rem;
-    background-color: var(--color-accent);
-    color: #111111;
-    border: none;
-    border-radius: 0;
+    padding: 0.9rem 1.7rem;
+    background-color: var(--color-wine);
+    color: var(--color-text);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.35rem;
     font-weight: 700;
+    transition: 0.2s ease;
 }
 
+/* Rend le bouton plus visible au survol. */
 .btn-custom:hover {
-    background-color: var(--color-accent-hover);
-    color: #111111;
+    background-color: var(--color-wine-hover);
+    color: var(--color-text);
+    transform: translateY(-2px);
 }
 
-.presentation-section,
-.reviews-section {
-    background-color: var(--color-background);
+/* -------------------------------------------------- */
+/* présentation de l'entreprise */
+/* -------------------------------------------------- */
+
+/* Sépare visuellement la section de présentation. */
+.presentation-section {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(116, 37, 58, 0.12),
+            rgba(222, 194, 183, 0.03)
+        ),
+        var(--color-background-soft);
+    border-bottom: 1px solid var(--color-border);
 }
 
-.values-section {
-    background-color: var(--color-background-soft);
+/* Met en valeur le titre de la section. */
+.presentation-section h2 {
+    color: var(--champagne);
 }
 
-.value-card,
-.review-card {
-    height: 100%;
-    padding: 1.8rem;
-    border: 1px solid var(--color-border);
-    background-color: rgba(255, 255, 255, 0.025);
-}
-
-.value-card h3 {
-    margin-bottom: 1rem;
-    color: var(--color-accent);
-    font-size: 1.25rem;
-}
-
-.value-card p,
-.review-card p,
+/* Adoucit le texte de présentation. */
 .presentation-section p {
     color: var(--color-text-soft);
 }
 
+/* -------------------------------------------------- */
+/* valeurs et savoir-faire */
+/* -------------------------------------------------- */
+
+/* Crée un fond différent pour la section des valeurs. */
+.values-section {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(145, 159, 132, 0.11),
+            rgba(116, 37, 58, 0.05)
+        ),
+        var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Garde un titre clair et lisible. */
+.values-section h2 {
+    color: var(--color-text);
+}
+
+/* Crée une carte pour chaque valeur. */
+.value-card {
+    height: 100%;
+    padding: 1.8rem;
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-sage);
+    transition: 0.2s ease;
+}
+
+/* Anime légèrement les cartes au survol. */
+.value-card:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--color-border-strong);
+}
+
+/* Met en valeur les titres des cartes. */
+.value-card h3 {
+    margin-bottom: 1rem;
+    color: var(--color-sage);
+    font-size: 1.25rem;
+}
+
+/* Adoucit le texte des cartes. */
+.value-card p {
+    color: var(--color-text-soft);
+}
+
+/* -------------------------------------------------- */
+/* avis clients */
+/* -------------------------------------------------- */
+
+/* Différencie la section des avis. */
+.reviews-section {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(116, 37, 58, 0.16),
+            rgba(222, 194, 183, 0.05)
+        ),
+        var(--color-background-light);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Utilise une couleur douce pour le titre. */
+.reviews-section h2 {
+    color: var(--color-champagne);
+}
+
+/* Crée une carte pour chaque avis. */
+.review-card {
+    height: 100%;
+    padding: 1.8rem;
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-wine);
+    transition: 0.2s ease;
+}
+
+/* Anime légèrement les avis au survol. */
+.review-card:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--color-border-strong);
+}
+
+/* Adoucit le texte des avis. */
+.review-card p {
+    color: var(--color-text-soft);
+}
+
+/* Met en valeur les étoiles. */
 .review-stars {
-    color: var(--color-accent) !important;
+    color: var(--color-champagne) !important;
     letter-spacing: 0.2rem;
 }
 
+/* Distingue le nom de l'auteur. */
 .review-author {
+    color: var(--color-sage) !important;
     font-size: 0.9rem;
+    font-weight: 700;
 }
 
+/* -------------------------------------------------- */
+/* pied de page */
+/* -------------------------------------------------- */
+
+/* Termine la page avec un fond plus sombre. */
 .site-footer {
+    background-color: rgba(12, 10, 11, 1);
     border-top: 1px solid var(--color-border);
-    background-color: #090909;
 }
 
+/* Met en valeur les titres du footer. */
 .footer-title {
-    color: var(--color-accent);
+    color: var(--color-champagne);
     font-size: 1.05rem;
 }
 
+/* Style les liens du footer. */
 .footer-link {
     color: var(--color-text-soft);
     text-decoration: none;
 }
 
+/* Change la couleur des liens au survol. */
 .footer-link:hover {
-    color: var(--color-accent);
+    color: var(--color-sage);
+}
+
+/* -------------------------------------------------- */
+/* adaptation mobile */
+/* -------------------------------------------------- */
+
+/* Réduit certains espaces sur les petits écrans. */
+@media screen and (max-width: 768px) {
+    .hero-section {
+        min-height: 520px;
+    }
+
+    .hero-content {
+        padding: 4rem 0;
+    }
+
+    .value-card,
+    .review-card {
+        padding: 1.4rem;
+    }
 }
