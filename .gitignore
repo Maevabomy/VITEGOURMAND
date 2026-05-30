@@ -1,0 +1,18 @@
+# fichiers macOS
+.DS_Store
+
+# configuration locale VS Code
+.vscode/
+
+# fichiers temporaires
+*.log
+*.tmp
+*.swp
+*.bak
+
+# variables sensibles
+.env
+
+# dépendances éventuelles
+vendor/
+node_modules/
