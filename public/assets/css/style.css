@@ -114,16 +114,12 @@ p {
     display: flex;
     align-items: center;
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             rgba(16, 13, 14, 0.98),
-            rgba(16, 13, 14, 0.74)
-        ),
-        linear-gradient(
-            180deg,
+            rgba(16, 13, 14, 0.74)),
+        linear-gradient(180deg,
             rgba(116, 37, 58, 0.2),
-            rgba(222, 194, 183, 0.05)
-        );
+            rgba(222, 194, 183, 0.05));
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -180,11 +176,9 @@ p {
 /* Sépare visuellement la section de présentation. */
 .presentation-section {
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(116, 37, 58, 0.12),
-            rgba(222, 194, 183, 0.03)
-        ),
+            rgba(222, 194, 183, 0.03)),
         var(--color-background-soft);
     border-bottom: 1px solid var(--color-border);
 }
@@ -206,11 +200,9 @@ p {
 /* Crée un fond différent pour la section des valeurs. */
 .values-section {
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(145, 159, 132, 0.11),
-            rgba(116, 37, 58, 0.05)
-        ),
+            rgba(116, 37, 58, 0.05)),
         var(--color-background);
     border-bottom: 1px solid var(--color-border);
 }
@@ -256,11 +248,9 @@ p {
 /* Différencie la section des avis. */
 .reviews-section {
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(116, 37, 58, 0.16),
-            rgba(222, 194, 183, 0.05)
-        ),
+            rgba(222, 194, 183, 0.05)),
         var(--color-background-light);
     border-bottom: 1px solid var(--color-border);
 }
@@ -406,11 +396,9 @@ p {
 /* Crée une bannière sombre pour introduire la page. */
 .menus-hero-section {
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(116, 37, 58, 0.18),
-            rgba(145, 159, 132, 0.05)
-        ),
+            rgba(145, 159, 132, 0.05)),
         var(--color-background-soft);
     border-bottom: 1px solid var(--color-border);
 }
@@ -431,6 +419,104 @@ p {
 /* Différencie le fond du catalogue. */
 .menus-catalog-section {
     background-color: var(--color-background);
+}
+
+/* -------------------------------------------------- */
+/* filtres des menus */
+/* -------------------------------------------------- */
+
+/* Crée un bandeau discret au-dessus des cartes. */
+.menu-filters {
+    padding: 1.4rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Aligne le titre et le compteur. */
+.menu-filters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* Met en valeur le titre des filtres. */
+.menu-filters-title {
+    margin-bottom: 0.25rem;
+    color: var(--color-champagne);
+    font-size: 1.55rem;
+}
+
+/* Adoucit le texte sous le titre. */
+.menu-filters-description {
+    color: var(--color-text-soft);
+    font-size: 0.92rem;
+}
+
+/* Met en valeur le nombre de résultats. */
+.menus-count {
+    color: var(--color-sage);
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Style les titres placés au-dessus des champs. */
+.menu-filters .form-label {
+    color: var(--color-text-soft);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+/* Adapte les champs à l'ambiance sombre du site. */
+.menu-filters .form-control,
+.menu-filters .form-select,
+.menu-filters .input-group-text {
+    min-height: 42px;
+    color: var(--color-text);
+    background-color: rgba(12, 10, 11, 0.72);
+    border-color: var(--color-border);
+}
+
+/* Conserve un texte lisible dans les champs. */
+.menu-filters .form-control::placeholder {
+    color: rgba(231, 224, 213, 0.48);
+}
+
+/* Met en valeur le champ sélectionné. */
+.menu-filters .form-control:focus,
+.menu-filters .form-select:focus {
+    color: var(--color-text);
+    background-color: rgba(12, 10, 11, 0.92);
+    border-color: var(--color-wine);
+    box-shadow: 0 0 0 0.2rem rgba(116, 37, 58, 0.18);
+}
+
+/* Style le bouton de réinitialisation. */
+.btn-filter-reset {
+    min-height: 42px;
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong);
+}
+
+/* Change le bouton au survol. */
+.btn-filter-reset:hover {
+    color: var(--color-champagne);
+    background-color: rgba(116, 37, 58, 0.18);
+    border-color: var(--color-wine);
+}
+
+/* Affiche un message lorsque les filtres ne donnent aucun résultat. */
+.no-menu-message {
+    padding: 1.2rem;
+    color: var(--color-text-soft);
+    background-color: rgba(116, 37, 58, 0.12);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
 }
 
 /* Crée une carte horizontale pour chaque menu. */
@@ -545,14 +631,10 @@ p {
 }
 
 /* Éclaircit les flèches au survol. */
-.menu-card-gallery .carousel-control-prev:hover
-    .carousel-control-prev-icon,
-.menu-card-gallery .carousel-control-next:hover
-    .carousel-control-next-icon,
-#reviews-carousel .carousel-control-prev:hover
-    .carousel-control-prev-icon,
-#reviews-carousel .carousel-control-next:hover
-    .carousel-control-next-icon {
+.menu-card-gallery .carousel-control-prev:hover .carousel-control-prev-icon,
+.menu-card-gallery .carousel-control-next:hover .carousel-control-next-icon,
+#reviews-carousel .carousel-control-prev:hover .carousel-control-prev-icon,
+#reviews-carousel .carousel-control-next:hover .carousel-control-next-icon {
     background-color: var(--color-wine-hover);
 }
 
@@ -562,6 +644,13 @@ p {
 
 /* Réduit certains espaces sur les petits écrans. */
 @media screen and (max-width: 768px) {
+
+    /* Empile le titre et le compteur sur mobile. */
+    .menu-filters-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
     .hero-section {
         min-height: 520px;
     }
@@ -574,7 +663,8 @@ p {
     .review-card {
         padding: 1.4rem;
     }
-        /* Réduit les espaces autour du carrousel sur mobile. */
+
+    /* Réduit les espaces autour du carrousel sur mobile. */
     #reviews-carousel {
         padding: 0 2.5rem 3rem;
     }
@@ -595,7 +685,8 @@ p {
     #reviews-carousel .carousel-control-next {
         width: 2.5rem;
     }
-        /* Affiche la photo au-dessus du texte sur mobile. */
+
+    /* Affiche la photo au-dessus du texte sur mobile. */
     .menu-card {
         grid-template-columns: 1fr;
     }

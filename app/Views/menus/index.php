@@ -24,13 +24,143 @@
 <section class="menus-catalog-section py-5">
     <div class="container py-4">
 
-        <!-- -------------------------------------------------- -->
-        <!-- liste des menus -->
-        <!-- -------------------------------------------------- -->
-
         <?php if (!empty($menus)): ?>
 
-            <div class="row gy-4">
+            <!-- -------------------------------------------------- -->
+            <!-- filtres des menus -->
+            <!-- -------------------------------------------------- -->
+
+            <section class="menu-filters mb-5" aria-labelledby="filters-title">
+
+                <div class="menu-filters-header">
+                    <div>
+                        <h2 id="filters-title" class="menu-filters-title">
+                            Affiner votre recherche
+                        </h2>
+
+                        <p class="menu-filters-description mb-0">
+                            Sélectionnez les critères correspondant à votre événement.
+                        </p>
+                    </div>
+
+                    <p
+                        id="menus-count"
+                        class="menus-count mb-0"
+                        aria-live="polite">
+                        <?php echo count($menus); ?> menus disponibles
+                    </p>
+                </div>
+
+                <div class="row g-3 align-items-end mt-1">
+
+                    <div class="col-xl-2 col-md-4">
+                        <label for="minimum-price" class="form-label">
+                            Prix minimum
+                        </label>
+
+                        <div class="input-group">
+                            <input
+                                type="number"
+                                id="minimum-price"
+                                class="form-control"
+                                min="0"
+                                step="1"
+                                placeholder="Ex. 150">
+
+                            <span class="input-group-text">
+                                €
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4">
+                        <label for="maximum-price" class="form-label">
+                            Prix maximum
+                        </label>
+
+                        <div class="input-group">
+                            <input
+                                type="number"
+                                id="maximum-price"
+                                class="form-control"
+                                min="0"
+                                step="1"
+                                placeholder="Ex. 300">
+
+                            <span class="input-group-text">
+                                €
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4">
+                        <label for="theme-filter" class="form-label">
+                            Thème
+                        </label>
+
+                        <select id="theme-filter" class="form-select">
+                            <option value="">
+                                Tous les thèmes
+                            </option>
+
+                            <?php foreach ($themes as $theme): ?>
+                                <option value="<?php echo htmlspecialchars($theme); ?>">
+                                    <?php echo htmlspecialchars($theme); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4">
+                        <label for="dietary-type-filter" class="form-label">
+                            Régime
+                        </label>
+
+                        <select id="dietary-type-filter" class="form-select">
+                            <option value="">
+                                Tous les régimes
+                            </option>
+
+                            <?php foreach ($dietaryTypes as $dietaryType): ?>
+                                <option
+                                    value="<?php echo htmlspecialchars($dietaryType); ?>">
+                                    <?php echo htmlspecialchars($dietaryType); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4">
+                        <label for="people-filter" class="form-label">
+                            Nombre de convives
+                        </label>
+
+                        <input
+                            type="number"
+                            id="people-filter"
+                            class="form-control"
+                            min="1"
+                            step="1"
+                            placeholder="Ex. 8">
+                    </div>
+
+                    <div class="col-xl-2 col-md-4">
+                        <button
+                            type="button"
+                            id="reset-filters"
+                            class="btn btn-filter-reset w-100">
+                            Réinitialiser
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- -------------------------------------------------- -->
+            <!-- liste des menus -->
+            <!-- -------------------------------------------------- -->
+
+            <div id="menus-list" class="row gy-4">
 
                 <?php foreach ($menus as $menu): ?>
 
@@ -41,7 +171,14 @@
                     $carouselId = 'menu-carousel-' . $menu['id'];
                     ?>
 
-                    <div class="col-xl-6">
+                    <div
+                        class="col-xl-6 menu-item"
+                        data-price="<?php echo $menu['base_price']; ?>"
+                        data-theme="<?php echo htmlspecialchars($menu['theme_name']); ?>"
+                        data-dietary-type="<?php
+                                            echo htmlspecialchars($menu['dietary_type_name']);
+                                            ?>"
+                        data-minimum-people="<?php echo $menu['minimum_people']; ?>">
                         <article class="menu-card">
 
                             <!-- -------------------------------------------------- -->
@@ -52,21 +189,18 @@
 
                                 <div
                                     id="<?php echo $carouselId; ?>"
-                                    class="carousel slide h-100"
-                                >
+                                    class="carousel slide h-100">
                                     <div class="carousel-inner h-100">
 
                                         <?php foreach ($menu['dishes'] as $index => $dish): ?>
 
                                             <div
                                                 class="carousel-item h-100
-                                                <?php echo $index === 0 ? 'active' : ''; ?>"
-                                            >
+                                                <?php echo $index === 0 ? 'active' : ''; ?>">
                                                 <img
                                                     src="<?php echo BASE_URL; ?>/dish/image?id=<?php echo $dish['id']; ?>"
                                                     class="menu-card-image"
-                                                    alt="<?php echo htmlspecialchars($dish['name']); ?>"
-                                                >
+                                                    alt="<?php echo htmlspecialchars($dish['name']); ?>">
                                             </div>
 
                                         <?php endforeach; ?>
@@ -78,12 +212,10 @@
                                         class="carousel-control-prev"
                                         type="button"
                                         data-bs-target="#<?php echo $carouselId; ?>"
-                                        data-bs-slide="prev"
-                                    >
+                                        data-bs-slide="prev">
                                         <span
                                             class="carousel-control-prev-icon"
-                                            aria-hidden="true"
-                                        ></span>
+                                            aria-hidden="true"></span>
 
                                         <span class="visually-hidden">
                                             Photo précédente
@@ -95,12 +227,10 @@
                                         class="carousel-control-next"
                                         type="button"
                                         data-bs-target="#<?php echo $carouselId; ?>"
-                                        data-bs-slide="next"
-                                    >
+                                        data-bs-slide="next">
                                         <span
                                             class="carousel-control-next-icon"
-                                            aria-hidden="true"
-                                        ></span>
+                                            aria-hidden="true"></span>
 
                                         <span class="visually-hidden">
                                             Photo suivante
@@ -174,8 +304,7 @@
                                 <a
                                     href="#"
                                     class="btn btn-custom mt-3"
-                                    aria-disabled="true"
-                                >
+                                    aria-disabled="true">
                                     Voir le détail
                                 </a>
 
@@ -188,6 +317,14 @@
 
             </div>
 
+            <!-- Affiche un message lorsque la recherche ne donne aucun résultat. -->
+            <p
+                id="no-menu-message"
+                class="no-menu-message d-none text-center mb-0"
+                aria-live="polite">
+                Aucun menu ne correspond à votre recherche.
+            </p>
+
         <?php else: ?>
 
             <p class="text-center mb-0">
@@ -198,3 +335,8 @@
 
     </div>
 </section>
+
+<script
+    src="<?php echo BASE_URL; ?>/assets/js/menu-filters.js"
+    defer>
+</script>

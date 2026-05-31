@@ -19,6 +19,24 @@ class MenuController
         /* Récupère les menus actifs avec leurs plats. */
         $menus = Menu::getAllWithDishes();
 
+        /* Prépare les listes utilisées dans les filtres. */
+        $themes = [];
+        $dietaryTypes = [];
+
+        /* Récupère les thèmes et régimes présents dans les menus. */
+        foreach ($menus as $menu) {
+            $themes[] = $menu['theme_name'];
+            $dietaryTypes[] = $menu['dietary_type_name'];
+        }
+
+        /* Supprime les doublons. */
+        $themes = array_unique($themes);
+        $dietaryTypes = array_unique($dietaryTypes);
+
+        /* Trie les listes par ordre alphabétique. */
+        sort($themes);
+        sort($dietaryTypes);
+
         /* Récupère les horaires affichés dans le footer. */
         $openingHours = OpeningHour::getAll();
 
