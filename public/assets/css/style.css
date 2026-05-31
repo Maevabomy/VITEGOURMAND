@@ -703,3 +703,297 @@ p {
         padding: 1.3rem;
     }
 }
+
+/* -------------------------------------------------- */
+/* page détail d'un menu */
+/* -------------------------------------------------- */
+
+/* Ajoute un fond sombre à la page détail. */
+.menu-detail-section {
+    min-height: 100vh;
+    color: var(--color-text);
+    background-color: rgba(18, 15, 16, 1);
+}
+
+/* Encadre la galerie principale. */
+.menu-detail-gallery {
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--color-border);
+    border-radius: 0.45rem;
+}
+
+/* Affiche une grande image homogène. */
+.menu-detail-main-image {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 0.35rem;
+}
+
+/* Place les miniatures sous la galerie. */
+.menu-detail-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+/* Style les boutons contenant les miniatures. */
+.menu-detail-thumbnail {
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 0.35rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+/* Affiche une bordure sur la miniature sélectionnée. */
+.menu-detail-thumbnail.active,
+.menu-detail-thumbnail:hover {
+    border-color: var(--color-wine);
+    opacity: 1;
+}
+
+/* Uniformise la taille des petites images. */
+.menu-detail-thumbnail img {
+    width: 100%;
+    height: 92px;
+    object-fit: cover;
+}
+
+/* Encadre les informations principales du menu. */
+.menu-detail-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Met en valeur le titre du menu. */
+.menu-detail-title {
+    color: var(--color-champagne);
+    font-size: clamp(2.4rem, 6vw, 4.8rem);
+    line-height: 0.95;
+}
+
+/* Améliore la lecture de la description générale. */
+.menu-detail-description {
+    color: var(--color-text-soft);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+/* Style les badges liés au stock. */
+.menu-stock-badge {
+    padding: 0.28rem 0.65rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+    border-radius: 10rem;
+}
+
+/* Affiche un stock disponible. */
+.menu-stock-available {
+    color: var(--color-sage);
+    background-color: rgba(114, 137, 122, 0.14);
+    border: 1px solid rgba(114, 137, 122, 0.42);
+}
+
+/* Affiche un stock épuisé. */
+.menu-stock-unavailable {
+    color: rgba(238, 184, 184, 1);
+    background-color: rgba(116, 37, 58, 0.18);
+    border: 1px solid rgba(116, 37, 58, 0.58);
+}
+
+/* Organise les informations tarifaires. */
+.menu-detail-pricing {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+}
+
+/* Encadre chaque information tarifaire. */
+.menu-detail-price-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem;
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Adoucit le libellé des tarifs. */
+.menu-detail-price-item span {
+    color: var(--color-text-soft);
+    font-size: 0.8rem;
+}
+
+/* Met en valeur les tarifs. */
+.menu-detail-price-item strong {
+    color: var(--color-champagne);
+    font-size: 1rem;
+}
+
+/* Adapte la largeur du bouton de commande. */
+.menu-detail-order-button {
+    align-self: flex-start;
+}
+
+/* Conserve un aspect visible lorsque le bouton est désactivé. */
+.menu-detail-order-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Met en valeur les titres des sections. */
+.menu-detail-section-title {
+    color: var(--color-champagne);
+    font-size: clamp(2rem, 4vw, 3.3rem);
+}
+
+/* Espace les cartes des différents plats. */
+.menu-detail-dishes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Crée une carte horizontale pour chaque plat. */
+.menu-detail-dish-card {
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--color-border);
+    border-radius: 0.45rem;
+}
+
+/* Affiche une image homogène dans chaque carte. */
+.menu-detail-dish-image {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    object-fit: cover;
+}
+
+/* Espace le texte présent dans la carte. */
+.menu-detail-dish-content {
+    padding: 1.5rem;
+}
+
+/* Met en valeur le type du plat. */
+.menu-detail-dish-type {
+    margin-bottom: 0.4rem;
+    color: var(--color-sage);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+/* Met en valeur le nom du plat. */
+.menu-detail-dish-title {
+    color: var(--color-champagne);
+    font-size: 1.75rem;
+}
+
+/* Améliore la lecture de la description du plat. */
+.menu-detail-dish-description {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+}
+
+/* Sépare visuellement les allergènes. */
+.menu-detail-allergens {
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Met en valeur le titre des allergènes. */
+.menu-detail-allergens-title {
+    color: var(--color-text);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+/* Crée un badge discret pour chaque allergène. */
+.menu-allergen-badge {
+    padding: 0.22rem 0.58rem;
+    color: var(--color-text-soft);
+    background-color: rgba(116, 37, 58, 0.16);
+    border: 1px solid rgba(116, 37, 58, 0.48);
+    border-radius: 10rem;
+    font-size: 0.74rem;
+}
+
+/* Adoucit le texte utilisé lorsqu'aucun allergène n'est déclaré. */
+.menu-detail-no-allergen {
+    color: var(--color-text-soft);
+    font-size: 0.84rem;
+}
+
+/* Met en évidence les conditions de commande. */
+.menu-detail-conditions {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.4rem;
+    color: var(--color-text-soft);
+    background-color: rgba(116, 37, 58, 0.14);
+    border: 1px solid rgba(116, 37, 58, 0.52);
+    border-left: 4px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Style l'icône des conditions. */
+.menu-detail-conditions-icon {
+    color: var(--color-champagne);
+    font-size: 1.2rem;
+}
+
+/* Met en valeur le titre des conditions. */
+.menu-detail-conditions-title {
+    color: var(--color-champagne);
+    font-size: 1.25rem;
+}
+
+/* -------------------------------------------------- */
+/* responsive de la page détail */
+/* -------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+    /* Réduit la hauteur de la grande image sur mobile. */
+    .menu-detail-main-image {
+        height: 330px;
+    }
+
+    /* Réduit la hauteur des miniatures sur mobile. */
+    .menu-detail-thumbnail img {
+        height: 72px;
+    }
+
+    /* Réduit les marges intérieures du résumé. */
+    .menu-detail-summary {
+        padding: 1.35rem;
+    }
+
+    /* Place chaque tarif sur une ligne distincte. */
+    .menu-detail-pricing {
+        grid-template-columns: 1fr;
+    }
+
+    /* Place les photos au-dessus du texte sur mobile. */
+    .menu-detail-dish-image {
+        min-height: 220px;
+        max-height: 260px;
+    }
+
+}

@@ -14,5 +14,8 @@ $router->get('/', [HomeController::class, 'index']);
 /* Affiche la liste des menus. */
 $router->get('/menus', [MenuController::class, 'index']);
 
+/* Affiche le détail d'un menu. */
+$router->get('/menus/detail', [MenuController::class, 'show']);
+
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);

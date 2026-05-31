@@ -1,3 +1,10 @@
+<?php
+/* Indique les variables préparées par le contrôleur. */
+/** @var array $menus */
+/** @var array $themes */
+/** @var array $dietaryTypes */
+?>
+
 <section class="menus-hero-section">
     <div class="container py-5">
 
@@ -302,9 +309,8 @@
                                 </div>
 
                                 <a
-                                    href="#"
-                                    class="btn btn-custom mt-3"
-                                    aria-disabled="true">
+                                    href="<?php echo BASE_URL; ?>/menus/detail?id=<?php echo $menu['id']; ?>"
+                                    class="btn btn-custom mt-3">
                                     Voir le détail
                                 </a>
 

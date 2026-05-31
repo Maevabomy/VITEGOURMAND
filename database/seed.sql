@@ -204,97 +204,97 @@ INSERT INTO dishes (
 ) VALUES
 (
     'Tartare de saumon aux agrumes',
-    'Tartare de saumon accompagné d’agrumes et d’herbes fraîches.',
+    'Tartare de saumon frais taillé au couteau, relevé par des zestes d’agrumes, un filet de citron et des herbes fraîches. Une entrée légère aux notes acidulées.',
     'starter',
     TRUE
 ),
 (
     'Magret de canard',
-    'Magret de canard servi avec une sauce aux échalotes confites et des pommes grenailles.',
+    'Magret de canard d’environ 180 g par personne, rôti et servi rosé. Il est accompagné de pommes grenailles confites aux herbes et d’une sauce aux échalotes doucement caramélisées.',
     'main_course',
     TRUE
 ),
 (
     'Canelé bordelais revisité',
-    'Canelé bordelais accompagné d’une crème légère à la vanille.',
+    'Canelé bordelais à la croûte légèrement caramélisée et au cœur moelleux, servi avec une crème légère parfumée à la vanille.',
     'dessert',
     TRUE
 ),
 (
     'Burrata et légumes rôtis',
-    'Burrata crémeuse accompagnée de légumes rôtis et d’un pesto de roquette.',
+    'Burrata crémeuse accompagnée de légumes de saison rôtis au four, d’un pesto de roquette aux pignons de pin et d’une touche d’huile d’olive.',
     'starter',
     TRUE
 ),
 (
     'Risotto aux champignons',
-    'Risotto crémeux accompagné de parmesan affiné et de noisettes torréfiées.',
+    'Risotto crémeux aux champignons poêlés, délicatement relevé par du parmesan affiné et des noisettes torréfiées pour apporter une note croquante.',
     'main_course',
     TRUE
 ),
 (
     'Tarte fine aux pommes',
-    'Tarte fine aux pommes accompagnée de caramel doux et d’éclats d’amandes.',
+    'Tarte fine aux pommes fondantes et légèrement caramélisées, accompagnée d’un caramel doux et d’éclats d’amandes.',
     'dessert',
     TRUE
 ),
 (
     'Foie gras mi-cuit',
-    'Foie gras mi-cuit accompagné d’un chutney de figues et de pain brioché.',
+    'Foie gras mi-cuit d’environ 70 g par personne, délicatement assaisonné et accompagné d’un chutney de figues ainsi que de tranches de pain brioché légèrement toastées.',
     'starter',
     TRUE
 ),
 (
     'Filet de bœuf aux morilles',
-    'Filet de bœuf accompagné d’une sauce aux morilles et d’un gratin dauphinois.',
+    'Filet de bœuf d’environ 180 g par personne, rôti et servi avec une sauce crémeuse aux morilles. Il est accompagné d’un gratin dauphinois fondant, délicatement relevé à la muscade.',
     'main_course',
     TRUE
 ),
 (
     'Entremets chocolat noir',
-    'Entremets au chocolat noir, noisette et cœur fondant.',
+    'Entremets au chocolat noir composé d’une mousse onctueuse, d’un cœur fondant et d’une note de noisette. Une finition délicate pour les amateurs de chocolat intense.',
     'dessert',
     TRUE
 ),
 (
     'Houmous de betterave',
-    'Houmous de betterave accompagné de légumes croquants et de crackers aux graines.',
+    'Houmous de betterave à la texture onctueuse, accompagné de légumes frais croquants et de crackers aux graines de sésame.',
     'starter',
     TRUE
 ),
 (
     'Parmentier de patate douce',
-    'Parmentier végétal composé de patate douce, de lentilles mijotées et de légumes de saison.',
+    'Parmentier végétal composé d’une purée fondante de patate douce et de lentilles mijotées avec des légumes de saison et des herbes aromatiques.',
     'main_course',
     TRUE
 ),
 (
     'Mousse au chocolat noir',
-    'Mousse au chocolat noir accompagnée d’un praliné végétal.',
+    'Mousse aérienne au chocolat noir accompagnée d’un praliné végétal à la noisette pour apporter une note délicatement croquante.',
     'dessert',
     TRUE
 ),
 (
     'Velouté de potimarron',
-    'Velouté de potimarron accompagné d’éclats de châtaignes et d’une crème parfumée.',
+    'Velouté de potimarron à la texture douce et crémeuse, accompagné d’éclats de châtaignes et d’une crème légèrement parfumée à la muscade.',
     'starter',
     TRUE
 ),
 (
     'Bûche chocolat et praliné',
-    'Bûche au chocolat, noisette et croustillant praliné.',
+    'Bûche de fête composée d’une mousse au chocolat, d’un insert praliné à la noisette et d’une base croustillante.',
     'dessert',
     TRUE
 ),
 (
     'Asperges rôties',
-    'Asperges rôties accompagnées d’un œuf parfait et d’une crème légère aux herbes.',
+    'Asperges rôties accompagnées d’un œuf parfait au cœur coulant et d’une crème légère aux herbes fraîches.',
     'starter',
     TRUE
 ),
 (
     'Ravioles printanières',
-    'Ravioles aux légumes printaniers accompagnées d’une sauce crémeuse au parmesan.',
+    'Ravioles garnies de légumes printaniers, accompagnées d’une sauce crémeuse au parmesan et de quelques herbes fraîches.',
     'main_course',
     TRUE
 );
@@ -344,6 +344,8 @@ INSERT INTO dish_allergen (
 
 -- Foie gras mi-cuit et pain brioché.
 (7, 1),
+(7, 2),
+(7, 3),
 
 -- Filet de bœuf aux morilles et gratin dauphinois.
 (8, 2),
