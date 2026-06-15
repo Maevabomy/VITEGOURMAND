@@ -106,14 +106,46 @@ puis les enregistre dans la colonne photo de la table dishes.
 
 Dans le navigateur, ouvrir :
 
+## Routes disponibles
+
+### Page d'accueil
+
+```text
 http://localhost/VITEGOURMAND/public/
-Routes disponibles
-Page d'accueil
-http://localhost/VITEGOURMAND/public/
-Catalogue des menus
+```
+
+### Catalogue public des menus
+
+```text
 http://localhost/VITEGOURMAND/public/menus
-Exemple d'affichage d'une image enregistrée en BLOB
+```
+
+### Page détail d'un menu
+
+- accès au détail d'un menu depuis le catalogue public ;
+- récupération du menu depuis MariaDB grâce à son identifiant ;
+- affichage de la galerie d'images du menu ;
+- affichage des informations principales du menu ;
+- affichage du thème ;
+- affichage du régime ;
+- affichage de la disponibilité ;
+- affichage du stock disponible ;
+- affichage du prix total minimum ;
+- affichage du prix indicatif par personne ;
+- affichage du nombre minimum de convives ;
+- affichage des conditions de commande ;
+- affichage des plats associés au menu ;
+- affichage des descriptions détaillées des plats ;
+- affichage des allergènes plat par plat ;
+- gestion d'une erreur 404 si le menu demandé n'existe pas ;
+- bouton de commande présent mais désactivé temporairement.
+
+### Affichage d'une image enregistrée en BLOB
+
+```text
 http://localhost/VITEGOURMAND/public/dish/image?id=1
+```
+
 Architecture du projet
 VITEGOURMAND/
 ├── app/
