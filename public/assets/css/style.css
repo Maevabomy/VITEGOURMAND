@@ -995,5 +995,96 @@ p {
         min-height: 220px;
         max-height: 260px;
     }
+}
 
+/* -------------------------------------------------- */
+/* page inscription */
+/* -------------------------------------------------- */
+
+/* Centre la carte d'inscription sur un fond sombre. */
+.auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(135deg,
+            rgba(116, 37, 58, 0.18),
+            rgba(145, 159, 132, 0.06)),
+        rgba(18, 15, 16, 1);
+}
+
+/* Crée une carte élégante pour le formulaire. */
+.auth-card {
+    max-width: 720px;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Ajuste le titre de la page inscription. */
+.auth-title {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+}
+
+/* Adoucit le texte d'introduction. */
+.auth-description {
+    max-width: 560px;
+    margin: 0 auto;
+    color: var(--color-text-soft);
+}
+
+/* Style les libellés du formulaire. */
+.auth-form .form-label {
+    color: var(--color-text-soft);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+/* Adapte les champs au thème sombre. */
+.auth-form .form-control {
+    min-height: 44px;
+    color: var(--color-text);
+    background-color: rgba(12, 10, 11, 0.72);
+    border-color: var(--color-border);
+}
+
+/* Met en valeur le champ sélectionné. */
+.auth-form .form-control:focus {
+    color: var(--color-text);
+    background-color: rgba(12, 10, 11, 0.92);
+    border-color: var(--color-wine);
+    box-shadow: 0 0 0 0.2rem rgba(116, 37, 58, 0.18);
+}
+
+/* Adoucit l'aide sous le mot de passe. */
+.auth-help {
+    color: var(--color-text-soft);
+    font-size: 0.82rem;
+}
+
+/* Style le texte en bas du formulaire. */
+.auth-footer-text {
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+}
+
+/* Met en valeur l'information de connexion. */
+.auth-footer-text span {
+    color: var(--color-sage);
+}
+
+/* -------------------------------------------------- */
+/* responsive inscription */
+/* -------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+    /* Réduit les marges de la carte sur mobile. */
+    .auth-card {
+        padding: 1.35rem;
+    }
 }
