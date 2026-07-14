@@ -4,12 +4,13 @@ use App\Controllers\DishController;
 use App\Controllers\HomeController;
 use App\Controllers\MenuController;
 use App\Controllers\AuthController;
-
+use App\Controllers\OrderController;
 /* -------------------------------------------------- */
 /* routes publiques */
 /* -------------------------------------------------- */
 
 /* Affiche la page d'accueil. */
+
 $router->get('/', [HomeController::class, 'index']);
 
 /* Affiche la liste des menus. */
@@ -17,6 +18,15 @@ $router->get('/menus', [MenuController::class, 'index']);
 
 /* Affiche le détail d'un menu. */
 $router->get('/menus/detail', [MenuController::class, 'show']);
+
+/* Affiche le formulaire de commande. */
+$router->get('/order/create', [OrderController::class, 'create']);
+
+/* Recherche une adresse de livraison. */
+$router->get('/order/address-search', [OrderController::class, 'searchAddress']);
+
+/* Calcule la distance routière de livraison. */
+$router->get('/order/delivery-distance', [OrderController::class,'calculateDistance',]);
 
 /* Affiche le formulaire d'inscription. */
 $router->get('/register', [AuthController::class, 'register']);
@@ -45,6 +55,6 @@ $router->post('/reset-password', [AuthController::class, 'updatePassword']);
 /* Déconnecte l'utilisateur. */
 $router->post('/logout', [AuthController::class, 'logout']);
 
+
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);
-
