@@ -60,6 +60,44 @@ class User
         return $user;
     }
 
+    /* Recherche un utilisateur actif à partir de son identifiant. */
+    public static function findById(int $id): ?array
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+            users.id,
+            users.first_name,
+            users.last_name,
+            users.phone,
+            users.email,
+            users.address,
+            users.postal_code,
+            users.city,
+            users.is_active,
+            roles.name AS role
+        FROM users
+        INNER JOIN roles
+            ON roles.id = users.role_id
+        WHERE users.id = :id
+            AND users.is_active = TRUE
+        LIMIT 1'
+        );
+
+        $query->execute([
+            'id' => $id,
+        ]);
+
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return null;
+        }
+
+        return $user;
+    }
+
     /* -------------------------------------------------- */
     /* recherche rôle */
     /* -------------------------------------------------- */
@@ -132,33 +170,31 @@ class User
             'city' => $data['city'],
             'password_hash' => $data['password_hash'],
         ]);
-        
     }
     /* -------------------------------------------------- */
-/* mise à jour du mot de passe */
-/* -------------------------------------------------- */
+    /* mise à jour du mot de passe */
+    /* -------------------------------------------------- */
 
-/* Enregistre le nouveau mot de passe de l'utilisateur. */
-public static function updatePassword(
-    int $userId,
-    string $passwordHash
-): bool {
-    $connection = Database::getConnection();
+    /* Enregistre le nouveau mot de passe de l'utilisateur. */
+    public static function updatePassword(
+        int $userId,
+        string $passwordHash
+    ): bool {
+        $connection = Database::getConnection();
 
-    $query = $connection->prepare(
-        'UPDATE users
+        $query = $connection->prepare(
+            'UPDATE users
         SET password_hash = :password_hash,
             updated_at = CURRENT_TIMESTAMP
         WHERE id = :id
             AND is_active = TRUE'
-    );
+        );
 
-    $query->execute([
-        'password_hash' => $passwordHash,
-        'id' => $userId,
-    ]);
+        $query->execute([
+            'password_hash' => $passwordHash,
+            'id' => $userId,
+        ]);
 
-    return $query->rowCount() === 1;
+        return $query->rowCount() === 1;
+    }
 }
-}
-

@@ -14,9 +14,9 @@
                 et soignées pour vos repas, fêtes et événements.
             </p>
 
-            <a href="#" class="btn btn-custom">
+            <a href="<?php echo BASE_URL; ?>/menus" class="btn btn-custom">
                 Découvrir nos menus
-            </a>
+                </a>
         </div>
     </div>
 </section>

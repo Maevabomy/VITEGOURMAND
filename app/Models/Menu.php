@@ -65,6 +65,9 @@ class Menu
                 menus.title,
                 menus.description AS menu_description,
                 menus.conditions,
+                menus.minimum_order_days,
+                menus.available_from,
+                menus.available_until,
                 menus.minimum_people,
                 menus.base_price,
                 menus.stock_quantity,
@@ -155,7 +158,7 @@ class Menu
         return array_values($menus);
     }
 
-        /* -------------------------------------------------- */
+    /* -------------------------------------------------- */
     /* organisation du détail d'un menu */
     /* -------------------------------------------------- */
 
@@ -169,6 +172,9 @@ class Menu
             'title' => $firstRow['title'],
             'description' => $firstRow['menu_description'],
             'conditions' => $firstRow['conditions'],
+            'minimum_order_days' => (int) $firstRow['minimum_order_days'],
+            'available_from' => $firstRow['available_from'],
+            'available_until' => $firstRow['available_until'],
             'minimum_people' => (int) $firstRow['minimum_people'],
             'base_price' => (float) $firstRow['base_price'],
             'stock_quantity' => (int) $firstRow['stock_quantity'],

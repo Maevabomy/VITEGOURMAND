@@ -204,8 +204,13 @@ class AuthController
             'role' => $user['role'],
         ];
 
-        /* Redirige vers l'accueil après connexion. */
-        header('Location: ' . BASE_URL . '/');
+        /* Redirige vers la page demandée avant la connexion. */
+        $redirect = $_SESSION['redirect_after_login']
+            ?? BASE_URL . '/';
+
+        unset($_SESSION['redirect_after_login']);
+
+        header('Location: ' . $redirect);
         exit;
     }
 

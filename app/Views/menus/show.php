@@ -1,4 +1,5 @@
 <?php
+
 /** @var array $menu */
 
 /* Calcule le tarif indicatif pour une personne. */
@@ -33,20 +34,17 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
 
                     <div
                         id="<?php echo $carouselId; ?>"
-                        class="carousel slide"
-                    >
+                        class="carousel slide">
                         <div class="carousel-inner">
 
                             <?php foreach ($menu['dishes'] as $index => $dish): ?>
 
                                 <div
-                                    class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>"
-                                >
+                                    class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
                                     <img
                                         src="<?php echo BASE_URL; ?>/dish/image?id=<?php echo $dish['id']; ?>"
                                         class="menu-detail-main-image"
-                                        alt="<?php echo htmlspecialchars($dish['name']); ?>"
-                                    >
+                                        alt="<?php echo htmlspecialchars($dish['name']); ?>">
                                 </div>
 
                             <?php endforeach; ?>
@@ -58,12 +56,10 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
                             class="carousel-control-prev"
                             type="button"
                             data-bs-target="#<?php echo $carouselId; ?>"
-                            data-bs-slide="prev"
-                        >
+                            data-bs-slide="prev">
                             <span
                                 class="carousel-control-prev-icon"
-                                aria-hidden="true"
-                            ></span>
+                                aria-hidden="true"></span>
 
                             <span class="visually-hidden">
                                 Photo précédente
@@ -75,12 +71,10 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
                             class="carousel-control-next"
                             type="button"
                             data-bs-target="#<?php echo $carouselId; ?>"
-                            data-bs-slide="next"
-                        >
+                            data-bs-slide="next">
                             <span
                                 class="carousel-control-next-icon"
-                                aria-hidden="true"
-                            ></span>
+                                aria-hidden="true"></span>
 
                             <span class="visually-hidden">
                                 Photo suivante
@@ -99,12 +93,10 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
                                 class="menu-detail-thumbnail <?php echo $index === 0 ? 'active' : ''; ?>"
                                 data-bs-target="#<?php echo $carouselId; ?>"
                                 data-bs-slide-to="<?php echo $index; ?>"
-                                aria-label="Afficher <?php echo htmlspecialchars($dish['name']); ?>"
-                            >
+                                aria-label="Afficher <?php echo htmlspecialchars($dish['name']); ?>">
                                 <img
                                     src="<?php echo BASE_URL; ?>/dish/image?id=<?php echo $dish['id']; ?>"
-                                    alt=""
-                                >
+                                    alt="">
                             </button>
 
                         <?php endforeach; ?>
@@ -217,14 +209,24 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
 
                     </div>
 
-                    <!-- Le lien sera activé lors du développement des commandes. -->
-                    <button
-                        type="button"
-                        class="btn btn-custom menu-detail-order-button mt-4"
-                        disabled
-                    >
-                        Commander
-                    </button>
+                    <?php if ($menu['stock_quantity'] > 0): ?>
+
+                        <a
+                            href="<?php echo BASE_URL; ?>/order/create?menu_id=<?php echo (int) $menu['id']; ?>"
+                            class="btn btn-custom menu-detail-order-button mt-4">
+                            Commander
+                        </a>
+
+                    <?php else: ?>
+
+                        <button
+                            type="button"
+                            class="btn btn-custom menu-detail-order-button mt-4"
+                            disabled>
+                            Menu indisponible
+                        </button>
+
+                    <?php endif; ?>
 
                 </article>
             </div>
@@ -262,8 +264,7 @@ $carouselId = 'menu-detail-carousel-' . $menu['id'];
                                 <img
                                     src="<?php echo BASE_URL; ?>/dish/image?id=<?php echo $dish['id']; ?>"
                                     class="menu-detail-dish-image"
-                                    alt="<?php echo htmlspecialchars($dish['name']); ?>"
-                                >
+                                    alt="<?php echo htmlspecialchars($dish['name']); ?>">
                             </div>
 
                             <div class="col-md-8">
