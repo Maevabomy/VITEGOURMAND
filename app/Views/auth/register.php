@@ -17,7 +17,25 @@
                 </p>
             </div>
 
-            <form action="#" method="post" class="auth-form">
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Inscription impossible.</strong>
+
+                    <ul class="mb-0 mt-2">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($success)): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo htmlspecialchars($success); ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="<?php echo BASE_URL; ?>/register" method="post" class="auth-form">
 
                 <!-- -------------------------------------------------- -->
                 <!-- identité -->
@@ -34,6 +52,7 @@
                             class="form-control"
                             id="first_name"
                             name="first_name"
+                            value="<?php echo htmlspecialchars($formData['first_name'] ?? ''); ?>"
                             autocomplete="given-name"
                             required>
                     </div>
@@ -48,6 +67,7 @@
                             class="form-control"
                             id="last_name"
                             name="last_name"
+                            value="<?php echo htmlspecialchars($formData['last_name'] ?? ''); ?>"
                             autocomplete="family-name"
                             required>
                     </div>
@@ -67,6 +87,7 @@
                         class="form-control"
                         id="phone"
                         name="phone"
+                        value="<?php echo htmlspecialchars($formData['phone'] ?? ''); ?>"
                         autocomplete="tel"
                         required>
                 </div>
@@ -81,6 +102,7 @@
                         class="form-control"
                         id="email"
                         name="email"
+                        value="<?php echo htmlspecialchars($formData['email'] ?? ''); ?>"
                         autocomplete="email"
                         required>
                 </div>
@@ -95,6 +117,7 @@
                         class="form-control"
                         id="address"
                         name="address"
+                        value="<?php echo htmlspecialchars($formData['address'] ?? ''); ?>"
                         autocomplete="street-address"
                         required>
                 </div>
@@ -110,6 +133,7 @@
                             class="form-control"
                             id="postal_code"
                             name="postal_code"
+                            value="<?php echo htmlspecialchars($formData['postal_code'] ?? ''); ?>"
                             autocomplete="postal-code"
                             required>
                     </div>
@@ -124,6 +148,7 @@
                             class="form-control"
                             id="city"
                             name="city"
+                            value="<?php echo htmlspecialchars($formData['city'] ?? ''); ?>"
                             autocomplete="address-level2"
                             required>
                     </div>
@@ -176,9 +201,11 @@
                     Créer mon compte
                 </button>
 
-                <p class="auth-footer-text mt-3 mb-0 text-center">
+                <p class="auth-footer-text text-center mt-4 mb-0">
                     Vous avez déjà un compte ?
-                    <span>La connexion sera disponible prochainement.</span>
+                    <a href="<?php echo BASE_URL; ?>/login">
+                        Se connecter
+                    </a>
                 </p>
             </form>
         </div>

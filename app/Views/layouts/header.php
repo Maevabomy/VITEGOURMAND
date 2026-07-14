@@ -58,17 +58,39 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/register">
-                                Inscription
-                            </a>
-                        </li>
+                        <?php if (!empty($_SESSION['user'])): ?>
+                            <li class="nav-item">
+                                <span class="nav-link">
+                                    Mon compte
+                                </span>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" aria-disabled="true">
-                                Connexion
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <form
+                                    action="<?php echo BASE_URL; ?>/logout"
+                                    method="post"
+                                    class="d-inline">
+
+                                    <button
+                                        type="submit"
+                                        class="nav-link border-0 bg-transparent">
+                                        Déconnexion
+                                    </button>
+                                </form>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo BASE_URL; ?>/register">
+                                    Inscription
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo BASE_URL; ?>/login">
+                                    Connexion
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

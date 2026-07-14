@@ -1077,6 +1077,55 @@ p {
     color: var(--color-sage);
 }
 
+/* Style les aides sous les champs d'authentification. */
+.auth-form .form-text {
+    color: var(--color-text-soft);
+    font-size: 0.82rem;
+}
+
+/* Harmonise les liens des pages d'authentification. */
+.auth-card a {
+    color: var(--color-sage);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Éclaircit les liens au survol. */
+.auth-card a:hover {
+    color: var(--color-sage-hover);
+    text-decoration: underline;
+}
+
+/* Rend le focus clavier bien visible sur les liens. */
+.auth-card a:focus-visible {
+    color: var(--color-sage-hover);
+    outline: 2px solid var(--color-sage);
+    outline-offset: 3px;
+    border-radius: 0.15rem;
+}
+
+/* Conserve le thème sur le focus du bouton principal. */
+.auth-form .btn-custom:focus,
+.auth-form .btn-custom:focus-visible {
+    color: var(--color-text);
+    background-color: var(--color-wine-hover);
+    border-color: var(--color-champagne);
+    box-shadow: 0 0 0 0.2rem rgba(222, 194, 183, 0.2);
+}
+
+/* Évite le bleu Bootstrap dans les champs valides. */
+.auth-form .form-control:valid,
+.auth-form .form-control:invalid {
+    box-shadow: none;
+}
+
+/* Rétablit le focus personnalisé après la validation HTML. */
+.auth-form .form-control:focus {
+    border-color: var(--color-wine);
+    box-shadow: 0 0 0 0.2rem rgba(116, 37, 58, 0.18);
+}
+
 /* -------------------------------------------------- */
 /* responsive inscription */
 /* -------------------------------------------------- */
