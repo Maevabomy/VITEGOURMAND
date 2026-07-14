@@ -6,13 +6,34 @@ class Router
 {
     private array $routes = [];
 
+    /* -------------------------------------------------- */
+    /* routes GET */
+    /* -------------------------------------------------- */
+
+    /* Enregistre une route affichée en GET. */
     public function get(string $path, array $action): void
     {
-        $this->routes[$path] = $action;
+        $this->routes['GET'][$path] = $action;
     }
 
+    /* -------------------------------------------------- */
+    /* routes POST */
+    /* -------------------------------------------------- */
+
+    /* Enregistre une route envoyée par formulaire. */
+    public function post(string $path, array $action): void
+    {
+        $this->routes['POST'][$path] = $action;
+    }
+
+    /* -------------------------------------------------- */
+    /* exécution de la route */
+    /* -------------------------------------------------- */
+
+    /* Trouve la route demandée et lance le bon contrôleur. */
     public function dispatch(string $uri): void
     {
+        $method = $_SERVER['REQUEST_METHOD'];
         $path = parse_url($uri, PHP_URL_PATH) ?? '/';
 
         if (BASE_URL !== '' && strpos($path, BASE_URL) === 0) {
@@ -21,7 +42,7 @@ class Router
 
         $path = '/' . trim($path, '/');
 
-        if (!isset($this->routes[$path])) {
+        if (!isset($this->routes[$method][$path])) {
             http_response_code(404);
 
             echo '<h1>Erreur 404</h1>';
@@ -30,10 +51,10 @@ class Router
             return;
         }
 
-        [$controllerClass, $method] = $this->routes[$path];
+        [$controllerClass, $methodName] = $this->routes[$method][$path];
 
         $controller = new $controllerClass();
 
-        $controller->$method();
+        $controller->$methodName();
     }
 }
