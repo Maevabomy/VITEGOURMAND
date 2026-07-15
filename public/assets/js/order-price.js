@@ -5,6 +5,7 @@ const pricePerPersonElement = document.querySelector("#price-per-person");
 const summaryPeopleCount = document.querySelector("#summary-people-count");
 const discountLine = document.querySelector("#discount-line");
 const menuTotalPrice = document.querySelector("#menu-total-price");
+const orderTotalPrice = document.querySelector("#order-total-price");
 
 // Mise à jour du prix total en fonction du nombre de personnes
 if (
@@ -12,13 +13,17 @@ if (
   pricePerPersonElement &&
   summaryPeopleCount &&
   discountLine &&
-  menuTotalPrice
+  menuTotalPrice &&
+  orderTotalPrice
 ) {
   const minimumPeople = Number(peopleCountInput.dataset.minimumPeople);
 
   const basePrice = Number(peopleCountInput.dataset.basePrice);
 
   const pricePerPerson = basePrice / minimumPeople;
+
+  let currentMenuPrice = basePrice;
+  let currentDeliveryFee = 0;
 
   const formatPrice = (price) => {
     return (
@@ -27,6 +32,12 @@ if (
         maximumFractionDigits: 2,
       }).format(price) + " €"
     );
+  };
+
+  const updateOrderTotal = () => {
+    const orderTotal = currentMenuPrice + currentDeliveryFee;
+
+    orderTotalPrice.textContent = formatPrice(orderTotal);
   };
 
   const updatePrice = () => {
@@ -51,21 +62,31 @@ if (
 
     discountLine.hidden = !discountApplies;
 
-    menuTotalPrice.textContent = formatPrice(calculatedPrice);
+    currentMenuPrice = calculatedPrice;
+
+    menuTotalPrice.textContent = formatPrice(currentMenuPrice);
+
+    updateOrderTotal();
   };
+
+  document.addEventListener("delivery-fee-updated", (event) => {
+    currentDeliveryFee = Number(event.detail.deliveryFee) || 0;
+
+    updateOrderTotal();
+  });
 
   peopleCountInput.addEventListener("input", updatePrice);
 
-/* Corrige une valeur inférieure au minimum en quittant le champ. */
-peopleCountInput.addEventListener("change", () => {
-  const peopleCount = Number(peopleCountInput.value);
+  /* Corrige une valeur inférieure au minimum en quittant le champ. */
+  peopleCountInput.addEventListener("change", () => {
+    const peopleCount = Number(peopleCountInput.value);
 
-  if (!Number.isInteger(peopleCount) || peopleCount < minimumPeople) {
-    peopleCountInput.value = String(minimumPeople);
-  }
+    if (!Number.isInteger(peopleCount) || peopleCount < minimumPeople) {
+      peopleCountInput.value = String(minimumPeople);
+    }
+
+    updatePrice();
+  });
 
   updatePrice();
-});
-
-updatePrice();
 }

@@ -16,3 +16,5 @@
 # dépendances éventuelles
 vendor/
 node_modules/
+# cache de géocodage
+storage/cache/

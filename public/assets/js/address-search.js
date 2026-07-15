@@ -37,6 +37,7 @@ if (
     longitudeInput.value = "";
 
     clearDeliveryDetails();
+    updateOrderDeliveryFee(0);
   };
 
   const clearResults = () => {
@@ -74,6 +75,16 @@ if (
     deliveryPriceDetails.hidden = false;
   };
 
+  const updateOrderDeliveryFee = (deliveryFee) => {
+    document.dispatchEvent(
+      new CustomEvent("delivery-fee-updated", {
+        detail: {
+          deliveryFee: deliveryFee,
+        },
+      }),
+    );
+  };
+
   const calculateDelivery = async (address) => {
     showStatus("Calcul des frais de livraison en cours…");
 
@@ -104,6 +115,7 @@ if (
       }
 
       displayDeliveryDetails(data);
+      updateOrderDeliveryFee(data.delivery_fee);
 
       showStatus(
         `Adresse sélectionnée — distance : ${data.distance} km, ` +
