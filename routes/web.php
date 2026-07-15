@@ -28,6 +28,12 @@ $router->get('/order/address-search', [OrderController::class, 'searchAddress'])
 /* Calcule la distance routière de livraison. */
 $router->get('/order/delivery-distance', [OrderController::class,'calculateDistance',]);
 
+/* Reçoit et valide le formulaire de commande. */
+$router->post('/order/store', [OrderController::class,'store',]);
+
+/* Affiche la confirmation d’une commande. */
+$router->get('/order/confirmation', [OrderController::class,'confirmation',]);
+
 /* Affiche le formulaire d'inscription. */
 $router->get('/register', [AuthController::class, 'register']);
 

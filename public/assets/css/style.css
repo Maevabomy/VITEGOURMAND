@@ -1197,3 +1197,239 @@ p {
         padding: 1.35rem;
     }
 }
+
+/* -------------------------------------------------- */
+/* confirmation de commande */
+/* -------------------------------------------------- */
+
+/* Centre la confirmation sur le fond sombre. */
+.order-confirmation-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(116, 37, 58, 0.2),
+            rgba(145, 159, 132, 0.07)
+        ),
+        rgba(18, 15, 16, 1);
+}
+
+/* Crée la carte principale de confirmation. */
+.order-confirmation-card {
+    max-width: 820px;
+    padding: 2.2rem;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Espace l'en-tête de confirmation. */
+.order-confirmation-header {
+    margin-bottom: 2rem;
+}
+
+/* Affiche un symbole de validation. */
+.order-confirmation-icon {
+    width: 58px;
+    height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    background-color: rgba(145, 159, 132, 0.18);
+    border: 2px solid var(--color-sage);
+    border-radius: 50%;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+/* Met en valeur le titre principal. */
+.order-confirmation-title {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+}
+
+/* Adoucit le texte d'introduction. */
+.order-confirmation-introduction {
+    max-width: 590px;
+    margin: 0 auto;
+    color: var(--color-text-soft);
+    line-height: 1.7;
+}
+
+/* Présente le numéro et le statut. */
+.order-confirmation-reference {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background-color: rgba(116, 37, 58, 0.12);
+    border: 1px solid rgba(116, 37, 58, 0.45);
+    border-radius: 0.45rem;
+}
+
+/* Affiche les libellés au-dessus des valeurs. */
+.order-confirmation-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--color-text-soft);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06rem;
+    text-transform: uppercase;
+}
+
+/* Met en valeur le numéro de commande. */
+.order-confirmation-reference strong {
+    color: var(--color-champagne);
+}
+
+/* Crée le badge du statut. */
+.order-status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    color: var(--color-text);
+    background-color: rgba(145, 159, 132, 0.18);
+    border: 1px solid var(--color-sage);
+    border-radius: 10rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+/* Encadre chaque partie du récapitulatif. */
+.order-confirmation-block {
+    margin-top: 1.25rem;
+    padding: 1.4rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-radius: 0.45rem;
+}
+
+/* Met en valeur les titres secondaires. */
+.order-confirmation-subtitle {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: 1.45rem;
+}
+
+/* Supprime les marges natives de la liste. */
+.order-confirmation-list {
+    margin: 0;
+}
+
+/* Aligne les informations de la prestation. */
+.order-confirmation-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.8fr) 1.5fr;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Supprime la bordure de la dernière ligne. */
+.order-confirmation-row:last-child {
+    border-bottom: 0;
+}
+
+/* Style les libellés du récapitulatif. */
+.order-confirmation-row dt {
+    color: var(--color-text-soft);
+    font-weight: 600;
+}
+
+/* Style les valeurs du récapitulatif. */
+.order-confirmation-row dd {
+    margin: 0;
+    color: var(--color-text);
+    text-align: right;
+}
+
+/* Aligne les lignes de prix. */
+.order-confirmation-price-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    color: var(--color-text-soft);
+}
+
+/* Met les montants en valeur. */
+.order-confirmation-price-line strong {
+    color: var(--color-sage);
+}
+
+/* Sépare le total général. */
+.order-confirmation-total {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 1.12rem;
+}
+
+/* Met en évidence le total final. */
+.order-confirmation-total strong {
+    color: var(--color-champagne);
+    font-size: 1.25rem;
+}
+
+/* Affiche l'information relative à l'e-mail. */
+.order-confirmation-message {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    color: var(--color-text-soft);
+    background-color: rgba(145, 159, 132, 0.1);
+    border: 1px solid rgba(145, 159, 132, 0.45);
+    border-left: 3px solid var(--color-sage);
+    border-radius: 0.45rem;
+}
+
+/* Met en valeur l'adresse e-mail. */
+.order-confirmation-message strong {
+    color: var(--color-text);
+}
+
+/* Centre le bouton final. */
+.order-confirmation-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.75rem;
+}
+
+/* -------------------------------------------------- */
+/* responsive confirmation */
+/* -------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+    /* Réduit les marges de la carte. */
+    .order-confirmation-card {
+        padding: 1.35rem;
+    }
+
+    /* Empile le numéro et le statut. */
+    .order-confirmation-reference {
+        flex-direction: column;
+    }
+
+    /* Empile les libellés et les valeurs. */
+    .order-confirmation-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    /* Aligne les valeurs à gauche sur mobile. */
+    .order-confirmation-row dd {
+        text-align: left;
+    }
+
+    /* Étend le bouton sur les petits écrans. */
+    .order-confirmation-actions .btn {
+        width: 100%;
+    }
+}

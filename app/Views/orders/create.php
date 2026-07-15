@@ -42,7 +42,24 @@
                 </div>
             <?php endif; ?>
 
-            <form class="auth-form">
+            <form
+                action="<?php echo BASE_URL; ?>/order/store"
+                method="post"
+                class="auth-form">
+
+                <input
+                    type="hidden"
+                    name="menu_id"
+                    value="<?php echo (int) $menu['id']; ?>">
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php
+                            echo htmlspecialchars(
+                                $_SESSION['order_csrf_token']
+                            );
+                            ?>">
 
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -371,6 +388,13 @@
                             €
                         </strong>
                     </div>
+                </div>
+                <div class="order-submit mt-4">
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+                        Valider ma commande
+                    </button>
                 </div>
             </form>
         </div>

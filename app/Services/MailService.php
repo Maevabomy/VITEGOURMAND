@@ -41,6 +41,30 @@ class MailService
     }
 
     /* -------------------------------------------------- */
+    /* confirmation de commande */
+    /* -------------------------------------------------- */
+
+    /* Envoie le récapitulatif après l'enregistrement. */
+    public static function sendOrderConfirmationEmail(
+        string $email,
+        array $confirmation
+    ): bool {
+        $subject =
+            'Confirmation de votre commande '
+            . $confirmation['order_number'];
+
+        $message = self::buildOrderConfirmationMessage(
+            $confirmation
+        );
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
+    /* -------------------------------------------------- */
     /* envoi du mail */
     /* -------------------------------------------------- */
 
@@ -169,6 +193,161 @@ class MailService
         </body>
         </html>
     ';
+    }
+
+    /* Prépare le mail de confirmation de commande. */
+    private static function buildOrderConfirmationMessage(
+        array $confirmation
+    ): string {
+        $safeFirstName = htmlspecialchars(
+            $confirmation['customer_first_name'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderNumber = htmlspecialchars(
+            $confirmation['order_number'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeMenuTitle = htmlspecialchars(
+            $confirmation['menu_title'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeAddress = htmlspecialchars(
+            $confirmation['delivery_address'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safePostalCode = htmlspecialchars(
+            $confirmation['delivery_postal_code'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeCity = htmlspecialchars(
+            $confirmation['delivery_city'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $formattedDate = date(
+            'd/m/Y',
+            strtotime($confirmation['event_date'])
+        );
+
+        $formattedMenuPrice = number_format(
+            (float) $confirmation['menu_price'],
+            2,
+            ',',
+            ' '
+        );
+
+        $formattedDeliveryPrice = number_format(
+            (float) $confirmation['delivery_price'],
+            2,
+            ',',
+            ' '
+        );
+
+        $formattedTotalPrice = number_format(
+            (float) $confirmation['total_price'],
+            2,
+            ',',
+            ' '
+        );
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Confirmation de commande</title>
+            </head>
+            <body>
+                <h1>Commande confirmée</h1>
+
+                <p>
+                    Bonjour ' . $safeFirstName . ',
+                </p>
+
+                <p>
+                    Votre commande a bien été enregistrée par
+                    Vite & Gourmand.
+                </p>
+
+                <h2>Récapitulatif</h2>
+
+                <p>
+                    <strong>Numéro de commande :</strong>
+                    ' . $safeOrderNumber . '
+                </p>
+
+                <p>
+                    <strong>Menu :</strong>
+                    ' . $safeMenuTitle . '
+                </p>
+
+                <p>
+                    <strong>Nombre de personnes :</strong>
+                    ' . (int) $confirmation['people_count'] . '
+                </p>
+
+                <p>
+                    <strong>Date de la prestation :</strong>
+                    ' . $formattedDate . '
+                </p>
+
+                <p>
+                    <strong>Heure de livraison :</strong>
+                    ' . htmlspecialchars(
+            $confirmation['delivery_time'],
+            ENT_QUOTES,
+            'UTF-8'
+        ) . '
+                </p>
+
+                <p>
+                    <strong>Adresse :</strong><br>
+                    ' . $safeAddress . '<br>
+                    ' . $safePostalCode . ' ' . $safeCity . '
+                </p>
+
+                <p>
+                    <strong>Prix du menu :</strong>
+                    ' . $formattedMenuPrice . ' €
+                </p>
+
+                <p>
+                    <strong>Frais de livraison :</strong>
+                    ' . $formattedDeliveryPrice . ' €
+                </p>
+
+                <p>
+                    <strong>Total :</strong>
+                    ' . $formattedTotalPrice . ' €
+                </p>
+
+                <p>
+                    <strong>Statut :</strong>
+                    En attente
+                </p>
+
+                <p>
+                    Notre équipe examinera prochainement votre commande.
+                </p>
+
+                <p>
+                    À bientôt,<br>
+                    Julie et José
+                </p>
+            </body>
+            </html>
+        ';
     }
 
     /* -------------------------------------------------- */
