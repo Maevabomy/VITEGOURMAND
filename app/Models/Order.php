@@ -35,9 +35,12 @@ class Order
 
             $menu = $menuQuery->fetch(PDO::FETCH_ASSOC);
 
+            $peopleCount = (int) $data['people_count'];
+
             if (
                 !$menu
-                || (int) $menu['stock_quantity'] < 1
+                || $peopleCount < 1
+                || (int) $menu['stock_quantity'] < $peopleCount
             ) {
                 $connection->rollBack();
 
@@ -159,16 +162,17 @@ class Order
                 'note' => 'Commande créée par le client.',
             ]);
 
-            /* Diminue le stock du menu. */
+            /* Diminue le stock selon le nombre de personnes. */
             $stockQuery = $connection->prepare(
                 'UPDATE menus
-                SET stock_quantity = stock_quantity - 1
-                WHERE id = :menu_id
-                    AND stock_quantity > 0'
+    SET stock_quantity = stock_quantity - :people_count
+    WHERE id = :menu_id
+        AND stock_quantity >= :people_count'
             );
 
             $stockQuery->execute([
                 'menu_id' => $data['menu_id'],
+                'people_count' => $peopleCount,
             ]);
 
             if ($stockQuery->rowCount() !== 1) {

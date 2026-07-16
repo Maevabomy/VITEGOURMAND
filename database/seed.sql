@@ -136,7 +136,7 @@ INSERT INTO menus (
      NULL,
      6,
     210.00,
-    8,
+    120,
     TRUE
 ),
 (
@@ -150,7 +150,7 @@ INSERT INTO menus (
     NULL,
     4,
     140.00,
-    10,
+    110,
     TRUE
 ),
 (
@@ -164,7 +164,7 @@ INSERT INTO menus (
     NULL,
     10,
     420.00,
-    5,
+    90,
     TRUE
 ),
 (
@@ -178,7 +178,7 @@ INSERT INTO menus (
     NULL,
     6,
     180.00,
-    8,
+    120,
     TRUE
 ),
 (
@@ -192,7 +192,7 @@ INSERT INTO menus (
     '2027-01-05',
     8,
     320.00,
-    5,
+    120,
     TRUE
 ),
 (
@@ -206,7 +206,7 @@ INSERT INTO menus (
     '2026-09-30',
     6,
     240.00,
-    6,
+    110,
     TRUE
 );
 

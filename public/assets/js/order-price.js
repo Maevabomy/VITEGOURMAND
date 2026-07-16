@@ -18,6 +18,36 @@ if (
 ) {
   const minimumPeople = Number(peopleCountInput.dataset.minimumPeople);
 
+  /* -------------------------------------------------- */
+  /* validation du stock */
+  /* -------------------------------------------------- */
+
+  const availableStock = Number.parseInt(peopleCountInput.max, 10);
+
+  peopleCountInput.addEventListener("invalid", () => {
+    const requestedQuantity = Number.parseInt(
+      peopleCountInput.value,
+      10
+    );
+
+    if (
+      Number.isInteger(availableStock) &&
+      requestedQuantity > availableStock
+    ) {
+      peopleCountInput.setCustomValidity(
+        `Il reste seulement ${availableStock} portions disponibles pour ce menu.`
+      );
+
+      return;
+    }
+
+    peopleCountInput.setCustomValidity("");
+  });
+
+  peopleCountInput.addEventListener("input", () => {
+    peopleCountInput.setCustomValidity("");
+  });
+
   const basePrice = Number(peopleCountInput.dataset.basePrice);
 
   const pricePerPerson = basePrice / minimumPeople;
@@ -49,17 +79,14 @@ if (
 
     let calculatedPrice = pricePerPerson * peopleCount;
 
-    // Vérifie si le nombre de personnes dépasse le minimum requis pour la réduction
     const discountApplies = peopleCount >= minimumPeople + 5;
-    // Vérifie si la réduction s'applique
+
     if (discountApplies) {
       calculatedPrice *= 0.9;
     }
 
     pricePerPersonElement.textContent = formatPrice(pricePerPerson);
-
     summaryPeopleCount.textContent = String(peopleCount);
-
     discountLine.hidden = !discountApplies;
 
     currentMenuPrice = calculatedPrice;

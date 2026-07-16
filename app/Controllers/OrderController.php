@@ -425,6 +425,19 @@ class OrderController
                 . '.';
         }
 
+        /* Vérifie que le stock couvre le nombre de personnes. */
+        if (
+            $menu !== null
+            && $peopleCount !== false
+            && $peopleCount !== null
+            && $peopleCount > (int) $menu['stock_quantity']
+        ) {
+            $errors[] =
+                'Le stock disponible permet actuellement de servir '
+                . (int) $menu['stock_quantity']
+                . ' personne(s) maximum.';
+        }
+
         /* Vérifie la date de la prestation. */
         $eventDateObject = \DateTimeImmutable::createFromFormat(
             '!Y-m-d',
@@ -627,7 +640,7 @@ class OrderController
         /* Empêche la réutilisation du même jeton CSRF. */
         unset($_SESSION['order_csrf_token']);
 
-                $confirmation = [
+        $confirmation = [
             'order_number' => $createdOrder['order_number'],
             'status_name' => $createdOrder['status_name'],
             'customer_first_name' => $user['first_name'],
@@ -668,7 +681,7 @@ class OrderController
     /* confirmation de commande */
     /* -------------------------------------------------- */
 
-        /* Affiche la confirmation après enregistrement. */
+    /* Affiche la confirmation après enregistrement. */
     public function confirmation(): void
     {
         if (empty($_SESSION['user'])) {

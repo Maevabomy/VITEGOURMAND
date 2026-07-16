@@ -283,10 +283,19 @@
                         id="people_count"
                         name="people_count"
                         min="<?php echo (int) $menu['minimum_people']; ?>"
+                        max="<?php echo (int) $menu['stock_quantity']; ?>"
                         value="<?php echo (int) $formData['people_count']; ?>"
                         data-minimum-people="<?php echo (int) $menu['minimum_people']; ?>"
                         data-base-price="<?php echo (float) $menu['base_price']; ?>"
                         required>
+
+                    <p class="form-text order-stock-information">
+                        Quantité actuellement disponible :
+                        <strong>
+                            <?php echo (int) $menu['stock_quantity']; ?>
+                            portions
+                        </strong>
+                    </p>
 
                     <small class="form-text">
                         Minimum :
