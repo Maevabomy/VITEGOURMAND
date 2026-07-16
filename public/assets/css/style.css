@@ -169,6 +169,18 @@ p {
     transform: translateY(-2px);
 }
 
+/* Force la lisibilité des boutons personnalisés. */
+button.btn-custom {
+    color: var(--color-text) !important;
+}
+
+/* Conserve la couleur du texte dans tous les états. */
+button.btn-custom:hover,
+button.btn-custom:focus,
+button.btn-custom:active {
+    color: var(--color-text) !important;
+}
+
 /* -------------------------------------------------- */
 /* présentation de l'entreprise */
 /* -------------------------------------------------- */
@@ -1430,6 +1442,122 @@ p {
 
     /* Étend le bouton sur les petits écrans. */
     .order-confirmation-actions .btn {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* erreur de commande */
+/* -------------------------------------------------- */
+
+/* Centre la carte d'erreur sur le fond sombre. */
+.order-error-section {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(116, 37, 58, 0.2),
+            rgba(145, 159, 132, 0.05)
+        ),
+        var(--color-background);
+}
+
+/* Crée la carte principale d'erreur. */
+.order-error-card {
+    max-width: 760px;
+    padding: 2.2rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.22);
+}
+
+/* Espace l'en-tête de la page. */
+.order-error-header {
+    margin-bottom: 1.75rem;
+}
+
+/* Affiche le symbole d'avertissement. */
+.order-error-icon {
+    width: 58px;
+    height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    background-color: rgba(116, 37, 58, 0.2);
+    border: 2px solid var(--color-wine);
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Adapte le titre à la carte d'erreur. */
+.order-error-title {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: clamp(2.3rem, 6vw, 4rem);
+}
+
+/* Adoucit le texte d'introduction. */
+.order-error-introduction {
+    max-width: 610px;
+    margin: 0 auto;
+    color: var(--color-text-soft);
+}
+
+/* Encadre la liste des erreurs. */
+.order-error-details {
+    padding: 1.4rem;
+    background-color: rgba(116, 37, 58, 0.1);
+    border: 1px solid rgba(116, 37, 58, 0.45);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+/* Style le titre de la liste. */
+.order-error-subtitle {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: 1.3rem;
+}
+
+/* Espace correctement les erreurs. */
+.order-error-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text);
+}
+
+/* Sépare les erreurs lorsqu'il y en a plusieurs. */
+.order-error-list li + li {
+    margin-top: 0.65rem;
+}
+
+/* Centre le bouton de retour. */
+.order-error-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.75rem;
+}
+
+/* -------------------------------------------------- */
+/* responsive erreur de commande */
+/* -------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+    /* Réduit les marges internes sur mobile. */
+    .order-error-card {
+        padding: 1.35rem;
+    }
+
+    /* Étend le bouton sur les petits écrans. */
+    .order-error-actions .btn {
         width: 100%;
     }
 }

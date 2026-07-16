@@ -520,21 +520,24 @@ class OrderController
         if (!empty($errors)) {
             http_response_code(422);
 
-            echo '<h1>Commande invalide</h1>';
-            echo '<ul>';
+            $pageTitle = 'Commande invalide';
 
-            foreach ($errors as $error) {
-                echo '<li>'
-                    . htmlspecialchars($error)
-                    . '</li>';
-            }
+            $errorTitle = 'Commande invalide';
 
-            echo '</ul>';
-            echo '<p><a href="'
-                . BASE_URL
+            $errorMessage =
+                'Votre commande n’a pas été enregistrée. '
+                . 'Veuillez corriger les informations indiquées ci-dessous.';
+
+            $returnUrl =
+                BASE_URL
                 . '/order/create?menu_id='
-                . (int) $menuId
-                . '">Retour au formulaire</a></p>';
+                . (int) $menuId;
+
+            $openingHours = OpeningHour::getAll();
+
+            $view = BASE_PATH . '/app/Views/orders/error.php';
+
+            require BASE_PATH . '/app/Views/layouts/main.php';
 
             return;
         }

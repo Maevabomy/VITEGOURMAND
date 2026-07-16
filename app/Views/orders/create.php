@@ -401,7 +401,7 @@
                 <div class="order-submit mt-4">
                     <button
                         type="submit"
-                        class="btn btn-primary w-100">
+                        class="btn btn-custom w-100">
                         Valider ma commande
                     </button>
                 </div>
