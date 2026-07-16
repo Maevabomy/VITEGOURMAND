@@ -198,6 +198,42 @@ class Order
     }
 
     /* -------------------------------------------------- */
+    /* commandes d'un utilisateur */
+    /* -------------------------------------------------- */
+
+    /* Récupère les commandes d'un utilisateur connecté. */
+    public static function findAllByUserId(int $userId): array
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+                orders.id,
+                orders.order_number,
+                orders.event_date,
+                orders.delivery_time,
+                orders.people_count,
+                orders.total_price,
+                orders.created_at,
+                menus.title AS menu_title,
+                order_statuses.name AS status_name
+            FROM orders
+            INNER JOIN menus
+                ON menus.id = orders.menu_id
+            INNER JOIN order_statuses
+                ON order_statuses.id = orders.current_status_id
+            WHERE orders.user_id = :user_id
+            ORDER BY orders.created_at DESC'
+        );
+
+        $query->execute([
+            'user_id' => $userId,
+        ]);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /* -------------------------------------------------- */
     /* numéro de commande */
     /* -------------------------------------------------- */
 

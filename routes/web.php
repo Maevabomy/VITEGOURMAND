@@ -5,6 +5,8 @@ use App\Controllers\HomeController;
 use App\Controllers\MenuController;
 use App\Controllers\AuthController;
 use App\Controllers\OrderController;
+use App\Controllers\UserController;
+
 /* -------------------------------------------------- */
 /* routes publiques */
 /* -------------------------------------------------- */
@@ -61,6 +63,8 @@ $router->post('/reset-password', [AuthController::class, 'updatePassword']);
 /* Déconnecte l'utilisateur. */
 $router->post('/logout', [AuthController::class, 'logout']);
 
+/* Affiche le tableau de bord de l'utilisateur. */
+$router->get('/user/dashboard', [UserController::class, 'dashboard']);
 
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);

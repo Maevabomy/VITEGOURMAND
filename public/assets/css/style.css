@@ -1224,11 +1224,9 @@ button.btn-custom:active {
     display: flex;
     align-items: center;
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(116, 37, 58, 0.2),
-            rgba(145, 159, 132, 0.07)
-        ),
+            rgba(145, 159, 132, 0.07)),
         rgba(18, 15, 16, 1);
 }
 
@@ -1460,11 +1458,9 @@ button.btn-custom:active {
     display: flex;
     align-items: center;
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(116, 37, 58, 0.2),
-            rgba(145, 159, 132, 0.05)
-        ),
+            rgba(145, 159, 132, 0.05)),
         var(--color-background);
 }
 
@@ -1538,7 +1534,7 @@ button.btn-custom:active {
 }
 
 /* Sépare les erreurs lorsqu'il y en a plusieurs. */
-.order-error-list li + li {
+.order-error-list li+li {
     margin-top: 0.65rem;
 }
 
@@ -1563,5 +1559,253 @@ button.btn-custom:active {
     /* Étend le bouton sur les petits écrans. */
     .order-error-actions .btn {
         width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* espace utilisateur */
+/* -------------------------------------------------- */
+
+/* Présente l'en-tête du tableau de bord. */
+.user-dashboard-hero {
+    background:
+        linear-gradient(135deg,
+            rgba(116, 37, 58, 0.24),
+            rgba(145, 159, 132, 0.06)),
+        var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Met le titre principal en valeur. */
+.user-dashboard-title {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+/* Limite la largeur du texte d'introduction. */
+.user-dashboard-introduction {
+    max-width: 720px;
+    color: var(--color-text-soft);
+}
+
+/* Applique le fond principal de l'espace utilisateur. */
+.user-dashboard-section {
+    min-height: 65vh;
+    background-color: var(--color-background);
+}
+
+/* Crée les cartes principales du tableau de bord. */
+.user-dashboard-card {
+    padding: 1.75rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
+}
+
+/* Espace le titre de chaque carte. */
+.user-dashboard-card-header {
+    margin-bottom: 1.5rem;
+}
+
+/* Style les titres des blocs. */
+.user-dashboard-card-title {
+    margin-bottom: 0;
+    color: var(--color-champagne);
+    font-size: 1.65rem;
+}
+
+/* Supprime les marges par défaut de la liste du profil. */
+.user-profile-list {
+    margin: 0;
+}
+
+/* Sépare les informations personnelles. */
+.user-profile-row {
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Supprime la bordure de la dernière information. */
+.user-profile-row:last-child {
+    border-bottom: 0;
+}
+
+/* Style les libellés du profil. */
+.user-profile-row dt {
+    margin-bottom: 0.25rem;
+    color: var(--color-text-soft);
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+/* Style les valeurs du profil. */
+.user-profile-row dd {
+    margin: 0;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+/* Espace le futur bouton de modification. */
+.user-dashboard-card-actions {
+    margin-top: 1.5rem;
+}
+
+/* Espace les commandes affichées. */
+.user-orders-list {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Crée une carte pour chaque commande. */
+.user-order-card {
+    padding: 1.35rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-sage);
+    border-radius: 0.4rem;
+}
+
+/* Aligne la référence et le statut. */
+.user-order-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Style le numéro de commande. */
+.user-order-reference {
+    color: var(--color-sage);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
+}
+
+/* Style le nom du menu. */
+.user-order-menu-title {
+    margin: 0;
+    color: var(--color-champagne);
+    font-size: 1.3rem;
+}
+
+/* Affiche le statut sous forme de badge. */
+.user-order-status {
+    flex-shrink: 0;
+    padding: 0.45rem 0.75rem;
+    color: var(--color-text);
+    background-color: rgba(145, 159, 132, 0.14);
+    border: 1px solid rgba(145, 159, 132, 0.45);
+    border-radius: 50rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* Organise les informations de la commande. */
+.user-order-information {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+/* Place les libellés au-dessus des valeurs. */
+.user-order-information>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+/* Adoucit les libellés. */
+.user-order-label {
+    color: var(--color-text-soft);
+    font-size: 0.82rem;
+}
+
+/* Met les valeurs en évidence. */
+.user-order-information strong {
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+/* Aligne le futur bouton de détail. */
+.user-order-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.25rem;
+}
+
+/* Remplace le bleu Bootstrap sur le bouton de détail. */
+.user-order-detail-button {
+    color: var(--color-champagne);
+    background-color: var(--color-wine);
+    border: 1px solid var(--color-wine);
+}
+
+/* Conserve une apparence élégante lorsque le bouton est désactivé. */
+.user-order-detail-button:disabled {
+    color: var(--color-champagne);
+    background-color: rgba(116, 37, 58, 0.72);
+    border-color: rgba(222, 194, 183, 0.28);
+    opacity: 1;
+}
+
+/* Prépare l'effet au survol lorsque le bouton sera actif. */
+.user-order-detail-button:not(:disabled):hover,
+.user-order-detail-button:not(:disabled):focus {
+    color: var(--color-champagne-hover);
+    background-color: var(--color-wine-hover);
+    border-color: var(--color-wine-hover);
+}
+
+/* Centre le message lorsqu'aucune commande n'existe. */
+.user-orders-empty {
+    padding: 2.5rem 1rem;
+    color: var(--color-text-soft);
+    text-align: center;
+}
+
+/* Style le titre de l'état vide. */
+.user-orders-empty-title {
+    color: var(--color-champagne);
+    font-size: 1.4rem;
+}
+
+/* -------------------------------------------------- */
+/* responsive espace utilisateur */
+/* -------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+    /* Réduit les marges internes des cartes. */
+    .user-dashboard-card {
+        padding: 1.25rem;
+    }
+
+    /* Empile le statut sous les informations principales. */
+    .user-order-card-header {
+        flex-direction: column;
+    }
+
+    /* Répartit les informations sur deux colonnes. */
+    .user-order-information {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Étend les boutons sur mobile. */
+    .user-dashboard-card-actions .btn,
+    .user-order-actions .btn,
+    .user-orders-empty .btn {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    /* Affiche les informations sur une seule colonne. */
+    .user-order-information {
+        grid-template-columns: 1fr;
     }
 }

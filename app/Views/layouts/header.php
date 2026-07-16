@@ -60,9 +60,11 @@
 
                         <?php if (!empty($_SESSION['user'])): ?>
                             <li class="nav-item">
-                                <span class="nav-link">
+                                <a
+                                    class="nav-link"
+                                    href="<?php echo BASE_URL; ?>/user/dashboard">
                                     Mon compte
-                                </span>
+                                </a>
                             </li>
 
                             <li class="nav-item">
