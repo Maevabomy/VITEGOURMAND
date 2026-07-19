@@ -66,5 +66,23 @@ $router->post('/logout', [AuthController::class, 'logout']);
 /* Affiche le tableau de bord de l'utilisateur. */
 $router->get('/user/dashboard', [UserController::class, 'dashboard']);
 
+/* Affiche le détail d'une commande. */
+$router->get('/user/order/detail', [UserController::class, 'orderDetail']);
+
+/* Affiche le formulaire de modification d'une commande. */
+$router->get('/user/order/edit', [UserController::class, 'editOrder']);
+
+/* Enregistre la modification d'une commande. */
+$router->post('/user/order/update', [UserController::class, 'updateOrder']);
+
+/* Annule une commande encore en attente. */
+$router->post('/user/order/cancel', [UserController::class,'cancelOrder',]);
+
+/* Affiche le formulaire de modification du profil. */
+$router->get('/user/profile/edit', [UserController::class,'editProfile',]);
+
+/* Enregistre les modifications du profil. */
+$router->post('/user/profile/update', [UserController::class,'updateProfile',]);
+
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);

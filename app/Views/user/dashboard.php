@@ -27,6 +27,15 @@
 
 <section class="user-dashboard-section py-5">
     <div class="container py-4">
+        <?php if (!empty($success)): ?>
+
+            <div
+                class="alert alert-success mb-4"
+                role="alert">
+                <?php echo htmlspecialchars($success); ?>
+            </div>
+
+        <?php endif; ?>
 
         <div class="row g-4">
 
@@ -99,12 +108,13 @@
                     </dl>
 
                     <div class="user-dashboard-card-actions">
-                        <button
-                            type="button"
-                            class="btn btn-outline-light"
-                            disabled>
+                        <a
+                            href="<?php
+                                    echo BASE_URL . '/user/profile/edit';
+                                    ?>"
+                            class="btn user-profile-edit-button">
                             Modifier mes informations
-                        </button>
+                        </a>
                     </div>
 
                 </article>
@@ -242,12 +252,15 @@
                                     </div>
 
                                     <div class="user-order-actions">
-                                        <button
-                                            type="button"
-                                            class="btn user-order-detail-button"
-                                            disabled>
+                                        <a
+                                            href="<?php
+                                                    echo BASE_URL
+                                                        . '/user/order/detail?id='
+                                                        . (int) $order['id'];
+                                                    ?>"
+                                            class="btn user-order-detail-button">
                                             Voir le détail
-                                        </button>
+                                        </a>
                                     </div>
 
                                 </article>

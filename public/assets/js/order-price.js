@@ -25,17 +25,14 @@ if (
   const availableStock = Number.parseInt(peopleCountInput.max, 10);
 
   peopleCountInput.addEventListener("invalid", () => {
-    const requestedQuantity = Number.parseInt(
-      peopleCountInput.value,
-      10
-    );
+    const requestedQuantity = Number.parseInt(peopleCountInput.value, 10);
 
     if (
       Number.isInteger(availableStock) &&
       requestedQuantity > availableStock
     ) {
       peopleCountInput.setCustomValidity(
-        `Il reste seulement ${availableStock} portions disponibles pour ce menu.`
+        `Il reste seulement ${availableStock} portions disponibles pour ce menu.`,
       );
 
       return;
@@ -53,7 +50,12 @@ if (
   const pricePerPerson = basePrice / minimumPeople;
 
   let currentMenuPrice = basePrice;
-  let currentDeliveryFee = 0;
+
+  const savedDeliveryFee = Number(peopleCountInput.dataset.currentDeliveryFee);
+
+  let currentDeliveryFee = Number.isFinite(savedDeliveryFee)
+    ? savedDeliveryFee
+    : 0;
 
   const formatPrice = (price) => {
     return (

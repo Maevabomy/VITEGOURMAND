@@ -27,6 +27,29 @@ class User
         return $query->fetch() !== false;
     }
 
+    /* Vérifie si un email appartient déjà à un autre compte. */
+    public static function emailExistsForAnotherUser(
+        string $email,
+        int $userId
+    ): bool {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT id
+            FROM users
+            WHERE email = :email
+                AND id != :user_id
+            LIMIT 1'
+        );
+
+        $query->execute([
+            'email' => $email,
+            'user_id' => $userId,
+        ]);
+
+        return $query->fetch() !== false;
+    }
+
     /* Recherche un utilisateur à partir de son adresse mail. */
     public static function findByEmail(string $email): ?array
     {
@@ -171,6 +194,44 @@ class User
             'password_hash' => $data['password_hash'],
         ]);
     }
+
+    /* -------------------------------------------------- */
+    /* mise à jour du profil */
+    /* -------------------------------------------------- */
+
+    /* Modifie les informations personnelles du compte. */
+    public static function updateProfile(
+        int $userId,
+        array $data
+    ): bool {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'UPDATE users
+            SET first_name = :first_name,
+                last_name = :last_name,
+                phone = :phone,
+                email = :email,
+                address = :address,
+                postal_code = :postal_code,
+                city = :city,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = :user_id
+                AND is_active = TRUE'
+        );
+
+        return $query->execute([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'phone' => $data['phone'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'postal_code' => $data['postal_code'],
+            'city' => $data['city'],
+            'user_id' => $userId,
+        ]);
+    }
+
     /* -------------------------------------------------- */
     /* mise à jour du mot de passe */
     /* -------------------------------------------------- */

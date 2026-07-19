@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Services\DeliveryService;
 use App\Services\MailService;
+use App\Services\OrderService;
 
 class OrderController
 {
@@ -438,85 +439,31 @@ class OrderController
                 . ' personne(s) maximum.';
         }
 
-        /* Vérifie la date de la prestation. */
-        $eventDateObject = \DateTimeImmutable::createFromFormat(
-            '!Y-m-d',
-            $eventDate
-        );
+        /* Vérifie la date et la disponibilité du menu. */
+        if ($menu !== null) {
+            $dateValidation =
+                OrderService::validateEventDate(
+                    $eventDate,
+                    $menu
+                );
 
-        $eventDateErrors = \DateTimeImmutable::getLastErrors();
+            $errors = array_merge(
+                $errors,
+                $dateValidation['errors']
+            );
+        }
 
+        /* Vérifie le créneau de livraison côté serveur. */
         if (
-            $eventDateObject === false
-            || (
-                is_array($eventDateErrors)
-                && (
-                    $eventDateErrors['warning_count'] > 0
-                    || $eventDateErrors['error_count'] > 0
-                )
+            !OrderService::isValidDeliveryTime(
+                $deliveryTime
             )
         ) {
-            $errors[] =
-                'La date de la prestation est invalide.';
-        }
-
-        if (
-            $menu !== null
-            && $eventDateObject instanceof \DateTimeImmutable
-        ) {
-            $minimumEventDate = new \DateTimeImmutable(
-                '+' . (int) $menu['minimum_order_days'] . ' days'
-            );
-
-            $minimumEventDate = $minimumEventDate->setTime(
-                0,
-                0
-            );
-
-            if ($eventDateObject < $minimumEventDate) {
-                $errors[] =
-                    'Le délai minimum de commande pour ce menu n’est pas respecté.';
-            }
-
-            if (!empty($menu['available_from'])) {
-                $availableFrom = new \DateTimeImmutable(
-                    $menu['available_from']
-                );
-
-                if ($eventDateObject < $availableFrom) {
-                    $errors[] =
-                        'Ce menu n’est pas disponible à cette date.';
-                }
-            }
-
-            if (!empty($menu['available_until'])) {
-                $availableUntil = new \DateTimeImmutable(
-                    $menu['available_until']
-                );
-
-                if ($eventDateObject > $availableUntil) {
-                    $errors[] =
-                        'Ce menu n’est plus disponible à cette date.';
-                }
-            }
-        }
-
-        /* Vérifie les créneaux de 10 h à 20 h toutes les 30 minutes. */
-        $validTimes = [];
-
-        for (
-            $time = strtotime('10:00');
-            $time <= strtotime('20:00');
-            $time += 30 * 60
-        ) {
-            $validTimes[] = date('H:i', $time);
-        }
-
-        if (!in_array($deliveryTime, $validTimes, true)) {
             $errors[] =
                 'Le créneau de livraison sélectionné est invalide.';
         }
 
+                /* Affiche les erreurs avant tout calcul ou enregistrement. */
         if (!empty($errors)) {
             http_response_code(422);
 
@@ -567,29 +514,28 @@ class OrderController
         );
 
         /* Recalcule le prix du menu côté serveur. */
-        $minimumPeople = (int) $menu['minimum_people'];
-        $basePrice = (float) $menu['base_price'];
-        $pricePerPerson = $basePrice / $minimumPeople;
+        $priceCalculation =
+            OrderService::calculateMenuPrice(
+                $menu,
+                (int) $peopleCount
+            );
 
-        $menuPrice = $pricePerPerson * (int) $peopleCount;
+        $menuPrice =
+            (float) $priceCalculation['menu_price'];
 
         $discountApplies =
-            (int) $peopleCount >= $minimumPeople + 5;
+            (bool) $priceCalculation['discount_applies'];
 
-        if ($discountApplies) {
-            $menuPrice *= 0.90;
-        }
-
-        $menuPrice = round($menuPrice, 2);
         $deliveryPrice = round(
             (float) $deliveryFees['delivery_fee'],
             2
         );
 
-        $totalPrice = round(
-            $menuPrice + $deliveryPrice,
-            2
-        );
+        $totalPrice =
+            OrderService::calculateTotalPrice(
+                $menuPrice,
+                $deliveryPrice
+            );
 
         /* Recharge les données du client depuis la base. */
         $user = User::findById(
