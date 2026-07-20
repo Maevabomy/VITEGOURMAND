@@ -59,11 +59,27 @@
                         </li>
 
                         <?php if (!empty($_SESSION['user'])): ?>
+
+                            <?php
+                            $connectedUserRole =
+                                $_SESSION['user']['role'] ?? null;
+
+                            $accountUrl =
+                                $connectedUserRole === 'user'
+                                ? BASE_URL . '/user/dashboard'
+                                : BASE_URL . '/employee/dashboard';
+
+                            $accountLabel =
+                                $connectedUserRole === 'user'
+                                ? 'Mon compte'
+                                : 'Espace professionnel';
+                            ?>
+
                             <li class="nav-item">
                                 <a
                                     class="nav-link"
-                                    href="<?php echo BASE_URL; ?>/user/dashboard">
-                                    Mon compte
+                                    href="<?php echo htmlspecialchars($accountUrl); ?>">
+                                    <?php echo htmlspecialchars($accountLabel); ?>
                                 </a>
                             </li>
 

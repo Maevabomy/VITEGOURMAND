@@ -64,6 +64,88 @@ class MailService
         );
     }
 
+        /* -------------------------------------------------- */
+    /* suivi d'une commande */
+    /* -------------------------------------------------- */
+
+    /* Informe le client que sa commande est acceptée. */
+    public static function sendOrderAcceptedEmail(
+        string $email,
+        array $order
+    ): bool {
+        $subject =
+            'Votre commande '
+            . $order['order_number']
+            . ' est acceptée';
+
+        $message = self::buildOrderAcceptedMessage($order);
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
+    /* Informe le client du délai de retour du matériel. */
+    public static function sendEquipmentReturnEmail(
+        string $email,
+        array $order
+    ): bool {
+        $subject =
+            'Retour du matériel - commande '
+            . $order['order_number'];
+
+        $message = self::buildEquipmentReturnMessage($order);
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
+    /* Invite le client à laisser un avis après la prestation. */
+    public static function sendOrderCompletedEmail(
+        string $email,
+        array $order,
+        string $orderDetailLink
+    ): bool {
+        $subject =
+            'Votre commande '
+            . $order['order_number']
+            . ' est terminée';
+
+        $message = self::buildOrderCompletedMessage(
+            $order,
+            $orderDetailLink
+        );
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
+    /* Confirme l'annulation d'une commande. */
+    public static function sendOrderCancelledEmail(
+        string $email,
+        array $order
+    ): bool {
+        $subject =
+            'Annulation de votre commande '
+            . $order['order_number'];
+
+        $message = self::buildOrderCancelledMessage($order);
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
     /* -------------------------------------------------- */
     /* envoi du mail */
     /* -------------------------------------------------- */
@@ -343,6 +425,259 @@ class MailService
 
                 <p>
                     À bientôt,<br>
+                    Julie et José
+                </p>
+            </body>
+            </html>
+        ';
+    }
+
+        /* Prépare le mail confirmant l'acceptation. */
+    private static function buildOrderAcceptedMessage(
+        array $order
+    ): string {
+        $safeFirstName = htmlspecialchars(
+            $order['customer_first_name'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderNumber = htmlspecialchars(
+            $order['order_number'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeMenuTitle = htmlspecialchars(
+            $order['menu_title'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $formattedDate = date(
+            'd/m/Y',
+            strtotime($order['event_date'])
+        );
+
+        $formattedTime = date(
+            'H\hi',
+            strtotime($order['delivery_time'])
+        );
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Commande acceptée</title>
+            </head>
+            <body>
+                <h1>Bonjour ' . $safeFirstName . '</h1>
+
+                <p>
+                    Votre commande
+                    <strong>' . $safeOrderNumber . '</strong>
+                    a été acceptée par notre équipe.
+                </p>
+
+                <p>
+                    <strong>Menu :</strong>
+                    ' . $safeMenuTitle . '
+                </p>
+
+                <p>
+                    <strong>Date de la prestation :</strong>
+                    ' . $formattedDate . ' à ' . $formattedTime . '
+                </p>
+
+                <p>
+                    Nous vous tiendrons informé de son avancement.
+                </p>
+
+                <p>
+                    À bientôt,<br>
+                    Julie et José
+                </p>
+            </body>
+            </html>
+        ';
+    }
+
+    /* Prépare le mail de retour du matériel. */
+    private static function buildEquipmentReturnMessage(
+        array $order
+    ): string {
+        $safeFirstName = htmlspecialchars(
+            $order['customer_first_name'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderNumber = htmlspecialchars(
+            $order['order_number'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $formattedDeadline = 'Non définie';
+
+        if (!empty($order['equipment_return_deadline'])) {
+            $formattedDeadline = date(
+                'd/m/Y',
+                strtotime(
+                    $order['equipment_return_deadline']
+                )
+            );
+        }
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Retour du matériel</title>
+            </head>
+            <body>
+                <h1>Bonjour ' . $safeFirstName . '</h1>
+
+                <p>
+                    La prestation liée à votre commande
+                    <strong>' . $safeOrderNumber . '</strong>
+                    a été livrée.
+                </p>
+
+                <p>
+                    Du matériel vous a été confié pour la prestation.
+                    Il doit être restitué au plus tard le
+                    <strong>' . $formattedDeadline . '</strong>.
+                </p>
+
+                <p>
+                    En l’absence de restitution dans le délai prévu,
+                    une pénalité pouvant atteindre 600 € pourra être
+                    appliquée.
+                </p>
+
+                <p>
+                    Pour organiser le retour, vous pouvez contacter
+                    notre équipe.
+                </p>
+
+                <p>
+                    À bientôt,<br>
+                    Julie et José
+                </p>
+            </body>
+            </html>
+        ';
+    }
+
+    /* Prépare le mail envoyé à la fin de la commande. */
+    private static function buildOrderCompletedMessage(
+        array $order,
+        string $orderDetailLink
+    ): string {
+        $safeFirstName = htmlspecialchars(
+            $order['customer_first_name'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderNumber = htmlspecialchars(
+            $order['order_number'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderDetailLink = htmlspecialchars(
+            $orderDetailLink,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Commande terminée</title>
+            </head>
+            <body>
+                <h1>Bonjour ' . $safeFirstName . '</h1>
+
+                <p>
+                    Votre commande
+                    <strong>' . $safeOrderNumber . '</strong>
+                    est maintenant terminée.
+                </p>
+
+                <p>
+                    Nous espérons que la prestation vous a donné
+                    entière satisfaction.
+                </p>
+
+                <p>
+                    Vous pouvez partager votre expérience depuis
+                    le détail de votre commande :
+                </p>
+
+                <p>
+                    <a href="' . $safeOrderDetailLink . '">
+                        Donner mon avis
+                    </a>
+                </p>
+
+                <p>
+                    Merci pour votre confiance,<br>
+                    Julie et José
+                </p>
+            </body>
+            </html>
+        ';
+    }
+
+    /* Prépare le mail confirmant l'annulation. */
+    private static function buildOrderCancelledMessage(
+        array $order
+    ): string {
+        $safeFirstName = htmlspecialchars(
+            $order['customer_first_name'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeOrderNumber = htmlspecialchars(
+            $order['order_number'],
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Commande annulée</title>
+            </head>
+            <body>
+                <h1>Bonjour ' . $safeFirstName . '</h1>
+
+                <p>
+                    Nous vous confirmons l’annulation de la commande
+                    <strong>' . $safeOrderNumber . '</strong>.
+                </p>
+
+                <p>
+                    Cette annulation a été enregistrée après votre
+                    échange avec notre équipe.
+                </p>
+
+                <p>
+                    Pour toute question, vous pouvez nous contacter.
+                </p>
+
+                <p>
+                    Cordialement,<br>
                     Julie et José
                 </p>
             </body>

@@ -2156,3 +2156,399 @@ button.btn-custom:active {
         grid-template-columns: 1fr;
     }
 }
+
+/* -------------------------------------------------- */
+/* espace employé */
+/* -------------------------------------------------- */
+
+/* Présente l'en-tête de l'espace professionnel. */
+.employee-dashboard-hero {
+    background:
+        linear-gradient(135deg,
+            rgba(116, 37, 58, 0.3),
+            rgba(145, 159, 132, 0.1)),
+        var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Met le titre principal en valeur. */
+.employee-dashboard-title {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+/* Limite la largeur du texte d'introduction. */
+.employee-dashboard-introduction {
+    max-width: 760px;
+    color: var(--color-text-soft);
+}
+
+/* Applique le fond principal. */
+.employee-dashboard-section {
+    min-height: 65vh;
+    background-color: var(--color-background);
+}
+
+/* Crée les cartes principales. */
+.employee-dashboard-card {
+    padding: 1.75rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
+}
+
+/* Espace les titres des cartes. */
+.employee-dashboard-card-header {
+    margin-bottom: 1.5rem;
+}
+
+/* Style les titres secondaires. */
+.employee-dashboard-card-title {
+    margin-bottom: 0;
+    color: var(--color-champagne);
+    font-size: 1.65rem;
+}
+
+/* Organise les filtres sur une ligne. */
+.employee-order-filters {
+    display: grid;
+    grid-template-columns:
+        minmax(180px, 0.75fr) minmax(240px, 1.5fr) auto;
+    align-items: end;
+    gap: 1rem;
+}
+
+/* Aligne les actions des filtres. */
+.employee-order-filter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Évite le bleu Bootstrap sur la réinitialisation. */
+.employee-filter-reset-button {
+    color: var(--color-champagne);
+    background-color: transparent;
+    border: 1px solid rgba(222, 194, 183, 0.35);
+}
+
+/* Conserve l'identité au survol. */
+.employee-filter-reset-button:hover,
+.employee-filter-reset-button:focus {
+    color: var(--color-champagne-hover);
+    background-color: rgba(222, 194, 183, 0.08);
+    border-color: var(--color-champagne);
+}
+
+/* Aligne le titre de liste et le nombre de résultats. */
+.employee-orders-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Affiche le nombre de commandes sous forme de badge. */
+.employee-order-count {
+    flex-shrink: 0;
+    padding: 0.45rem 0.8rem;
+    color: var(--color-champagne);
+    background-color: rgba(116, 37, 58, 0.22);
+    border: 1px solid rgba(116, 37, 58, 0.65);
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Espace les commandes. */
+.employee-orders-list {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Crée une carte par commande. */
+.employee-order-card {
+    padding: 1.35rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-sage);
+    border-radius: 0.4rem;
+}
+
+/* Aligne le client et le statut. */
+.employee-order-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Style la référence. */
+.employee-order-reference {
+    color: var(--color-sage);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
+}
+
+/* Style le nom du client. */
+.employee-order-client {
+    margin-bottom: 0.25rem;
+    color: var(--color-champagne);
+    font-size: 1.3rem;
+}
+
+/* Adoucit l'adresse mail. */
+.employee-order-email {
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+/* Organise les informations principales. */
+.employee-order-information {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+/* Place chaque valeur sous son libellé. */
+.employee-order-information>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+/* Met les valeurs en évidence. */
+.employee-order-information strong {
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+/* Aligne le bouton de détail. */
+.employee-order-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.25rem;
+}
+
+/* Adapte le tableau de bord aux écrans moyens. */
+@media (max-width: 991.98px) {
+    .employee-order-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .employee-order-filter-actions {
+        grid-column: 1 / -1;
+    }
+
+    .employee-order-information {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Adapte le tableau de bord aux mobiles. */
+@media (max-width: 575.98px) {
+    .employee-dashboard-card {
+        padding: 1.25rem;
+    }
+
+    .employee-order-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-order-filter-actions {
+        grid-column: auto;
+        flex-direction: column;
+    }
+
+    .employee-order-filter-actions .btn {
+        width: 100%;
+    }
+
+    .employee-orders-heading,
+    .employee-order-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .employee-order-information {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-order-actions,
+    .employee-order-actions .btn {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* détail d'une commande employé */
+/* -------------------------------------------------- */
+
+/* Aligne le titre du détail et le statut. */
+.employee-order-detail-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Organise les informations générales. */
+.employee-order-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+/* Place les informations sur deux lignes. */
+.employee-order-detail-grid>div,
+.employee-order-detail-list>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+/* Espace les informations verticales. */
+.employee-order-detail-list {
+    display: grid;
+    gap: 1.15rem;
+}
+
+/* Conserve une couleur cohérente pour les liens. */
+.employee-order-detail-list a {
+    color: var(--color-champagne);
+    overflow-wrap: anywhere;
+}
+
+/* Met le total général en valeur. */
+.employee-order-total {
+    color: var(--color-champagne);
+    font-size: 1.2rem;
+}
+
+/* Organise la chronologie des statuts. */
+.employee-status-history {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Crée une ligne de suivi. */
+.employee-status-history-item {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.75fr) 1fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-sage);
+    border-radius: 0.35rem;
+}
+
+/* Adapte le détail aux tablettes. */
+@media (max-width: 991.98px) {
+    .employee-order-detail-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .employee-status-history-item {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .employee-status-history-item> :last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Adapte le détail aux mobiles. */
+@media (max-width: 575.98px) {
+    .employee-order-detail-heading {
+        flex-direction: column;
+    }
+
+    .employee-order-detail-grid,
+    .employee-status-history-item {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-status-history-item> :last-child {
+        grid-column: auto;
+    }
+}
+
+/* -------------------------------------------------- */
+/* changement de statut employé */
+/* -------------------------------------------------- */
+
+/* Organise le formulaire de statut. */
+.employee-status-form {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 0.75fr) minmax(280px, 1.5fr) auto;
+    align-items: end;
+    gap: 1rem;
+}
+
+/* Aligne le bouton du formulaire. */
+.employee-status-form-action {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Adapte le formulaire aux petits écrans. */
+@media (max-width: 767.98px) {
+    .employee-status-form {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-status-form-action,
+    .employee-status-form-action .btn {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* annulation employé */
+/* -------------------------------------------------- */
+
+/* Distingue visuellement l'action sensible. */
+.employee-cancellation-card {
+    border-top-color: #a94c58;
+}
+
+/* Met l'avertissement en évidence. */
+.employee-cancellation-warning {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    color: var(--color-text);
+    background-color: rgba(169, 76, 88, 0.1);
+    border: 1px solid rgba(169, 76, 88, 0.4);
+    border-radius: 0.35rem;
+}
+
+/* Organise les champs du formulaire. */
+.employee-cancellation-form {
+    display: grid;
+    gap: 1.25rem;
+}
+
+/* Style le bouton d'annulation. */
+.employee-cancellation-button {
+    color: #ffffff;
+    background-color: #8f3545;
+    border: 1px solid #a94c58;
+}
+
+/* Renforce le bouton au survol. */
+.employee-cancellation-button:hover,
+.employee-cancellation-button:focus {
+    color: #ffffff;
+    background-color: #a43e50;
+    border-color: #bd5968;
+}

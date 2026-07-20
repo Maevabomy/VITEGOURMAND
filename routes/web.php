@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\DishController;
+use App\Controllers\EmployeeController;
 use App\Controllers\HomeController;
 use App\Controllers\MenuController;
 use App\Controllers\AuthController;
@@ -86,6 +87,18 @@ $router->get('/user/profile/edit', [UserController::class,'editProfile',]);
 
 /* Enregistre les modifications du profil. */
 $router->post('/user/profile/update', [UserController::class,'updateProfile',]);
+
+/* Affiche le tableau de bord des employés. */
+$router->get('/employee/dashboard',[EmployeeController::class, 'dashboard']);
+
+/* Affiche le détail d'une commande pour un employé. */
+$router->get('/employee/order/detail',[EmployeeController::class, 'orderDetail']);
+
+/* Met à jour le statut d'une commande. */
+$router->post('/employee/order/status',[EmployeeController::class, 'updateOrderStatus']);
+
+/* Annule une commande après contact avec le client. */
+$router->post('/employee/order/cancel',[EmployeeController::class, 'cancelOrder']);
 
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);
