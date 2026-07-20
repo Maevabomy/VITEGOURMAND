@@ -100,5 +100,11 @@ $router->post('/employee/order/status',[EmployeeController::class, 'updateOrderS
 /* Annule une commande après contact avec le client. */
 $router->post('/employee/order/cancel',[EmployeeController::class, 'cancelOrder']);
 
+/* Affiche les avis en attente de modération. */
+$router->get('/employee/reviews',[EmployeeController::class, 'reviews']);
+
+/* Approuve ou refuse un avis client. */
+$router->post('/employee/review/moderate',[EmployeeController::class, 'moderateReview']);
+
 /* Affiche une photo stockée dans MariaDB. */
 $router->get('/dish/image', [DishController::class, 'image']);

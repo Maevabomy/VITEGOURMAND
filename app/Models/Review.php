@@ -39,6 +39,81 @@ class Review
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+        /* Récupère les avis à modérer pour l'espace employé. */
+    public static function findPendingForEmployee(): array
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+                reviews.id,
+                reviews.rating,
+                reviews.comment,
+                reviews.created_at,
+                users.first_name,
+                users.last_name,
+                users.email,
+                orders.order_number,
+                menus.title AS menu_title
+            FROM reviews
+            INNER JOIN users
+                ON users.id = reviews.user_id
+            INNER JOIN orders
+                ON orders.id = reviews.order_id
+            INNER JOIN menus
+                ON menus.id = orders.menu_id
+            WHERE reviews.moderation_status = :status
+            ORDER BY reviews.created_at ASC'
+        );
+
+        $query->execute([
+            'status' => 'pending',
+        ]);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /*
+     * Modère un avis encore en attente.
+     * Retourne false si l'avis a déjà été traité.
+     */
+    public static function moderateByEmployee(
+        int $reviewId,
+        string $moderationStatus
+    ): bool {
+        $allowedStatuses = [
+            'approved',
+            'refused',
+        ];
+
+        if (
+            !in_array(
+                $moderationStatus,
+                $allowedStatuses,
+                true
+            )
+        ) {
+            return false;
+        }
+
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'UPDATE reviews
+            SET moderation_status = :moderation_status
+            WHERE id = :review_id
+                AND moderation_status = :pending_status'
+        );
+
+        $query->execute([
+            'moderation_status' => $moderationStatus,
+            'review_id' => $reviewId,
+            'pending_status' => 'pending',
+        ]);
+
+        return $query->rowCount() === 1;
+    }
+
     /* Récupère l'avis déjà associé à une commande. */
     public static function findByOrderAndUser(
         int $orderId,

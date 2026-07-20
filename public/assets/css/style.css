@@ -2552,3 +2552,102 @@ button.btn-custom:active {
     background-color: #a43e50;
     border-color: #bd5968;
 }
+
+/* -------------------------------------------------- */
+/* modération des avis */
+/* -------------------------------------------------- */
+
+/* Espace les avis à modérer. */
+.employee-review-list {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Crée une carte par avis. */
+.employee-review-card {
+    padding: 1.35rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-sage);
+    border-radius: 0.4rem;
+}
+
+/* Aligne l'auteur et la note. */
+.employee-review-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Met les étoiles en évidence. */
+.employee-review-rating {
+    flex-shrink: 0;
+    color: var(--color-champagne);
+    font-size: 1.25rem;
+    letter-spacing: 0.15rem;
+}
+
+/* Organise les informations de l'avis. */
+.employee-review-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Place chaque valeur sous son libellé. */
+.employee-review-meta > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+/* Présente le commentaire. */
+.employee-review-comment {
+    margin: 0 0 1.25rem;
+    padding: 1rem;
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.025);
+    border-left: 3px solid var(--color-wine);
+}
+
+/* Aligne les actions de modération. */
+.employee-review-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Style le bouton de refus. */
+.employee-review-refuse-button {
+    color: #ffffff;
+    background-color: #8f3545;
+    border: 1px solid #a94c58;
+}
+
+/* Renforce le bouton au survol. */
+.employee-review-refuse-button:hover,
+.employee-review-refuse-button:focus {
+    color: #ffffff;
+    background-color: #a43e50;
+    border-color: #bd5968;
+}
+
+/* Adapte les avis aux mobiles. */
+@media (max-width: 767.98px) {
+    .employee-review-header {
+        flex-direction: column;
+    }
+
+    .employee-review-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-review-actions,
+    .employee-review-actions form,
+    .employee-review-actions .btn {
+        width: 100%;
+    }
+}

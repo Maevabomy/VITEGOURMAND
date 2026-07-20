@@ -26,6 +26,14 @@
             pour accéder rapidement à une prestation.
         </p>
 
+        <div class="mt-4">
+            <a
+                href="<?php echo BASE_URL; ?>/employee/reviews"
+                class="btn btn-custom">
+                Modérer les avis
+            </a>
+        </div>
+
     </div>
 </section>
 
