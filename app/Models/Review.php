@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Services\Database;
 use PDO;
+use Throwable;
 
 class Review
 {
     /* -------------------------------------------------- */
-    /* récupération des avis validés */
+    /* récupération des avis */
     /* -------------------------------------------------- */
 
     /* Récupère les avis validés pour la page d'accueil. */
@@ -36,5 +37,146 @@ class Review
         ]);
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /* Récupère l'avis déjà associé à une commande. */
+    public static function findByOrderAndUser(
+        int $orderId,
+        int $userId
+    ): ?array {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+                reviews.id,
+                reviews.order_id,
+                reviews.user_id,
+                reviews.rating,
+                reviews.comment,
+                reviews.moderation_status,
+                reviews.created_at
+            FROM reviews
+            WHERE reviews.order_id = :order_id
+                AND reviews.user_id = :user_id
+            LIMIT 1'
+        );
+
+        $query->execute([
+            'order_id' => $orderId,
+            'user_id' => $userId,
+        ]);
+
+        $review = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $review ?: null;
+    }
+
+    /* -------------------------------------------------- */
+    /* création d'un avis */
+    /* -------------------------------------------------- */
+
+    /*
+     * Enregistre un avis uniquement pour une commande terminée
+     * appartenant à l'utilisateur.
+     */
+    public static function createForOrder(
+        int $orderId,
+        int $userId,
+        int $rating,
+        string $comment
+    ): string {
+        $connection = Database::getConnection();
+
+        try {
+            $connection->beginTransaction();
+
+            /* Verrouille et contrôle la commande. */
+            $orderQuery = $connection->prepare(
+                'SELECT
+                    orders.id,
+                    order_statuses.name AS status_name
+                FROM orders
+                INNER JOIN order_statuses
+                    ON order_statuses.id =
+                        orders.current_status_id
+                WHERE orders.id = :order_id
+                    AND orders.user_id = :user_id
+                LIMIT 1
+                FOR UPDATE'
+            );
+
+            $orderQuery->execute([
+                'order_id' => $orderId,
+                'user_id' => $userId,
+            ]);
+
+            $order = $orderQuery->fetch(PDO::FETCH_ASSOC);
+
+            if (!$order) {
+                $connection->rollBack();
+
+                return 'not_found';
+            }
+
+            if ($order['status_name'] !== 'Terminée') {
+                $connection->rollBack();
+
+                return 'not_allowed';
+            }
+
+            /* Vérifie qu'aucun avis n'existe déjà. */
+            $reviewQuery = $connection->prepare(
+                'SELECT id
+                FROM reviews
+                WHERE order_id = :order_id
+                LIMIT 1
+                FOR UPDATE'
+            );
+
+            $reviewQuery->execute([
+                'order_id' => $orderId,
+            ]);
+
+            if ($reviewQuery->fetch(PDO::FETCH_ASSOC)) {
+                $connection->rollBack();
+
+                return 'already_exists';
+            }
+
+            /* Enregistre l'avis en attente de validation. */
+            $insertQuery = $connection->prepare(
+                'INSERT INTO reviews (
+                    order_id,
+                    user_id,
+                    rating,
+                    comment,
+                    moderation_status
+                ) VALUES (
+                    :order_id,
+                    :user_id,
+                    :rating,
+                    :comment,
+                    :moderation_status
+                )'
+            );
+
+            $insertQuery->execute([
+                'order_id' => $orderId,
+                'user_id' => $userId,
+                'rating' => $rating,
+                'comment' => $comment,
+                'moderation_status' => 'pending',
+            ]);
+
+            $connection->commit();
+
+            return 'created';
+        } catch (Throwable $exception) {
+            if ($connection->inTransaction()) {
+                $connection->rollBack();
+            }
+
+            return 'error';
+        }
     }
 }

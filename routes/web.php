@@ -78,6 +78,9 @@ $router->post('/user/order/update', [UserController::class, 'updateOrder']);
 /* Annule une commande encore en attente. */
 $router->post('/user/order/cancel', [UserController::class,'cancelOrder',]);
 
+/* Enregistre l'avis d'une commande terminée. */
+$router->post('/user/order/review', [UserController::class, 'storeReview']);
+
 /* Affiche le formulaire de modification du profil. */
 $router->get('/user/profile/edit', [UserController::class,'editProfile',]);
 

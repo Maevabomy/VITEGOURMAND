@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Menu;
 use App\Models\OpeningHour;
 use App\Models\Order;
+use App\Models\Review;
 use App\Models\User;
 use App\Services\DeliveryService;
 use App\Services\OrderService;
@@ -158,6 +159,13 @@ class UserController
             (int) $orderId,
             $userId
         );
+
+        /* Récupère l'éventuel avis associé à la commande. */
+        $review = Review::findByOrderAndUser(
+            (int) $orderId,
+            $userId
+        );
+
         /* Crée le jeton protégeant le formulaire d'annulation. */
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(
@@ -166,6 +174,16 @@ class UserController
         }
 
         $csrfToken = $_SESSION['csrf_token'];
+
+        /* Crée un jeton dédié au formulaire d'avis. */
+        if (empty($_SESSION['review_csrf_token'])) {
+            $_SESSION['review_csrf_token'] = bin2hex(
+                random_bytes(32)
+            );
+        }
+
+        $reviewCsrfToken =
+            $_SESSION['review_csrf_token'];
 
         /* Récupère les éventuels messages de confirmation ou d'erreur. */
         $success = $_SESSION['user_success'] ?? null;
@@ -872,6 +890,174 @@ class UserController
                 . BASE_URL
                 . '/user/order/detail?id='
                 . (int) $orderId
+        );
+
+        exit;
+    }
+
+        /* -------------------------------------------------- */
+    /* avis utilisateur */
+    /* -------------------------------------------------- */
+
+    /* Enregistre l'avis d'une commande terminée. */
+    public function storeReview(): void
+    {
+        /* Redirige les visiteurs vers la connexion. */
+        if (empty($_SESSION['user']['id'])) {
+            header('Location: ' . BASE_URL . '/login');
+            exit;
+        }
+
+        $userId = (int) $_SESSION['user']['id'];
+
+        /* Vérifie que le compte existe toujours. */
+        $user = User::findById($userId);
+
+        if ($user === null) {
+            unset($_SESSION['user']);
+
+            header('Location: ' . BASE_URL . '/login');
+            exit;
+        }
+
+        /* Limite l'action aux comptes utilisateurs. */
+        if ($user['role'] !== 'user') {
+            http_response_code(403);
+
+            echo '<h1>Erreur 403</h1>';
+            echo '<p>Vous ne pouvez pas effectuer cette action.</p>';
+
+            return;
+        }
+
+        $orderId = filter_input(
+            INPUT_POST,
+            'order_id',
+            FILTER_VALIDATE_INT
+        );
+
+        if (!$orderId || $orderId < 1) {
+            http_response_code(404);
+
+            $pageTitle = 'Commande introuvable';
+            $errorTitle = 'Commande introuvable';
+            $errorMessage =
+                'La commande demandée est introuvable ou inaccessible.';
+
+            $openingHours = OpeningHour::getAll();
+
+            $view =
+                BASE_PATH . '/app/Views/user/order-not-found.php';
+
+            require BASE_PATH . '/app/Views/layouts/main.php';
+
+            return;
+        }
+
+        /* Vérifie le jeton CSRF du formulaire. */
+        $csrfToken = (string) ($_POST['csrf_token'] ?? '');
+
+        if (
+            empty($_SESSION['review_csrf_token'])
+            || !hash_equals(
+                $_SESSION['review_csrf_token'],
+                $csrfToken
+            )
+        ) {
+            $_SESSION['user_error'] =
+                'Le formulaire a expiré. Veuillez recommencer.';
+
+            header(
+                'Location: '
+                . BASE_URL
+                . '/user/order/detail?id='
+                . (int) $orderId
+            );
+
+            exit;
+        }
+
+        $rating = filter_input(
+            INPUT_POST,
+            'rating',
+            FILTER_VALIDATE_INT
+        );
+
+        $comment = trim(
+            (string) ($_POST['comment'] ?? '')
+        );
+
+        $errors = [];
+
+        if (
+            $rating === false
+            || $rating === null
+            || $rating < 1
+            || $rating > 5
+        ) {
+            $errors[] =
+                'La note doit être comprise entre 1 et 5.';
+        }
+
+        if ($comment === '') {
+            $errors[] =
+                'Le commentaire est obligatoire.';
+        } elseif (mb_strlen($comment) < 10) {
+            $errors[] =
+                'Le commentaire doit contenir au moins 10 caractères.';
+        } elseif (mb_strlen($comment) > 1000) {
+            $errors[] =
+                'Le commentaire ne peut pas dépasser 1 000 caractères.';
+        }
+
+        if (!empty($errors)) {
+            $_SESSION['user_error'] =
+                implode(' ', $errors);
+
+            header(
+                'Location: '
+                . BASE_URL
+                . '/user/order/detail?id='
+                . (int) $orderId
+            );
+
+            exit;
+        }
+
+        $result = Review::createForOrder(
+            (int) $orderId,
+            $userId,
+            (int) $rating,
+            $comment
+        );
+
+        if ($result === 'created') {
+            unset($_SESSION['review_csrf_token']);
+
+            $_SESSION['user_success'] =
+                'Merci pour votre avis. '
+                . 'Il sera visible après validation par notre équipe.';
+        } elseif ($result === 'already_exists') {
+            $_SESSION['user_error'] =
+                'Un avis a déjà été déposé pour cette commande.';
+        } elseif ($result === 'not_allowed') {
+            $_SESSION['user_error'] =
+                'Vous pourrez donner votre avis lorsque la commande '
+                . 'sera terminée.';
+        } elseif ($result === 'not_found') {
+            $_SESSION['user_error'] =
+                'La commande est introuvable ou inaccessible.';
+        } else {
+            $_SESSION['user_error'] =
+                'Une erreur est survenue pendant l’enregistrement '
+                . 'de votre avis.';
+        }
+
+        header(
+            'Location: '
+            . BASE_URL
+            . '/user/order/detail?id='
+            . (int) $orderId
         );
 
         exit;

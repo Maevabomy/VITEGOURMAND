@@ -3,6 +3,8 @@
 
 /** @var array $order */
 /** @var array $statusHistory */
+/** @var array|null $review */
+/** @var string $reviewCsrfToken */
 /** @var string $csrfToken */
 /** @var string|null $success */
 /** @var string|null $error */
@@ -422,6 +424,218 @@ $createdAt = date_create($order['created_at']);
                             </form>
 
                         </div>
+
+                    </section>
+                </div>
+
+            <?php endif; ?>
+
+            <?php if ($order['status_name'] === 'Terminée'): ?>
+
+                <!-- -------------------------------------------------- -->
+                <!-- avis client -->
+                <!-- -------------------------------------------------- -->
+
+                <div class="col-12">
+                    <section class="user-dashboard-card">
+
+                        <div class="user-dashboard-card-header">
+                            <p class="section-subtitle mb-2">
+                                Votre expérience
+                            </p>
+
+                            <h2 class="user-dashboard-card-title">
+                                Votre avis
+                            </h2>
+                        </div>
+
+                        <?php if ($review === null): ?>
+
+                            <p>
+                                Votre commande est terminée. Vous pouvez
+                                maintenant partager votre expérience avec
+                                Vite & Gourmand.
+                            </p>
+
+                            <form
+                                action="<?php
+                                        echo BASE_URL
+                                            . '/user/order/review';
+                                        ?>"
+                                method="post">
+
+                                <input
+                                    type="hidden"
+                                    name="order_id"
+                                    value="<?php
+                                            echo (int) $order['id'];
+                                            ?>">
+
+                                <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    value="<?php
+                                            echo htmlspecialchars(
+                                                $reviewCsrfToken
+                                            );
+                                            ?>">
+
+                                <fieldset class="mb-3">
+
+                                    <legend class="form-label">
+                                        Note
+                                    </legend>
+
+                                    <div class="d-flex flex-wrap gap-3">
+
+                                        <?php for ($rating = 1; $rating <= 5; $rating++): ?>
+
+                                            <div class="form-check">
+
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="rating"
+                                                    id="rating-<?php
+                                                                echo $rating;
+                                                                ?>"
+                                                    value="<?php
+                                                            echo $rating;
+                                                            ?>"
+                                                    required>
+
+                                                <label
+                                                    class="form-check-label"
+                                                    for="rating-<?php
+                                                                echo $rating;
+                                                                ?>">
+                                                    <?php
+                                                    echo $rating;
+                                                    ?>
+                                                    étoile<?php
+                                                            echo $rating > 1
+                                                                ? 's'
+                                                                : '';
+                                                            ?>
+                                                </label>
+
+                                            </div>
+
+                                        <?php endfor; ?>
+
+                                    </div>
+
+                                </fieldset>
+
+                                <div class="mb-3">
+
+                                    <label
+                                        for="review-comment"
+                                        class="form-label">
+                                        Commentaire
+                                    </label>
+
+                                    <textarea
+                                        class="form-control"
+                                        id="review-comment"
+                                        name="comment"
+                                        rows="5"
+                                        minlength="10"
+                                        maxlength="1000"
+                                        required></textarea>
+
+                                    <small class="form-text">
+                                        Entre 10 et 1 000 caractères.
+                                    </small>
+
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-custom">
+                                    Envoyer mon avis
+                                </button>
+
+                            </form>
+
+                        <?php else: ?>
+
+                            <?php
+                            $reviewStatusLabels = [
+                                'pending' =>
+                                'En attente de validation',
+                                'approved' =>
+                                'Avis validé',
+                                'refused' =>
+                                'Avis refusé',
+                            ];
+
+                            $reviewStatus =
+                                $reviewStatusLabels[$review['moderation_status']] ?? 'Statut inconnu';
+                            ?>
+
+                            <div class="user-order-detail-grid">
+
+                                <div class="user-order-detail-item">
+                                    <span class="user-order-label">
+                                        Note
+                                    </span>
+
+                                    <strong>
+                                        <?php
+                                        echo (int) $review['rating'];
+                                        ?>
+                                        / 5
+                                    </strong>
+                                </div>
+
+                                <div class="user-order-detail-item">
+                                    <span class="user-order-label">
+                                        Statut
+                                    </span>
+
+                                    <strong>
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $reviewStatus
+                                        );
+                                        ?>
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            <div class="mt-4">
+                                <span class="user-order-label">
+                                    Votre commentaire
+                                </span>
+
+                                <p class="mb-0 mt-2">
+                                    <?php
+                                    echo nl2br(
+                                        htmlspecialchars(
+                                            $review['comment']
+                                        )
+                                    );
+                                    ?>
+                                </p>
+                            </div>
+
+                            <?php
+                            if (
+                                $review['moderation_status']
+                                === 'pending'
+                            ):
+                            ?>
+
+                                <p class="form-text mt-3 mb-0">
+                                    Votre avis sera publié après validation
+                                    par notre équipe.
+                                </p>
+
+                            <?php endif; ?>
+
+                        <?php endif; ?>
 
                     </section>
                 </div>
