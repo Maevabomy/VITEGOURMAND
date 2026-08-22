@@ -2158,6 +2158,299 @@ button.btn-custom:active {
 }
 
 /* -------------------------------------------------- */
+/* navigation employé */
+/* -------------------------------------------------- */
+
+.employee-navigation {
+    background: rgba(25, 18, 20, 0.98);
+    border-top: 1px solid rgba(214, 190, 143, 0.15);
+    border-bottom: 1px solid rgba(214, 190, 143, 0.2);
+}
+
+.employee-navigation-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.85rem 0;
+    list-style: none;
+}
+
+.employee-navigation-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0.55rem 1rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.employee-navigation-link:hover,
+.employee-navigation-link:focus {
+    color: #ffffff;
+    background: rgba(112, 31, 49, 0.35);
+    border-color: rgba(214, 190, 143, 0.25);
+}
+
+.employee-navigation-link.active {
+    color: #ffffff;
+    background: rgba(112, 31, 49, 0.85);
+    border-color: rgba(214, 190, 143, 0.45);
+}
+
+.employee-navigation-link.disabled {
+    color: rgba(255, 255, 255, 0.35);
+    cursor: not-allowed;
+}
+
+@media (max-width: 575.98px) {
+    .employee-navigation-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .employee-navigation-link {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* -------------------------------------------------- */
+/* accueil de l'espace professionnel */
+/* -------------------------------------------------- */
+
+/* Organise les accès aux outils de gestion. */
+.employee-management-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+/* Présente chaque outil dans une carte. */
+.employee-management-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 260px;
+    padding: 1.75rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
+}
+
+/* Distingue la catégorie de l'outil. */
+.employee-management-card-label {
+    margin-bottom: 0.65rem;
+    color: var(--color-sage);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+/* Met le nom de l'outil en valeur. */
+.employee-management-card-title {
+    margin-bottom: 0.85rem;
+    color: var(--color-champagne);
+    font-size: 1.55rem;
+}
+
+/* Adoucit la description. */
+.employee-management-card-text {
+    margin-bottom: 0;
+    color: var(--color-text-soft);
+    line-height: 1.7;
+}
+
+/* Présente une fonctionnalité encore indisponible. */
+.employee-management-status {
+    display: inline-flex;
+    padding: 0.55rem 0.85rem;
+    color: rgba(255, 255, 255, 0.48);
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+@media (max-width: 767.98px) {
+    .employee-management-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-management-card {
+        min-height: auto;
+    }
+}
+
+/* -------------------------------------------------- */
+/* gestion des horaires employé */
+/* -------------------------------------------------- */
+
+/* Organise les horaires de la semaine. */
+.employee-opening-hours-list {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+/* Présente chaque journée. */
+.employee-opening-hour-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.15rem 1.25rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.4rem;
+}
+
+/* Met le jour en valeur. */
+.employee-opening-hour-day {
+    margin-bottom: 0.3rem;
+    color: var(--color-champagne);
+    font-size: 1.15rem;
+}
+
+/* Affiche les heures. */
+.employee-opening-hour-value {
+    color: var(--color-text-soft);
+}
+
+/* Indique qu'un jour est ouvert. */
+.employee-opening-hour-status {
+    flex-shrink: 0;
+    padding: 0.4rem 0.75rem;
+    color: var(--color-sage);
+    background-color: rgba(145, 159, 132, 0.1);
+    border: 1px solid rgba(145, 159, 132, 0.4);
+    border-radius: 50rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* Indique qu'un jour est fermé. */
+.employee-opening-hour-status.closed {
+    color: var(--color-champagne);
+    background-color: rgba(116, 37, 58, 0.15);
+    border-color: rgba(116, 37, 58, 0.55);
+}
+
+@media (max-width: 575.98px) {
+    .employee-opening-hour-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
+
+/* Organise les champs d'une journée. */
+.employee-opening-hour-fields {
+    display: grid;
+    grid-template-columns:
+        minmax(140px, 1fr) minmax(140px, 1fr) auto;
+    gap: 1rem;
+    align-items: end;
+    width: 100%;
+}
+
+/* Évite que le fieldset conserve son style natif. */
+fieldset.employee-opening-hour-item {
+    min-width: 0;
+    margin: 0;
+}
+
+/* Positionne le nom du jour. */
+fieldset .employee-opening-hour-day {
+    float: none;
+    width: auto;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+/* Dimensionne les champs horaires. */
+.employee-opening-hour-field {
+    min-width: 0;
+}
+
+/* Aligne la case jour fermé. */
+.employee-opening-hour-closed {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding-bottom: 0.45rem;
+}
+
+/* Place le bouton de validation. */
+.employee-opening-hours-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.employee-opening-hours-form .form-control {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.employee-opening-hours-form .form-control:focus {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.065);
+    border-color: var(--color-champagne);
+    box-shadow: 0 0 0 0.2rem rgba(214, 190, 143, 0.12);
+}
+
+.employee-opening-hours-form .form-control:disabled {
+    color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 767.98px) {
+    .employee-opening-hour-fields {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .employee-opening-hour-closed {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .employee-opening-hour-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-opening-hour-closed {
+        grid-column: auto;
+    }
+
+    .employee-opening-hours-actions {
+        justify-content: stretch;
+    }
+
+    .employee-opening-hours-actions .btn {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
 /* espace employé */
 /* -------------------------------------------------- */
 
@@ -2598,7 +2891,7 @@ button.btn-custom:active {
 }
 
 /* Place chaque valeur sous son libellé. */
-.employee-review-meta > div {
+.employee-review-meta>div {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -2648,6 +2941,447 @@ button.btn-custom:active {
     .employee-review-actions,
     .employee-review-actions form,
     .employee-review-actions .btn {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* gestion des plats employé */
+/* -------------------------------------------------- */
+
+.employee-dishes-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Organise les filtres des plats. */
+.employee-dish-filters {
+    display: grid;
+    grid-template-columns:
+        minmax(180px, 1.5fr) repeat(3, minmax(150px, 1fr)) auto;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0.5rem;
+}
+
+/* Évite le débordement des champs. */
+.employee-dish-filter-field {
+    min-width: 0;
+}
+
+/* Harmonise les champs avec l'espace employé. */
+.employee-dish-filters .form-control,
+.employee-dish-filters .form-select {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Conserve des options lisibles. */
+.employee-dish-filters .form-select option {
+    color: #1f1719;
+    background-color: #ffffff;
+}
+
+/* Affiche le nombre de résultats. */
+.employee-dish-filter-count {
+    min-height: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+}
+
+/* Garde le bouton aligné sur les champs. */
+.employee-dish-filter-actions {
+    display: flex;
+}
+
+.employee-dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.employee-dish-card {
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0.5rem;
+}
+
+.employee-dish-card.inactive {
+    opacity: 0.65;
+}
+
+.employee-dish-image-wrapper {
+    height: 220px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.employee-dish-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.employee-dish-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-soft);
+}
+
+.employee-dish-card-body {
+    padding: 1.4rem;
+}
+
+.employee-dish-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.employee-dish-type,
+.employee-dish-status {
+    padding: 0.3rem 0.65rem;
+    border-radius: 50rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.employee-dish-type {
+    color: var(--color-champagne);
+    background-color: rgba(214, 190, 143, 0.1);
+}
+
+.employee-dish-status {
+    color: var(--color-sage);
+    border: 1px solid rgba(145, 159, 132, 0.4);
+}
+
+.employee-dish-status.inactive {
+    color: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.employee-dish-title {
+    color: var(--color-champagne);
+    font-size: 1.35rem;
+}
+
+.employee-dish-description {
+    color: var(--color-text-soft);
+    line-height: 1.65;
+}
+
+.employee-dish-meta {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+}
+
+.employee-dish-actions,
+.employee-dish-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.employee-dish-warning {
+    margin-top: 1rem;
+    color: var(--color-champagne);
+    font-size: 0.85rem;
+}
+
+.employee-dish-form {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.employee-dish-allergen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.employee-dish-current-image img {
+    width: 100%;
+    max-width: 360px;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 0.4rem;
+}
+
+.employee-dish-form .form-control,
+.employee-dish-form .form-select {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.employee-dish-form .form-select option {
+    color: #1f1719;
+    background-color: #ffffff;
+}
+
+@media (max-width: 767.98px) {
+    .employee-dishes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-dishes-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .employee-dish-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .employee-dish-filter-actions {
+        align-items: stretch;
+    }
+
+    .employee-dish-filter-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .employee-dish-allergen-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-dish-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .employee-dish-form-actions .btn {
+        width: 100%;
+    }
+
+    .employee-dish-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------------- */
+/* gestion des menus employé */
+/* -------------------------------------------------- */
+
+.employee-menus-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.employee-menus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.employee-menu-card {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 3px solid var(--color-wine);
+    border-radius: 0.5rem;
+}
+
+.employee-menu-card.inactive {
+    opacity: 0.65;
+}
+
+.employee-menu-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.employee-menu-theme,
+.employee-menu-diet,
+.employee-menu-status {
+    display: inline-flex;
+    padding: 0.3rem 0.65rem;
+    border-radius: 50rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.employee-menu-theme {
+    color: var(--color-champagne);
+    background-color: rgba(214, 190, 143, 0.1);
+}
+
+.employee-menu-diet {
+    margin-left: 0.35rem;
+    color: var(--color-sage);
+    background-color: rgba(145, 159, 132, 0.1);
+}
+
+.employee-menu-status {
+    color: var(--color-sage);
+    border: 1px solid rgba(145, 159, 132, 0.4);
+}
+
+.employee-menu-status.inactive {
+    color: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.employee-menu-title {
+    color: var(--color-champagne);
+    font-size: 1.55rem;
+}
+
+.employee-menu-description,
+.employee-menu-dishes,
+.employee-menu-availability,
+.employee-menu-help {
+    color: var(--color-text-soft);
+    line-height: 1.65;
+}
+
+.employee-menu-information {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem 1rem;
+    margin: 1.25rem 0;
+}
+
+.employee-menu-information p {
+    margin-bottom: 0;
+    color: var(--color-text-soft);
+}
+
+.employee-menu-actions,
+.employee-menu-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.employee-menu-form {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.employee-menu-form .form-control,
+.employee-menu-form .form-select {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.employee-menu-form .form-select option {
+    color: #1f1719;
+    background-color: #ffffff;
+}
+
+.employee-menu-divider {
+    margin: 2rem 0;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.employee-menu-dish-group {
+    margin-bottom: 2rem;
+    padding: 0;
+    border: 0;
+}
+
+.employee-menu-dish-group legend {
+    margin-bottom: 1rem;
+    color: var(--color-champagne);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.employee-menu-dish-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.employee-menu-dish-option {
+    display: grid;
+    grid-template-columns: auto 90px 1fr;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 0.85rem;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0.45rem;
+}
+
+.employee-menu-dish-option:hover {
+    border-color: rgba(214, 190, 143, 0.35);
+}
+
+.employee-menu-dish-photo {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 0.35rem;
+}
+
+.employee-menu-dish-option span {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.employee-menu-dish-option small {
+    color: var(--color-text-soft);
+}
+
+@media (max-width: 767.98px) {
+    .employee-menus-grid,
+    .employee-menu-dish-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-menus-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .employee-menu-information {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-menu-dish-option {
+        grid-template-columns: auto 70px 1fr;
+    }
+
+    .employee-menu-dish-photo {
+        width: 70px;
+        height: 60px;
+    }
+
+    .employee-menu-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .employee-menu-form-actions .btn {
         width: 100%;
     }
 }

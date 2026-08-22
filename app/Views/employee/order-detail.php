@@ -38,6 +38,13 @@ $createdAt = date_create($order['created_at']);
     </div>
 </section>
 
+<?php
+
+require BASE_PATH
+    . '/app/Views/employee/_navigation.php';
+
+?>
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 

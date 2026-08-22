@@ -26,6 +26,13 @@
     </div>
 </section>
 
+<?php
+
+require BASE_PATH
+    . '/app/Views/employee/_navigation.php';
+
+?>
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
@@ -87,8 +94,8 @@
                                         <?php
                                         echo htmlspecialchars(
                                             $review['first_name']
-                                            . ' '
-                                            . $review['last_name']
+                                                . ' '
+                                                . $review['last_name']
                                         );
                                         ?>
                                     </h3>
@@ -181,17 +188,17 @@
 
                                 <form
                                     action="<?php
-                                    echo BASE_URL
-                                        . '/employee/review/moderate';
-                                    ?>"
+                                            echo BASE_URL
+                                                . '/employee/review/moderate';
+                                            ?>"
                                     method="post">
 
                                     <input
                                         type="hidden"
                                         name="review_id"
                                         value="<?php
-                                        echo (int) $review['id'];
-                                        ?>">
+                                                echo (int) $review['id'];
+                                                ?>">
 
                                     <input
                                         type="hidden"
@@ -202,10 +209,10 @@
                                         type="hidden"
                                         name="csrf_token"
                                         value="<?php
-                                        echo htmlspecialchars(
-                                            $reviewCsrfToken
-                                        );
-                                        ?>">
+                                                echo htmlspecialchars(
+                                                    $reviewCsrfToken
+                                                );
+                                                ?>">
 
                                     <button
                                         type="submit"
@@ -217,9 +224,9 @@
 
                                 <form
                                     action="<?php
-                                    echo BASE_URL
-                                        . '/employee/review/moderate';
-                                    ?>"
+                                            echo BASE_URL
+                                                . '/employee/review/moderate';
+                                            ?>"
                                     method="post"
                                     onsubmit="
                                         return confirm(
@@ -231,8 +238,8 @@
                                         type="hidden"
                                         name="review_id"
                                         value="<?php
-                                        echo (int) $review['id'];
-                                        ?>">
+                                                echo (int) $review['id'];
+                                                ?>">
 
                                     <input
                                         type="hidden"
@@ -243,10 +250,10 @@
                                         type="hidden"
                                         name="csrf_token"
                                         value="<?php
-                                        echo htmlspecialchars(
-                                            $reviewCsrfToken
-                                        );
-                                        ?>">
+                                                echo htmlspecialchars(
+                                                    $reviewCsrfToken
+                                                );
+                                                ?>">
 
                                     <button
                                         type="submit"
@@ -288,8 +295,8 @@
         <div class="mt-4">
             <a
                 href="<?php
-                echo BASE_URL . '/employee/dashboard';
-                ?>"
+                        echo BASE_URL . '/employee/dashboard';
+                        ?>"
                 class="btn employee-filter-reset-button">
                 Retour aux commandes
             </a>

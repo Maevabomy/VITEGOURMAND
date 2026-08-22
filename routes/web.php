@@ -88,6 +88,9 @@ $router->get('/user/profile/edit', [UserController::class,'editProfile',]);
 /* Enregistre les modifications du profil. */
 $router->post('/user/profile/update', [UserController::class,'updateProfile',]);
 
+/* Affiche l'accueil de l'espace professionnel. */
+$router->get('/employee', [EmployeeController::class, 'home']);
+
 /* Affiche le tableau de bord des employés. */
 $router->get('/employee/dashboard',[EmployeeController::class, 'dashboard']);
 
@@ -99,6 +102,36 @@ $router->post('/employee/order/status',[EmployeeController::class, 'updateOrderS
 
 /* Annule une commande après contact avec le client. */
 $router->post('/employee/order/cancel',[EmployeeController::class, 'cancelOrder']);
+
+/* Affiche la gestion des horaires. */
+$router->get('/employee/opening-hours',[EmployeeController::class, 'openingHours']);
+
+/* Enregistre les horaires d'ouverture. */
+$router->post('/employee/opening-hours/update',[EmployeeController::class, 'updateOpeningHours']);
+
+/* Affiche la liste des menus. */
+$router->get('/employee/menus',[EmployeeController::class, 'menus']);
+
+/* Affiche le formulaire d'un menu. */
+$router->get('/employee/menu/form',[EmployeeController::class, 'menuForm']);
+
+/* Enregistre un menu. */
+$router->post('/employee/menu/save',[EmployeeController::class, 'saveMenu']);
+
+/* Active ou désactive un menu. */
+$router->post('/employee/menu/toggle',[EmployeeController::class, 'toggleMenu']);
+
+/* Affiche la liste des plats. */
+$router->get('/employee/dishes',[EmployeeController::class, 'dishes']);
+
+/* Affiche le formulaire d'un plat. */
+$router->get('/employee/dish/form',[EmployeeController::class, 'dishForm']);
+
+/* Enregistre un plat. */
+$router->post('/employee/dish/save',[EmployeeController::class, 'saveDish']);
+
+/* Active ou désactive un plat. */
+$router->post('/employee/dish/toggle',[EmployeeController::class, 'toggleDish']);
 
 /* Affiche les avis en attente de modération. */
 $router->get('/employee/reviews',[EmployeeController::class, 'reviews']);

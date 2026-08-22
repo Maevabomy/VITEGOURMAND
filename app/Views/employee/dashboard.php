@@ -25,17 +25,15 @@
             Retrouvez les commandes à préparer et utilisez les filtres
             pour accéder rapidement à une prestation.
         </p>
-
-        <div class="mt-4">
-            <a
-                href="<?php echo BASE_URL; ?>/employee/reviews"
-                class="btn btn-custom">
-                Modérer les avis
-            </a>
-        </div>
-
     </div>
 </section>
+
+<?php
+
+require BASE_PATH
+    . '/app/Views/employee/_navigation.php';
+
+?>
 
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">

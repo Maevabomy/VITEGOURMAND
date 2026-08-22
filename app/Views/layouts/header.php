@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        <?php echo htmlspecialchars($pageTitle); ?> | Vite & Gourmand
+        <?php echo htmlspecialchars($pageTitle ?? 'Accueil'); ?> | Vite & Gourmand
     </title>
 
     <link
@@ -67,7 +67,7 @@
                             $accountUrl =
                                 $connectedUserRole === 'user'
                                 ? BASE_URL . '/user/dashboard'
-                                : BASE_URL . '/employee/dashboard';
+                                : BASE_URL . '/employee';
 
                             $accountLabel =
                                 $connectedUserRole === 'user'
