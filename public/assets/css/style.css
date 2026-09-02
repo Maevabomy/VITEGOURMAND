@@ -3385,3 +3385,278 @@ fieldset .employee-opening-hour-day {
         width: 100%;
     }
 }
+
+/* -------------------------------------------------- */
+/* administration des employés */
+/* -------------------------------------------------- */
+
+.admin-employees-layout {
+    display: grid;
+    grid-template-columns:
+        minmax(280px, 0.8fr)
+        minmax(400px, 1.2fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.admin-employee-list {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+}
+
+.admin-employee-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1rem 1.1rem;
+    background-color: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-left: 3px solid var(--color-wine);
+    border-radius: 0.45rem;
+}
+
+.admin-employee-item.inactive {
+    opacity: 0.65;
+}
+
+.admin-employee-email {
+    margin-bottom: 0.3rem;
+    color: var(--color-champagne);
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.admin-employee-meta {
+    color: var(--color-text-soft);
+    font-size: 0.85rem;
+}
+
+.admin-employee-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.admin-employees-layout .form-control {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.admin-employees-layout .form-control:focus {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.065);
+    border-color: var(--color-champagne);
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(214, 190, 143, 0.12);
+}
+
+@media (max-width: 991.98px) {
+    .admin-employees-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .admin-employee-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-employee-actions {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------- */
+/* statistiques administrateur */
+/* -------------------------------------------------- */
+
+.admin-statistics-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.admin-statistics-source {
+    padding: 0.4rem 0.7rem;
+    color: var(--color-champagne);
+    font-size: 0.8rem;
+    font-weight: 700;
+    background-color: rgba(214, 190, 143, 0.08);
+    border: 1px solid rgba(214, 190, 143, 0.25);
+    border-radius: 999px;
+}
+
+.admin-statistics-chart {
+    display: grid;
+    gap: 1.15rem;
+    margin-top: 2rem;
+}
+
+.admin-statistics-row {
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 220px)
+        minmax(150px, 1fr)
+        45px;
+    gap: 1rem;
+    align-items: center;
+}
+
+.admin-statistics-label {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.admin-statistics-bar {
+    height: 24px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+.admin-statistics-bar-fill {
+    min-width: 0;
+    height: 100%;
+    background-color: var(--color-wine);
+    border-radius: inherit;
+}
+
+.admin-statistics-value {
+    color: var(--color-champagne);
+    text-align: right;
+}
+
+@media (max-width: 767.98px) {
+    .admin-statistics-heading {
+        flex-direction: column;
+    }
+
+    .admin-statistics-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .admin-statistics-bar {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .admin-statistics-value {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+/* -------------------------------------------------- */
+/* chiffre d'affaires administrateur */
+/* -------------------------------------------------- */
+
+.admin-revenue-help {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+}
+
+.admin-revenue-filters {
+    display: grid;
+    grid-template-columns:
+        minmax(180px, 1.4fr)
+        minmax(150px, 0.8fr)
+        minmax(150px, 0.8fr)
+        auto;
+    gap: 1rem;
+    align-items: end;
+    margin-top: 1.5rem;
+}
+
+.admin-revenue-filters .form-control,
+.admin-revenue-filters .form-select {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.admin-revenue-filter-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.admin-revenue-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1.2rem 1.3rem;
+    background-color: rgba(214, 190, 143, 0.06);
+    border: 1px solid rgba(214, 190, 143, 0.2);
+    border-radius: 0.5rem;
+}
+
+.admin-revenue-summary span {
+    color: var(--color-text-soft);
+}
+
+.admin-revenue-summary strong {
+    color: var(--color-champagne);
+    font-size: 1.35rem;
+}
+
+.admin-revenue-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-revenue-table th,
+.admin-revenue-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.admin-revenue-table th {
+    color: var(--color-champagne);
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.admin-revenue-table td {
+    color: var(--color-text);
+}
+
+.admin-revenue-table td:last-child strong {
+    color: var(--color-champagne);
+}
+
+@media (max-width: 991.98px) {
+    .admin-revenue-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .admin-revenue-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-revenue-filter-actions {
+        flex-direction: column;
+    }
+
+    .admin-revenue-filter-actions .btn {
+        width: 100%;
+    }
+
+    .admin-revenue-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

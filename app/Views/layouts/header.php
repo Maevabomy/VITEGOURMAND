@@ -64,15 +64,25 @@
                             $connectedUserRole =
                                 $_SESSION['user']['role'] ?? null;
 
-                            $accountUrl =
-                                $connectedUserRole === 'user'
-                                ? BASE_URL . '/user/dashboard'
-                                : BASE_URL . '/employee';
+                            if ($connectedUserRole === 'user') {
+                                $accountUrl =
+                                    BASE_URL . '/user/dashboard';
 
-                            $accountLabel =
-                                $connectedUserRole === 'user'
-                                ? 'Mon compte'
-                                : 'Espace professionnel';
+                                $accountLabel =
+                                    'Mon compte';
+                            } elseif ($connectedUserRole === 'admin') {
+                                $accountUrl =
+                                    BASE_URL . '/admin';
+
+                                $accountLabel =
+                                    'Administration';
+                            } else {
+                                $accountUrl =
+                                    BASE_URL . '/employee';
+
+                                $accountLabel =
+                                    'Espace professionnel';
+                            }
                             ?>
 
                             <li class="nav-item">

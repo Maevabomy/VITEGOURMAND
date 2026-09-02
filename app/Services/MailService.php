@@ -21,6 +21,27 @@ class MailService
     }
 
     /* -------------------------------------------------- */
+    /* création d'un compte employé */
+    /* -------------------------------------------------- */
+
+    /* Informe l'employé de la création de son compte. */
+    public static function sendEmployeeAccountCreatedEmail(
+        string $email
+    ): bool {
+        $subject =
+            'Création de votre compte Vite & Gourmand';
+
+        $message =
+            self::buildEmployeeAccountCreatedMessage();
+
+        return self::send(
+            $email,
+            $subject,
+            $message
+        );
+    }
+
+    /* -------------------------------------------------- */
     /* réinitialisation du mot de passe */
     /* -------------------------------------------------- */
 
@@ -64,7 +85,7 @@ class MailService
         );
     }
 
-        /* -------------------------------------------------- */
+    /* -------------------------------------------------- */
     /* suivi d'une commande */
     /* -------------------------------------------------- */
 
@@ -183,6 +204,46 @@ class MailService
     /* -------------------------------------------------- */
     /* contenu du mail */
     /* -------------------------------------------------- */
+
+    /* Prépare le mail envoyé au nouvel employé. */
+    private static function buildEmployeeAccountCreatedMessage(): string
+    {
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Création de votre compte</title>
+            </head>
+            <body>
+                <h1>Votre compte Vite & Gourmand a été créé</h1>
+
+                <p>
+                    Un compte professionnel a été créé pour vous.
+                </p>
+
+                <p>
+                    Votre identifiant de connexion correspond
+                    à l’adresse mail ayant reçu ce message.
+                </p>
+
+                <p>
+                    Pour des raisons de sécurité, votre mot de passe
+                    n’est pas communiqué par e-mail.
+                </p>
+
+                <p>
+                    Veuillez vous rapprocher de l’administrateur
+                    afin de l’obtenir.
+                </p>
+
+                <p>
+                    Vite & Gourmand
+                </p>
+            </body>
+            </html>
+        ';
+    }
 
     /* Prépare le contenu du message de bienvenue. */
     private static function buildWelcomeMessage(string $firstName): string
@@ -432,7 +493,7 @@ class MailService
         ';
     }
 
-        /* Prépare le mail confirmant l'acceptation. */
+    /* Prépare le mail confirmant l'acceptation. */
     private static function buildOrderAcceptedMessage(
         array $order
     ): string {

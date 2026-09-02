@@ -148,6 +148,175 @@ class User
     }
 
     /* -------------------------------------------------- */
+    /* gestion des employés */
+    /* -------------------------------------------------- */
+
+    /* Récupère l'identifiant du rôle employé. */
+    public static function getEmployeeRoleId(): ?int
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT id
+            FROM roles
+            WHERE name = :name
+            LIMIT 1'
+        );
+
+        $query->execute([
+            'name' => 'employee',
+        ]);
+
+        $role = $query->fetch(PDO::FETCH_ASSOC);
+
+        if (!$role) {
+            return null;
+        }
+
+        return (int) $role['id'];
+    }
+
+    /* Récupère tous les comptes employés. */
+    public static function getAllEmployees(): array
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+                users.id,
+                users.email,
+                users.is_active,
+                users.created_at
+            FROM users
+            INNER JOIN roles
+                ON roles.id = users.role_id
+            WHERE roles.name = :role_name
+            ORDER BY
+                users.is_active DESC,
+                users.email ASC'
+        );
+
+        $query->execute([
+            'role_name' => 'employee',
+        ]);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /* Recherche uniquement un compte employé. */
+    public static function findEmployeeById(
+        int $employeeId
+    ): ?array {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'SELECT
+                users.id,
+                users.email,
+                users.is_active,
+                users.created_at
+            FROM users
+            INNER JOIN roles
+                ON roles.id = users.role_id
+            WHERE users.id = :employee_id
+                AND roles.name = :role_name
+            LIMIT 1'
+        );
+
+        $query->execute([
+            'employee_id' => $employeeId,
+            'role_name' => 'employee',
+        ]);
+
+        $employee = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $employee ?: null;
+    }
+
+    /* Crée uniquement un compte employé. */
+    public static function createEmployee(
+        string $email,
+        string $passwordHash
+    ): bool {
+        $employeeRoleId =
+            self::getEmployeeRoleId();
+
+        if ($employeeRoleId === null) {
+            return false;
+        }
+
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'INSERT INTO users (
+                role_id,
+                first_name,
+                last_name,
+                phone,
+                email,
+                address,
+                postal_code,
+                city,
+                password_hash,
+                is_active
+            ) VALUES (
+                :role_id,
+                :first_name,
+                :last_name,
+                :phone,
+                :email,
+                :address,
+                :postal_code,
+                :city,
+                :password_hash,
+                TRUE
+            )'
+        );
+
+        return $query->execute([
+            'role_id' => $employeeRoleId,
+            'first_name' => 'Employé',
+            'last_name' => '',
+            'phone' => '',
+            'email' => $email,
+            'address' => '',
+            'postal_code' => '',
+            'city' => '',
+            'password_hash' => $passwordHash,
+        ]);
+    }
+
+    /* Active ou désactive uniquement un compte employé. */
+    public static function setEmployeeActive(
+        int $employeeId,
+        bool $isActive
+    ): bool {
+        $employeeRoleId =
+            self::getEmployeeRoleId();
+
+        if ($employeeRoleId === null) {
+            return false;
+        }
+
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare(
+            'UPDATE users
+            SET
+                is_active = :is_active,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = :employee_id
+                AND role_id = :employee_role_id'
+        );
+
+        return $query->execute([
+            'is_active' => $isActive ? 1 : 0,
+            'employee_id' => $employeeId,
+            'employee_role_id' => $employeeRoleId,
+        ]);
+    }
+
+    /* -------------------------------------------------- */
     /* création utilisateur */
     /* -------------------------------------------------- */
 

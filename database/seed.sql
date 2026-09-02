@@ -103,7 +103,36 @@ INSERT INTO users (
     '10 rue de Bordeaux',
     '33000',
     'Bordeaux',
-    'TEMPORARY_PASSWORD_HASH',
+    '$2y$10$KaERznd8UtEGaqgwlFFr9eSEoYBe8oMZuQsEP/BE4EVc/M6dwFadO',
+    TRUE
+);
+
+-- --------------------------------------------------
+-- compte employé
+-- --------------------------------------------------
+
+-- Ajoute le compte employé de Julie pour les tests.
+INSERT INTO users (
+    role_id,
+    first_name,
+    last_name,
+    phone,
+    email,
+    address,
+    postal_code,
+    city,
+    password_hash,
+    is_active
+) VALUES (
+    2,
+    'Julie',
+    'Employée',
+    '0610000000',
+    'julie@vitegourmand.fr',
+    '10 rue de Bordeaux',
+    '33000',
+    'Bordeaux',
+    '$2y$10$WpVPeDqoFU03afaX26QS8upGqHkL.M90RHXKpMHfI8ivzjOCFSz46',
     TRUE
 );
 
