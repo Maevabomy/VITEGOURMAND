@@ -79,13 +79,21 @@
 
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a href="#" class="footer-link">
+                        <a
+                            href="<?php
+                                    echo BASE_URL;
+                                    ?>/mentions-legales"
+                            class="footer-link">
                             Mentions légales
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" class="footer-link">
+                        <a
+                            href="<?php
+                                    echo BASE_URL;
+                                    ?>/conditions-generales-vente"
+                            class="footer-link">
                             Conditions générales de vente
                         </a>
                     </li>
@@ -97,8 +105,7 @@
 </footer>
 
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-></script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

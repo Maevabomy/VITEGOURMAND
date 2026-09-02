@@ -16,15 +16,32 @@
 
             <a href="<?php echo BASE_URL; ?>/menus" class="btn btn-custom">
                 Découvrir nos menus
-                </a>
+            </a>
         </div>
     </div>
 </section>
 
 <section class="presentation-section py-5">
     <div class="container py-4">
-        <div class="row align-items-center gy-4">
+
+        <div class="row align-items-center gy-4 gx-lg-5">
+
             <div class="col-lg-6">
+
+                <div class="presentation-image-wrapper">
+                    <img
+                        src="<?php
+                                echo BASE_URL;
+                                ?>/assets/images/home/event.jpg"
+                        alt="Réception événementielle de nuit sur la Garonne à Bordeaux"
+                        class="presentation-image"
+                        loading="lazy">
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
                 <p class="section-subtitle">
                     Notre histoire
                 </p>
@@ -32,20 +49,23 @@
                 <h2>
                     Une cuisine faite avec passion
                 </h2>
-            </div>
 
-            <div class="col-lg-6">
                 <p>
-                    Vite & Gourmand accompagne les particuliers et les entreprises
-                    dans l'organisation de leurs événements à Bordeaux.
+                    Vite & Gourmand accompagne les particuliers
+                    et les entreprises dans l'organisation
+                    de leurs événements à Bordeaux.
                 </p>
 
                 <p class="mb-0">
-                    Chaque prestation est préparée avec attention afin de proposer
-                    une expérience chaleureuse, professionnelle et savoureuse.
+                    Chaque prestation est préparée avec attention
+                    afin de proposer une expérience chaleureuse,
+                    professionnelle et savoureuse.
                 </p>
+
             </div>
+
         </div>
+
     </div>
 </section>
 

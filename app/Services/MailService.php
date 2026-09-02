@@ -168,6 +168,34 @@ class MailService
     }
 
     /* -------------------------------------------------- */
+    /* formulaire de contact */
+    /* -------------------------------------------------- */
+
+    /* Transmet une demande de contact à l'entreprise. */
+    public static function sendContactRequestEmail(
+        string $email,
+        string $contactSubject,
+        string $contactMessage
+    ): bool {
+        $subject =
+            'Nouveau message de contact - '
+            . $contactSubject;
+
+        $message =
+            self::buildContactRequestMessage(
+                $email,
+                $contactSubject,
+                $contactMessage
+            );
+
+        return self::send(
+            'contact@vite-et-gourmand.fr',
+            $subject,
+            $message
+        );
+    }
+
+    /* -------------------------------------------------- */
     /* envoi du mail */
     /* -------------------------------------------------- */
 
@@ -204,6 +232,64 @@ class MailService
     /* -------------------------------------------------- */
     /* contenu du mail */
     /* -------------------------------------------------- */
+
+    /* Prépare le mail reçu après une demande de contact. */
+    private static function buildContactRequestMessage(
+        string $email,
+        string $contactSubject,
+        string $contactMessage
+    ): string {
+        $safeEmail = htmlspecialchars(
+            $email,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeSubject = htmlspecialchars(
+            $contactSubject,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $safeMessage = nl2br(
+            htmlspecialchars(
+                $contactMessage,
+                ENT_QUOTES,
+                'UTF-8'
+            )
+        );
+
+        return '
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Nouveau message de contact</title>
+            </head>
+            <body>
+                <h1>Nouveau message depuis le site</h1>
+
+                <p>
+                    <strong>Adresse mail :</strong>
+                    ' . $safeEmail . '
+                </p>
+
+                <p>
+                    <strong>Sujet :</strong>
+                    ' . $safeSubject . '
+                </p>
+
+                <p>
+                    <strong>Message :</strong>
+                </p>
+
+                <p>
+                    ' . $safeMessage . '
+                </p>
+            </body>
+            </html>
+        ';
+    }
 
     /* Prépare le mail envoyé au nouvel employé. */
     private static function buildEmployeeAccountCreatedMessage(): string

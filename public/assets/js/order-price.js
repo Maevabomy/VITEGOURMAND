@@ -1,121 +1,246 @@
 "use strict";
 
+
+/* -------------------------------------------------- */
+/* récupération des éléments */
+/* -------------------------------------------------- */
+
+/* Récupère le champ contenant le nombre de personnes. */
 const peopleCountInput = document.querySelector("#people_count");
+
+/* Récupère la zone affichant le prix par personne. */
 const pricePerPersonElement = document.querySelector("#price-per-person");
+
+/* Récupère le nombre de personnes affiché dans le récapitulatif. */
 const summaryPeopleCount = document.querySelector("#summary-people-count");
+
+/* Récupère la ligne indiquant l'application d'une remise. */
 const discountLine = document.querySelector("#discount-line");
+
+/* Récupère le prix total du menu. */
 const menuTotalPrice = document.querySelector("#menu-total-price");
+
+/* Récupère le prix total de la commande. */
 const orderTotalPrice = document.querySelector("#order-total-price");
 
-// Mise à jour du prix total en fonction du nombre de personnes
+
+/* -------------------------------------------------- */
+/* initialisation */
+/* -------------------------------------------------- */
+
+/* Exécute le calcul uniquement si tous les éléments nécessaires sont présents. */
 if (
-  peopleCountInput &&
-  pricePerPersonElement &&
-  summaryPeopleCount &&
-  discountLine &&
-  menuTotalPrice &&
-  orderTotalPrice
+    peopleCountInput &&
+    pricePerPersonElement &&
+    summaryPeopleCount &&
+    discountLine &&
+    menuTotalPrice &&
+    orderTotalPrice
 ) {
-  const minimumPeople = Number(peopleCountInput.dataset.minimumPeople);
 
-  /* -------------------------------------------------- */
-  /* validation du stock */
-  /* -------------------------------------------------- */
-
-  const availableStock = Number.parseInt(peopleCountInput.max, 10);
-
-  peopleCountInput.addEventListener("invalid", () => {
-    const requestedQuantity = Number.parseInt(peopleCountInput.value, 10);
-
-    if (
-      Number.isInteger(availableStock) &&
-      requestedQuantity > availableStock
-    ) {
-      peopleCountInput.setCustomValidity(
-        `Il reste seulement ${availableStock} portions disponibles pour ce menu.`,
-      );
-
-      return;
-    }
-
-    peopleCountInput.setCustomValidity("");
-  });
-
-  peopleCountInput.addEventListener("input", () => {
-    peopleCountInput.setCustomValidity("");
-  });
-
-  const basePrice = Number(peopleCountInput.dataset.basePrice);
-
-  const pricePerPerson = basePrice / minimumPeople;
-
-  let currentMenuPrice = basePrice;
-
-  const savedDeliveryFee = Number(peopleCountInput.dataset.currentDeliveryFee);
-
-  let currentDeliveryFee = Number.isFinite(savedDeliveryFee)
-    ? savedDeliveryFee
-    : 0;
-
-  const formatPrice = (price) => {
-    return (
-      new Intl.NumberFormat("fr-FR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(price) + " €"
+    /* Récupère le nombre minimum de personnes défini pour le menu. */
+    const minimumPeople = Number(
+        peopleCountInput.dataset.minimumPeople
     );
-  };
 
-  const updateOrderTotal = () => {
-    const orderTotal = currentMenuPrice + currentDeliveryFee;
+    /* Récupère le prix de base du menu. */
+    const basePrice = Number(
+        peopleCountInput.dataset.basePrice
+    );
 
-    orderTotalPrice.textContent = formatPrice(orderTotal);
-  };
+    /* Calcule le prix par personne à partir du prix de base. */
+    const pricePerPerson =
+        basePrice / minimumPeople;
 
-  const updatePrice = () => {
-    let peopleCount = Number(peopleCountInput.value);
+    /* Initialise le prix courant du menu. */
+    let currentMenuPrice =
+        basePrice;
 
-    if (!Number.isInteger(peopleCount) || peopleCount < minimumPeople) {
-      peopleCount = minimumPeople;
-    }
+    /* Récupère les frais de livraison déjà enregistrés si la commande est modifiée. */
+    const savedDeliveryFee = Number(
+        peopleCountInput.dataset.currentDeliveryFee
+    );
 
-    let calculatedPrice = pricePerPerson * peopleCount;
+    /* Initialise les frais de livraison courants. */
+    let currentDeliveryFee =
+        Number.isFinite(savedDeliveryFee)
+            ? savedDeliveryFee
+            : 0;
 
-    const discountApplies = peopleCount >= minimumPeople + 5;
 
-    if (discountApplies) {
-      calculatedPrice *= 0.9;
-    }
+    /* -------------------------------------------------- */
+    /* validation du stock */
+    /* -------------------------------------------------- */
 
-    pricePerPersonElement.textContent = formatPrice(pricePerPerson);
-    summaryPeopleCount.textContent = String(peopleCount);
-    discountLine.hidden = !discountApplies;
+    /* Récupère le stock maximum disponible depuis l'attribut max du champ. */
+    const availableStock = Number.parseInt(
+        peopleCountInput.max,
+        10
+    );
 
-    currentMenuPrice = calculatedPrice;
+    /* Affiche un message personnalisé si la quantité demandée dépasse le stock. */
+    peopleCountInput.addEventListener(
+        "invalid",
+        () => {
+            const requestedQuantity = Number.parseInt(
+                peopleCountInput.value,
+                10
+            );
 
-    menuTotalPrice.textContent = formatPrice(currentMenuPrice);
+            if (
+                Number.isInteger(availableStock) &&
+                requestedQuantity > availableStock
+            ) {
+                peopleCountInput.setCustomValidity(
+                    `Il reste seulement ${availableStock} portions disponibles pour ce menu.`
+                );
 
-    updateOrderTotal();
-  };
+                return;
+            }
 
-  document.addEventListener("delivery-fee-updated", (event) => {
-    currentDeliveryFee = Number(event.detail.deliveryFee) || 0;
+            peopleCountInput.setCustomValidity("");
+        }
+    );
 
-    updateOrderTotal();
-  });
+    /* Supprime l'ancien message personnalisé dès que l'utilisateur modifie la quantité. */
+    peopleCountInput.addEventListener(
+        "input",
+        () => {
+            peopleCountInput.setCustomValidity("");
+        }
+    );
 
-  peopleCountInput.addEventListener("input", updatePrice);
 
-  /* Corrige une valeur inférieure au minimum en quittant le champ. */
-  peopleCountInput.addEventListener("change", () => {
-    const peopleCount = Number(peopleCountInput.value);
+    /* -------------------------------------------------- */
+    /* fonctions utilitaires */
+    /* -------------------------------------------------- */
 
-    if (!Number.isInteger(peopleCount) || peopleCount < minimumPeople) {
-      peopleCountInput.value = String(minimumPeople);
-    }
+    /* Formate un nombre en prix français. */
+    const formatPrice = (price) => {
+        return (
+            new Intl.NumberFormat("fr-FR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }).format(price) + " €"
+        );
+    };
 
+
+    /* -------------------------------------------------- */
+    /* calcul du total de la commande */
+    /* -------------------------------------------------- */
+
+    /* Additionne le prix du menu et les frais de livraison. */
+    const updateOrderTotal = () => {
+        const orderTotal =
+            currentMenuPrice + currentDeliveryFee;
+
+        orderTotalPrice.textContent =
+            formatPrice(orderTotal);
+    };
+
+
+    /* -------------------------------------------------- */
+    /* calcul du prix du menu */
+    /* -------------------------------------------------- */
+
+    /* Recalcule le prix du menu selon le nombre de personnes. */
+    const updatePrice = () => {
+        let peopleCount = Number(
+            peopleCountInput.value
+        );
+
+        /* Utilise le minimum autorisé si la valeur saisie n'est pas valide. */
+        if (
+            !Number.isInteger(peopleCount) ||
+            peopleCount < minimumPeople
+        ) {
+            peopleCount = minimumPeople;
+        }
+
+        /* Calcule le prix avant remise. */
+        let calculatedPrice =
+            pricePerPerson * peopleCount;
+
+        /* Applique une remise de 10 % à partir de cinq personnes supplémentaires. */
+        const discountApplies =
+            peopleCount >= minimumPeople + 5;
+
+        if (discountApplies) {
+            calculatedPrice *= 0.9;
+        }
+
+        /* Met à jour les informations visibles du récapitulatif. */
+        pricePerPersonElement.textContent =
+            formatPrice(pricePerPerson);
+
+        summaryPeopleCount.textContent =
+            String(peopleCount);
+
+        discountLine.hidden =
+            !discountApplies;
+
+        currentMenuPrice =
+            calculatedPrice;
+
+        menuTotalPrice.textContent =
+            formatPrice(currentMenuPrice);
+
+        updateOrderTotal();
+    };
+
+
+    /* -------------------------------------------------- */
+    /* mise à jour des frais de livraison */
+    /* -------------------------------------------------- */
+
+    /* Récupère les nouveaux frais envoyés par le script de livraison. */
+    document.addEventListener(
+        "delivery-fee-updated",
+        (event) => {
+            currentDeliveryFee =
+                Number(event.detail.deliveryFee) || 0;
+
+            updateOrderTotal();
+        }
+    );
+
+
+    /* -------------------------------------------------- */
+    /* événements utilisateur */
+    /* -------------------------------------------------- */
+
+    /* Recalcule immédiatement le prix pendant la saisie. */
+    peopleCountInput.addEventListener(
+        "input",
+        updatePrice
+    );
+
+    /* Corrige une valeur inférieure au minimum en quittant le champ. */
+    peopleCountInput.addEventListener(
+        "change",
+        () => {
+            const peopleCount = Number(
+                peopleCountInput.value
+            );
+
+            if (
+                !Number.isInteger(peopleCount) ||
+                peopleCount < minimumPeople
+            ) {
+                peopleCountInput.value =
+                    String(minimumPeople);
+            }
+
+            updatePrice();
+        }
+    );
+
+
+    /* -------------------------------------------------- */
+    /* premier calcul */
+    /* -------------------------------------------------- */
+
+    /* Initialise les prix affichés lors du chargement de la page. */
     updatePrice();
-  });
-
-  updatePrice();
 }

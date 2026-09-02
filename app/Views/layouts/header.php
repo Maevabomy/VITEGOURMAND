@@ -53,7 +53,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#" aria-disabled="true">
+                            <a
+                                class="nav-link"
+                                href="<?php echo BASE_URL; ?>/contact">
                                 Contact
                             </a>
                         </li>

@@ -87,14 +87,20 @@ class DeliveryService
                 continue;
             }
 
+            $addressDetails =
+                $address['address'] ?? [];
+
             $results[] = [
-                'label' => $address['display_name'],
+                'label' => self::buildAddressLabel(
+                    $addressDetails,
+                    $address['display_name']
+                ),
                 'latitude' => (float) $address['lat'],
                 'longitude' => (float) $address['lon'],
                 'postal_code' =>
-                $address['address']['postcode'] ?? '',
+                $addressDetails['postcode'] ?? '',
                 'city' => self::extractCity(
-                    $address['address'] ?? []
+                    $addressDetails
                 ),
             ];
         }
@@ -208,6 +214,57 @@ class DeliveryService
             'distance_fee' => $distanceFee,
             'delivery_fee' => $deliveryFee,
         ];
+    }
+
+    /* -------------------------------------------------- */
+    /* formatage de l'adresse */
+    /* -------------------------------------------------- */
+
+    /* Construit un libellé court avec la rue, le code postal et la ville. */
+    private static function buildAddressLabel(
+        array $address,
+        string $fallback
+    ): string {
+        $houseNumber = trim(
+            (string) ($address['house_number'] ?? '')
+        );
+
+        $road = trim((string) (
+            $address['road']
+            ?? $address['pedestrian']
+            ?? $address['residential']
+            ?? $address['footway']
+            ?? $address['path']
+            ?? ''
+        ));
+
+        $postalCode = trim(
+            (string) ($address['postcode'] ?? '')
+        );
+
+        $city = trim(
+            self::extractCity($address)
+        );
+
+        $street = trim(
+            $houseNumber . ' ' . $road
+        );
+
+        $location = trim(
+            $postalCode . ' ' . $city
+        );
+
+        $parts = array_values(
+            array_filter(
+                [$street, $location],
+                static fn(string $part): bool =>
+                $part !== ''
+            )
+        );
+
+        return !empty($parts)
+            ? implode(', ', $parts)
+            : $fallback;
     }
 
     /* -------------------------------------------------- */
