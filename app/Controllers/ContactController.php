@@ -88,10 +88,7 @@ class ContactController
                 (string) ($_POST['email'] ?? '')
             );
 
-        /*
-         * Supprime les retours à la ligne afin
-         * d'éviter leur utilisation dans le sujet du mail.
-         */
+        /* Supprime les retours à la ligne afin d'éviter leur utilisation dans le sujet du mail. */
         $subject =
             preg_replace(
                 '/[\r\n]+/',
@@ -186,14 +183,7 @@ class ContactController
             $this->redirectToContact();
         }
 
-        /*
-         * Le message reste enregistré dans MariaDB
-         * même si le serveur local ne peut pas
-         * réellement transmettre l'e-mail.
-         *
-         * MailService en conserve également une copie
-         * dans storage/logs/emails.log pour les tests.
-         */
+        /* Le message reste enregistré dans MariaDB même si le serveur local ne peut pas réellement transmettre l'e-mail. MailService en conserve également une copie dans storage/logs/emails.log pour les tests. */
         MailService::sendContactRequestEmail(
             $email,
             $subject,

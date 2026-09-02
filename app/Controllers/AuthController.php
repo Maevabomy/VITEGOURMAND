@@ -30,6 +30,12 @@ class AuthController
         $errors = [];
         $success = null;
 
+        /* Vérifie le jeton CSRF. */
+        if (!$this->isAuthCsrfTokenValid()) {
+            $errors[] =
+                'Le formulaire a expiré. Veuillez recommencer.';
+        }
+
         $formData = [
             'first_name' => trim($_POST['first_name'] ?? ''),
             'last_name' => trim($_POST['last_name'] ?? ''),
@@ -146,6 +152,12 @@ class AuthController
         $errors = [];
         $success = null;
 
+        /* Vérifie le jeton CSRF. */
+        if (!$this->isAuthCsrfTokenValid()) {
+            $errors[] =
+                'Le formulaire a expiré. Veuillez recommencer.';
+        }
+
         $formData = [
             'email' => trim($_POST['email'] ?? ''),
         ];
@@ -239,6 +251,12 @@ class AuthController
         $errors = [];
         $success = null;
 
+        /* Vérifie le jeton CSRF. */
+        if (!$this->isAuthCsrfTokenValid()) {
+            $errors[] =
+                'Le formulaire a expiré. Veuillez recommencer.';
+        }
+
         $formData = [
             'email' => trim($_POST['email'] ?? ''),
         ];
@@ -254,9 +272,7 @@ class AuthController
             $user = User::findByEmail($formData['email']);
 
             /*
-         * Ne révèle pas si une adresse existe.
-         * Le traitement est effectué uniquement pour un compte actif.
-         */
+         * Ne révèle pas si une adresse existe. Le traitement est effectué uniquement pour un compte actif. */
             if ($user && $user['is_active']) {
                 $token = bin2hex(random_bytes(32));
                 $tokenHash = hash('sha256', $token);
@@ -335,6 +351,12 @@ class AuthController
         $success = null;
         $resetToken = null;
 
+        /* Vérifie le jeton CSRF. */
+        if (!$this->isAuthCsrfTokenValid()) {
+            $errors[] =
+                'Le formulaire a expiré. Veuillez recommencer.';
+        }
+
         $token = trim($_POST['token'] ?? '');
         $password = $_POST['password'] ?? '';
         $passwordConfirmation = $_POST['password_confirmation'] ?? '';
@@ -398,6 +420,14 @@ class AuthController
     /* Détruit la session puis retourne à l'accueil. */
     public function logout(): void
     {
+
+        /* Refuse une demande de déconnexion sans jeton CSRF valide. */
+        if (!$this->isAuthCsrfTokenValid()) {
+            http_response_code(403);
+
+            exit('Le formulaire a expiré. '
+                . 'Veuillez recharger la page.');
+        }
         $_SESSION = [];
 
         if (ini_get('session.use_cookies')) {
@@ -418,6 +448,27 @@ class AuthController
 
         header('Location: ' . BASE_URL . '/login');
         exit;
+    }
+
+    /* -------------------------------------------------- */
+    /* sécurité CSRF */
+    /* -------------------------------------------------- */
+
+    /* Vérifie que le jeton envoyé correspond à celui de la session. */
+    private function isAuthCsrfTokenValid(): bool
+    {
+        $sessionToken =
+            (string) ($_SESSION['auth_csrf_token'] ?? '');
+
+        $submittedToken =
+            (string) ($_POST['csrf_token'] ?? '');
+
+        return $sessionToken !== ''
+            && $submittedToken !== ''
+            && hash_equals(
+                $sessionToken,
+                $submittedToken
+            );
     }
 
     /* -------------------------------------------------- */

@@ -39,6 +39,16 @@ class OrderController
             exit;
         }
 
+        /* Réserve la commande aux comptes clients. */
+        if (($_SESSION['user']['role'] ?? '') !== 'user') {
+            http_response_code(403);
+
+            echo '<h1>Erreur 403</h1>';
+            echo '<p>Vous ne pouvez pas accéder à cette page.</p>';
+
+            return;
+        }
+
         $menuId = filter_input(
             INPUT_GET,
             'menu_id',
@@ -170,6 +180,18 @@ class OrderController
             return;
         }
 
+        /* Réserve ce service aux comptes clients. */
+        if (($_SESSION['user']['role'] ?? '') !== 'user') {
+            http_response_code(403);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Accès non autorisé.',
+            ], JSON_UNESCAPED_UNICODE);
+
+            return;
+        }
+
         $query = trim($_GET['query'] ?? '');
 
         if (mb_strlen($query) < 5) {
@@ -207,6 +229,18 @@ class OrderController
                 'success' => false,
                 'message' => 'Vous devez être connecté.',
             ]);
+
+            return;
+        }
+
+        /* Réserve ce service aux comptes clients. */
+        if (($_SESSION['user']['role'] ?? '') !== 'user') {
+            http_response_code(403);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Accès non autorisé.',
+            ], JSON_UNESCAPED_UNICODE);
 
             return;
         }
@@ -298,6 +332,16 @@ class OrderController
             );
 
             exit;
+        }
+
+        /* Réserve la commande aux comptes clients. */
+        if (($_SESSION['user']['role'] ?? '') !== 'user') {
+            http_response_code(403);
+
+            echo '<h1>Erreur 403</h1>';
+            echo '<p>Vous ne pouvez pas accéder à cette page.</p>';
+
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -463,7 +507,7 @@ class OrderController
                 'Le créneau de livraison sélectionné est invalide.';
         }
 
-                /* Affiche les erreurs avant tout calcul ou enregistrement. */
+        /* Affiche les erreurs avant tout calcul ou enregistrement. */
         if (!empty($errors)) {
             http_response_code(422);
 
@@ -638,6 +682,16 @@ class OrderController
             exit;
         }
 
+        /* Réserve la confirmation aux comptes clients. */
+        if (($_SESSION['user']['role'] ?? '') !== 'user') {
+            http_response_code(403);
+
+            echo '<h1>Erreur 403</h1>';
+            echo '<p>Vous ne pouvez pas accéder à cette page.</p>';
+
+            return;
+        }
+
         if (empty($_SESSION['order_confirmation'])) {
             header('Location: ' . BASE_URL . '/menus');
             exit;
@@ -645,10 +699,7 @@ class OrderController
 
         $confirmation = $_SESSION['order_confirmation'];
 
-        /*
-         * La confirmation est affichée une seule fois.
-         * Un rafraîchissement redirigera ensuite vers les menus.
-         */
+        /* La confirmation est affichée une seule fois. Un rafraîchissement redirigera ensuite vers les menus.*/
         unset($_SESSION['order_confirmation']);
 
         $pageTitle = 'Confirmation de commande';

@@ -738,10 +738,7 @@ class EmployeeController
                 $_SESSION['employee_status_csrf_token']
             );
 
-            /*
-             * La transaction est terminée avant l'envoi.
-             * Un échec du serveur mail ne bloque pas la commande.
-             */
+            /* La transaction est terminée avant l'envoi. Un échec du serveur mail ne bloque pas la commande. */
             $updatedOrder =
                 Order::findByIdForEmployee(
                     (int) $orderId
@@ -969,10 +966,7 @@ class EmployeeController
                 $_SESSION['employee_cancel_csrf_token']
             );
 
-            /*
-             * L'annulation est déjà validée en base.
-             * Le mail est donc envoyé en dehors de la transaction.
-             */
+            /* L'annulation est déjà validée en base. Le mail est donc envoyé en dehors de la transaction. */
             $cancelledOrder =
                 Order::findByIdForEmployee(
                     (int) $orderId

@@ -1,3 +1,11 @@
+<?php
+
+/** @var array $errors */
+/** @var string|null $success */
+/** @var string $token */
+/** @var array|null $resetToken */
+?>
+
 <section class="auth-section py-5">
     <div class="container">
         <div class="auth-card mx-auto">
@@ -46,6 +54,17 @@
                         type="hidden"
                         name="token"
                         value="<?php echo htmlspecialchars($token); ?>">
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?php
+                                echo htmlspecialchars(
+                                    $_SESSION['auth_csrf_token'],
+                                    ENT_QUOTES,
+                                    'UTF-8'
+                                );
+                                ?>">
 
                     <div class="mt-3">
                         <label for="password" class="form-label">

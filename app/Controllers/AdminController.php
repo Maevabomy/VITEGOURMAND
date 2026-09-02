@@ -172,10 +172,7 @@ class AdminController
             );
         }
 
-        /*
-         * Le mot de passe n'est volontairement
-         * jamais transmis au service mail.
-         */
+        /* Le mot de passe n'est volontairement jamais transmis au service mail. */
         MailService::sendEmployeeAccountCreatedEmail(
             $email
         );
@@ -271,10 +268,7 @@ class AdminController
         $statisticsError = null;
         $menuOrderStatistics = [];
 
-        /*
-         * MariaDB prépare les données,
-         * puis MongoDB les stocke.
-         */
+        /* MariaDB prépare les données, puis MongoDB les stocke. */
         $sourceStatistics =
             OrderStatistics::getMenuOrderCounts();
 
@@ -288,10 +282,7 @@ class AdminController
                 'Les statistiques MongoDB '
                 . 'ne sont pas disponibles.';
         } else {
-            /*
-             * Les données affichées sont relues
-             * directement depuis MongoDB.
-             */
+            /* Les données affichées sont relues directement depuis MongoDB. */
             $mongoStatistics =
                 MongoOrderStatistics::getAll();
 
@@ -305,9 +296,7 @@ class AdminController
             }
         }
 
-        /*
-         * Chiffre d'affaires.
-         */
+        /* Chiffre d'affaires. */
         $revenueError = null;
 
         $revenueMenus =

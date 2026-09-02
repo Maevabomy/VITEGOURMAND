@@ -101,6 +101,17 @@
                                     method="post"
                                     class="d-inline">
 
+                                    <input
+                                        type="hidden"
+                                        name="csrf_token"
+                                        value="<?php
+                                                echo htmlspecialchars(
+                                                    $_SESSION['auth_csrf_token'],
+                                                    ENT_QUOTES,
+                                                    'UTF-8'
+                                                );
+                                                ?>">
+
                                     <button
                                         type="submit"
                                         class="nav-link border-0 bg-transparent">

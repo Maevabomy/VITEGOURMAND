@@ -37,6 +37,17 @@
 
             <form action="<?php echo BASE_URL; ?>/register" method="post" class="auth-form">
 
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php
+                            echo htmlspecialchars(
+                                $_SESSION['auth_csrf_token'],
+                                ENT_QUOTES,
+                                'UTF-8'
+                            );
+                            ?>">
+
                 <!-- -------------------------------------------------- -->
                 <!-- identité -->
                 <!-- -------------------------------------------------- -->

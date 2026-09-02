@@ -1,8 +1,42 @@
 <?php
 
 declare(strict_types=1);
-session_start();
+
 use App\Services\Router;
+
+
+/* -------------------------------------------------- */
+/* sécurité de la session */
+/* -------------------------------------------------- */
+
+/* Refuse les identifiants de session non générés par PHP. */
+
+ini_set('session.use_strict_mode', '1');
+
+/* Utilise uniquement les cookies pour transmettre l'identifiant de session. */
+ini_set('session.use_only_cookies', '1');
+
+/* Détecte si l'application fonctionne en HTTPS. */
+$isHttps =
+    !empty($_SERVER['HTTPS'])
+    && $_SERVER['HTTPS'] !== 'off';
+
+/* Renforce les paramètres du cookie de session. */
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => $isHttps,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
+
+session_start();
+
+/* Crée le jeton CSRF utilisé par les formulaires d'authentification. */
+if (empty($_SESSION['auth_csrf_token'])) {
+    $_SESSION['auth_csrf_token'] =
+        bin2hex(random_bytes(32));
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +83,9 @@ spl_autoload_register(function (string $className): void {
 });
 
 /*
-|--------------------------------------------------------------------------
-| démarrage du routeur
-|--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+démarrage du routeur
+--------------------------------------------------------------------------
 */
 
 $router = new Router();

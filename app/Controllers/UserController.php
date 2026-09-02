@@ -391,10 +391,7 @@ class UserController
             );
         }
 
-        /*
-         * Le stock affiché inclut les portions déjà réservées
-         * dans cette commande.
-         */
+        /* Le stock affiché inclut les portions déjà réservées dans cette commande. */
         $availableStock =
             (int) $menu['stock_quantity']
             + (int) $order['people_count'];
@@ -511,10 +508,7 @@ class UserController
             return;
         }
 
-        /*
-         * Récupère la commande depuis la base.
-         * Le menu provient uniquement de cette commande.
-         */
+        /* Récupère la commande depuis la base. Le menu provient uniquement de cette commande. */
         $order = Order::findByIdAndUserId(
             (int) $orderId,
             $userId
@@ -728,10 +722,7 @@ class UserController
                 : (int) $peopleCount,
         ];
 
-        /*
-         * Prépare les données nécessaires au réaffichage
-         * en cas d'erreur.
-         */
+        /* Prépare les données nécessaires au réaffichage en cas d'erreur. */
         $today = new \DateTimeImmutable('today');
 
         $minimumEventDate = $today
@@ -895,7 +886,7 @@ class UserController
         exit;
     }
 
-        /* -------------------------------------------------- */
+    /* -------------------------------------------------- */
     /* avis utilisateur */
     /* -------------------------------------------------- */
 
@@ -969,9 +960,9 @@ class UserController
 
             header(
                 'Location: '
-                . BASE_URL
-                . '/user/order/detail?id='
-                . (int) $orderId
+                    . BASE_URL
+                    . '/user/order/detail?id='
+                    . (int) $orderId
             );
 
             exit;
@@ -1016,9 +1007,9 @@ class UserController
 
             header(
                 'Location: '
-                . BASE_URL
-                . '/user/order/detail?id='
-                . (int) $orderId
+                    . BASE_URL
+                    . '/user/order/detail?id='
+                    . (int) $orderId
             );
 
             exit;
@@ -1055,9 +1046,9 @@ class UserController
 
         header(
             'Location: '
-            . BASE_URL
-            . '/user/order/detail?id='
-            . (int) $orderId
+                . BASE_URL
+                . '/user/order/detail?id='
+                . (int) $orderId
         );
 
         exit;
@@ -1345,10 +1336,7 @@ class UserController
         );
 
         if ($result === 'cancelled') {
-            /*
-             * Renouvelle le jeton après l'action pour empêcher
-             * une nouvelle soumission du même formulaire.
-             */
+            /* Renouvelle le jeton après l'action pour empêcher une nouvelle soumission du même formulaire. */
             $_SESSION['csrf_token'] = bin2hex(
                 random_bytes(32)
             );
