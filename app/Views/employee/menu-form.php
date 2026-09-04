@@ -7,14 +7,22 @@
 /** @var string $csrfToken */
 /** @var string|null $formError */
 
+
+/* -------------------------------------------------- */
+/* préparation du formulaire */
+/* -------------------------------------------------- */
+
+/* Indique si le formulaire sert à modifier un menu existant. */
 $isEditing =
     !empty($menu['id']);
 
+/* Récupère les plats déjà associés au menu. */
 $selectedDishIds = array_map(
     'intval',
     $menu['dish_ids'] ?? []
 );
 
+/* Associe chaque type de plat à son libellé français. */
 $dishTypeLabels = [
     'starter' => 'Entrées',
     'main_course' => 'Plats',
@@ -22,6 +30,10 @@ $dishTypeLabels = [
 ];
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- présentation du formulaire de menu -->
+<!-- -------------------------------------------------- -->
 
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
@@ -48,17 +60,25 @@ $dishTypeLabels = [
 
 <?php
 
+/* Charge la navigation de l'espace employé. */
 require BASE_PATH
     . '/app/Views/employee/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- formulaire de création ou modification -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
+        <!-- Affiche le message d'erreur en cas d'échec. -->
         <?php if (!empty($formError)): ?>
 
-            <div class="alert alert-danger" role="alert">
+            <div
+                class="alert alert-danger"
+                role="alert">
                 <?php echo htmlspecialchars($formError); ?>
             </div>
 
@@ -71,13 +91,17 @@ require BASE_PATH
             method="post"
             class="employee-dashboard-card employee-menu-form">
 
+            <!-- Protège le formulaire contre les requêtes CSRF. -->
             <input
                 type="hidden"
                 name="csrf_token"
                 value="<?php
-                    echo htmlspecialchars($csrfToken);
+                    echo htmlspecialchars(
+                        $csrfToken
+                    );
                 ?>">
 
+            <!-- Transmet l'identifiant du menu lors d'une modification. -->
             <?php if ($isEditing): ?>
 
                 <input
@@ -89,8 +113,13 @@ require BASE_PATH
 
             <?php endif; ?>
 
+            <!-- -------------------------------------------------- -->
+            <!-- informations principales du menu -->
+            <!-- -------------------------------------------------- -->
+
             <div class="row g-4">
 
+                <!-- Titre du menu. -->
                 <div class="col-md-8">
 
                     <label
@@ -114,6 +143,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Thème du menu. -->
                 <div class="col-md-4">
 
                     <label
@@ -162,6 +192,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Régime alimentaire du menu. -->
                 <div class="col-md-4">
 
                     <label
@@ -193,13 +224,10 @@ require BASE_PATH
                                 <?php
                                 echo (
                                     (int) (
-                                        $menu[
-                                            'dietary_type_id'
-                                        ]
+                                        $menu['dietary_type_id']
                                         ?? 0
                                     )
-                                    === (int)
-                                        $dietaryType['id']
+                                    === (int) $dietaryType['id']
                                 )
                                     ? 'selected'
                                     : '';
@@ -217,6 +245,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Nombre minimum de personnes. -->
                 <div class="col-md-4">
 
                     <label
@@ -236,9 +265,7 @@ require BASE_PATH
                         value="<?php
                             echo htmlspecialchars(
                                 (string) (
-                                    $menu[
-                                        'minimum_people'
-                                    ]
+                                    $menu['minimum_people']
                                     ?? ''
                                 )
                             );
@@ -246,6 +273,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Prix du menu pour le nombre minimum de personnes. -->
                 <div class="col-md-4">
 
                     <label
@@ -281,6 +309,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Stock disponible pour le menu. -->
                 <div class="col-md-4">
 
                     <label
@@ -312,6 +341,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Délai minimum avant la prestation. -->
                 <div class="col-md-4">
 
                     <label
@@ -333,9 +363,7 @@ require BASE_PATH
                             value="<?php
                                 echo htmlspecialchars(
                                     (string) (
-                                        $menu[
-                                            'minimum_order_days'
-                                        ]
+                                        $menu['minimum_order_days']
                                         ?? 1
                                     )
                                 );
@@ -349,6 +377,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Date de début de disponibilité du menu. -->
                 <div class="col-md-4">
 
                     <label
@@ -365,12 +394,13 @@ require BASE_PATH
                         value="<?php
                             echo htmlspecialchars(
                                 $menu['available_from']
-                                ?? ''
+                                    ?? ''
                             );
                         ?>">
 
                 </div>
 
+                <!-- Date de fin de disponibilité du menu. -->
                 <div class="col-md-4">
 
                     <label
@@ -387,12 +417,17 @@ require BASE_PATH
                         value="<?php
                             echo htmlspecialchars(
                                 $menu['available_until']
-                                ?? ''
+                                    ?? ''
                             );
                         ?>">
 
                 </div>
 
+                <!-- -------------------------------------------------- -->
+                <!-- description et conditions -->
+                <!-- -------------------------------------------------- -->
+
+                <!-- Description publique du menu. -->
                 <div class="col-12">
 
                     <label
@@ -414,6 +449,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Conditions particulières du menu. -->
                 <div class="col-12">
 
                     <label
@@ -444,6 +480,10 @@ require BASE_PATH
 
             <hr class="employee-menu-divider">
 
+            <!-- -------------------------------------------------- -->
+            <!-- composition du menu -->
+            <!-- -------------------------------------------------- -->
+
             <div class="employee-menu-dish-selection">
 
                 <div class="mb-4">
@@ -465,6 +505,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Affiche les plats disponibles par catégorie. -->
                 <?php foreach (
                     $dishTypeLabels
                     as $dishType => $dishTypeLabel
@@ -483,7 +524,10 @@ require BASE_PATH
                         <div class="employee-menu-dish-grid">
 
                             <?php
+
+                            /* Indique si au moins un plat existe dans cette catégorie. */
                             $hasDishForType = false;
+
                             ?>
 
                             <?php foreach (
@@ -491,18 +535,22 @@ require BASE_PATH
                                 as $dish
                             ): ?>
 
-                                <?php if (
+                                <?php
+
+                                /* Ignore les plats qui ne correspondent pas à la catégorie. */
+                                if (
                                     $dish['dish_type']
                                     !== $dishType
                                 ) {
                                     continue;
-                                } ?>
+                                }
 
-                                <?php
                                 $hasDishForType = true;
 
+                                /* Récupère l'identifiant du plat courant. */
                                 $dishId =
                                     (int) $dish['id'];
+
                                 ?>
 
                                 <label
@@ -531,11 +579,10 @@ require BASE_PATH
                                             : '';
                                         ?>>
 
+                                    <!-- Affiche la photo du plat lorsqu'elle existe. -->
                                     <?php if (
                                         !empty(
-                                            $dish[
-                                                'photo_mime_type'
-                                            ]
+                                            $dish['photo_mime_type']
                                         )
                                     ): ?>
 
@@ -551,6 +598,7 @@ require BASE_PATH
                                     <?php endif; ?>
 
                                     <span>
+
                                         <strong>
                                             <?php
                                             echo htmlspecialchars(
@@ -559,11 +607,10 @@ require BASE_PATH
                                             ?>
                                         </strong>
 
+                                        <!-- Affiche les allergènes renseignés pour le plat. -->
                                         <?php if (
                                             !empty(
-                                                $dish[
-                                                    'allergen_names'
-                                                ]
+                                                $dish['allergen_names']
                                             )
                                         ): ?>
 
@@ -571,9 +618,7 @@ require BASE_PATH
                                                 Allergènes :
                                                 <?php
                                                 echo htmlspecialchars(
-                                                    $dish[
-                                                        'allergen_names'
-                                                    ]
+                                                    $dish['allergen_names']
                                                 );
                                                 ?>
                                             </small>
@@ -586,6 +631,7 @@ require BASE_PATH
 
                             <?php endforeach; ?>
 
+                            <!-- Affiche un message si aucun plat n'est disponible dans la catégorie. -->
                             <?php if (!$hasDishForType): ?>
 
                                 <p class="employee-menu-help">
@@ -602,6 +648,10 @@ require BASE_PATH
                 <?php endforeach; ?>
 
             </div>
+
+            <!-- -------------------------------------------------- -->
+            <!-- actions du formulaire -->
+            <!-- -------------------------------------------------- -->
 
             <div class="employee-menu-form-actions">
 

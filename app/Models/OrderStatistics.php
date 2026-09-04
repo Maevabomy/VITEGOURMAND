@@ -13,10 +13,7 @@ class OrderStatistics
     |--------------------------------------------------------------------------
     */
 
-    /*
-     * Prépare les statistiques qui seront synchronisées
-     * vers la base MongoDB.
-     */
+    /* Prépare les statistiques qui seront synchronisées vers la base MongoDB. */
     public static function getMenuOrderCounts(): array
     {
         $connection = Database::getConnection();
@@ -65,12 +62,7 @@ class OrderStatistics
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*
-     * Calcule le chiffre d'affaires par menu.
-     *
-     * Les commandes annulées sont exclues.
-     * La période est basée sur la date de prestation.
-     */
+    /* Calcule le chiffre d'affaires par menu. Les commandes annulées sont exclues. La période est basée sur la date de prestation. */
     public static function getRevenueByMenu(
         ?int $menuId,
         ?string $startDate,

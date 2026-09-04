@@ -4,6 +4,10 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- présentation du tableau de bord administrateur -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
 
@@ -25,10 +29,15 @@
 
 <?php
 
+/* Charge la navigation de l'espace administrateur. */
 require BASE_PATH
     . '/app/Views/admin/_navigation.php';
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- accès aux outils d'administration -->
+<!-- -------------------------------------------------- -->
 
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
@@ -46,6 +55,10 @@ require BASE_PATH
         </div>
 
         <div class="employee-management-grid">
+
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des employés -->
+            <!-- -------------------------------------------------- -->
 
             <article class="employee-management-card">
 
@@ -76,6 +89,10 @@ require BASE_PATH
 
             </article>
 
+            <!-- -------------------------------------------------- -->
+            <!-- statistiques -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
@@ -104,6 +121,11 @@ require BASE_PATH
                 </a>
 
             </article>
+
+
+            <!-- -------------------------------------------------- -->
+            <!-- accès à l'espace employé -->
+            <!-- -------------------------------------------------- -->
 
             <article class="employee-management-card">
 

@@ -11,11 +11,9 @@ class MongoDatabase
 {
     private static ?Manager $manager = null;
 
-    /*
-    |--------------------------------------------------------------------------
-    | connexion MongoDB
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* connexion MongoDB */
+    /* -------------------------------------------------- */
 
     public static function getManager(): Manager
     {
@@ -41,14 +39,7 @@ class MongoDatabase
                     $config['tls_ca_file'];
             }
 
-            /*
-             * Contournement local uniquement.
-             *
-             * XAMPP rencontre un problème de validation OCSP
-             * avec les certificats Atlas.
-             * Cette option doit rester désactivée
-             * en production.
-             */
+            /* Active le contournement TLS uniquement pour l'environnement local */
             if ($config['allow_invalid_certificates']) {
                 $options['tlsAllowInvalidCertificates'] =
                     true;
@@ -69,11 +60,9 @@ class MongoDatabase
         return self::$manager;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | nom de la base
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* nom de la base */
+    /* -------------------------------------------------- */
 
     public static function getDatabaseName(): string
     {
@@ -83,11 +72,9 @@ class MongoDatabase
         return $config['database'];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | test de connexion
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* test de connexion */
+    /* -------------------------------------------------- */
 
     public static function ping(): bool
     {

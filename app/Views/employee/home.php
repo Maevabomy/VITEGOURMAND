@@ -4,6 +4,10 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- présentation de l'espace employé -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
 
@@ -27,10 +31,15 @@
 
 <?php
 
+/* Charge la navigation de l'espace employé. */
 require BASE_PATH
     . '/app/Views/employee/_navigation.php';
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- outils de gestion -->
+<!-- -------------------------------------------------- -->
 
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
@@ -49,9 +58,14 @@ require BASE_PATH
 
         <div class="employee-management-grid">
 
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des commandes -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
+
                     <p class="employee-management-card-label">
                         Prestations
                     </p>
@@ -64,6 +78,7 @@ require BASE_PATH
                         Recherchez les commandes, consultez leur détail
                         et mettez à jour leur statut.
                     </p>
+
                 </div>
 
                 <a
@@ -77,9 +92,14 @@ require BASE_PATH
 
             </article>
 
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des avis -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
+
                     <p class="employee-management-card-label">
                         Satisfaction client
                     </p>
@@ -92,6 +112,7 @@ require BASE_PATH
                         Consultez les avis en attente et choisissez
                         de les approuver ou de les refuser.
                     </p>
+
                 </div>
 
                 <a
@@ -105,9 +126,14 @@ require BASE_PATH
 
             </article>
 
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des menus -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
+
                     <p class="employee-management-card-label">
                         Catalogue
                     </p>
@@ -120,6 +146,7 @@ require BASE_PATH
                         Gérez les menus proposés, leurs informations,
                         leurs plats et leur disponibilité.
                     </p>
+
                 </div>
 
                 <a
@@ -130,9 +157,14 @@ require BASE_PATH
 
             </article>
 
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des plats -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
+
                     <p class="employee-management-card-label">
                         Cuisine
                     </p>
@@ -145,6 +177,7 @@ require BASE_PATH
                         Gérez les plats, leurs photos et les allergènes
                         associés.
                     </p>
+
                 </div>
 
                 <a
@@ -155,9 +188,14 @@ require BASE_PATH
 
             </article>
 
+            <!-- -------------------------------------------------- -->
+            <!-- gestion des horaires -->
+            <!-- -------------------------------------------------- -->
+
             <article class="employee-management-card">
 
                 <div>
+
                     <p class="employee-management-card-label">
                         Informations publiques
                     </p>
@@ -170,6 +208,7 @@ require BASE_PATH
                         Modifiez les horaires visibles dans le pied
                         de page du site.
                     </p>
+
                 </div>
 
                 <a

@@ -1,3 +1,7 @@
+<!-- -------------------------------------------------- -->
+<!-- formulaire de connexion -->
+<!-- -------------------------------------------------- -->
+
 <section class="auth-section py-5">
     <div class="container">
         <div class="auth-card mx-auto">

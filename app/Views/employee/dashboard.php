@@ -8,6 +8,10 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- présentation de la gestion des commandes -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
 
@@ -25,26 +29,33 @@
             Retrouvez les commandes à préparer et utilisez les filtres
             pour accéder rapidement à une prestation.
         </p>
+
     </div>
 </section>
 
 <?php
 
+/* Charge la navigation de l'espace employé. */
 require BASE_PATH
     . '/app/Views/employee/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- gestion des commandes -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
         <!-- -------------------------------------------------- -->
-        <!-- filtres -->
+        <!-- filtres des commandes -->
         <!-- -------------------------------------------------- -->
 
         <section class="employee-dashboard-card mb-4">
 
             <div class="employee-dashboard-card-header">
+
                 <p class="section-subtitle mb-2">
                     Recherche
                 </p>
@@ -52,6 +63,7 @@ require BASE_PATH
                 <h2 class="employee-dashboard-card-title">
                     Filtrer les commandes
                 </h2>
+
             </div>
 
             <form
@@ -59,7 +71,9 @@ require BASE_PATH
                 method="get"
                 class="employee-order-filters">
 
+                <!-- Filtre les commandes par statut. -->
                 <div>
+
                     <label
                         for="employee-order-status"
                         class="form-label">
@@ -78,7 +92,9 @@ require BASE_PATH
                         <?php foreach ($statuses as $status): ?>
 
                             <option
-                                value="<?php echo (int) $status['id']; ?>"
+                                value="<?php
+                                        echo (int) $status['id'];
+                                        ?>"
                                 <?php
                                 echo $statusId === (int) $status['id']
                                     ? 'selected'
@@ -94,9 +110,12 @@ require BASE_PATH
                         <?php endforeach; ?>
 
                     </select>
+
                 </div>
 
+                <!-- Recherche une commande par client ou numéro de commande. -->
                 <div>
+
                     <label
                         for="employee-order-search"
                         class="form-label">
@@ -108,11 +127,12 @@ require BASE_PATH
                         class="form-control"
                         id="employee-order-search"
                         name="search"
-                        value="<?php echo htmlspecialchars($search); ?>"
+                        value="<?php
+                                echo htmlspecialchars($search);
+                                ?>"
                         maxlength="100"
-                        placeholder="
-                            Nom, e-mail ou numéro de commande
-                        ">
+                        placeholder="Nom, e-mail ou numéro de commande">
+
                 </div>
 
                 <div class="employee-order-filter-actions">
@@ -123,11 +143,16 @@ require BASE_PATH
                         Rechercher
                     </button>
 
-                    <?php if ($statusId !== null || $search !== ''): ?>
+                    <!-- Affiche le bouton de réinitialisation si un filtre est actif. -->
+                    <?php if (
+                        $statusId !== null
+                        || $search !== ''
+                    ): ?>
 
                         <a
                             href="<?php
-                                    echo BASE_URL . '/employee/dashboard';
+                                    echo BASE_URL
+                                        . '/employee/dashboard';
                                     ?>"
                             class="btn employee-filter-reset-button">
                             Réinitialiser
@@ -142,7 +167,7 @@ require BASE_PATH
         </section>
 
         <!-- -------------------------------------------------- -->
-        <!-- commandes -->
+        <!-- liste des commandes -->
         <!-- -------------------------------------------------- -->
 
         <section class="employee-dashboard-card">
@@ -150,6 +175,7 @@ require BASE_PATH
             <div class="employee-orders-heading">
 
                 <div class="employee-dashboard-card-header mb-0">
+
                     <p class="section-subtitle mb-2">
                         Prestations
                     </p>
@@ -157,12 +183,16 @@ require BASE_PATH
                     <h2 class="employee-dashboard-card-title">
                         Commandes trouvées
                     </h2>
+
                 </div>
 
+                <!-- Affiche le nombre de commandes correspondant aux filtres. -->
                 <span class="employee-order-count">
                     <?php echo count($orders); ?>
                     commande<?php
-                            echo count($orders) > 1 ? 's' : '';
+                            echo count($orders) > 1
+                                ? 's'
+                                : '';
                             ?>
                 </span>
 
@@ -175,20 +205,29 @@ require BASE_PATH
                     <?php foreach ($orders as $order): ?>
 
                         <?php
+
+                        /* Prépare la date de prestation pour l'affichage. */
                         $eventDate = date_create(
                             $order['event_date']
                         );
 
+                        /* Prépare l'heure de livraison pour l'affichage. */
                         $deliveryTime = date_create(
                             $order['delivery_time']
                         );
+
                         ?>
 
                         <article class="employee-order-card">
 
+                            <!-- -------------------------------------------------- -->
+                            <!-- identité de la commande -->
+                            <!-- -------------------------------------------------- -->
+
                             <div class="employee-order-card-header">
 
                                 <div>
+
                                     <p class="employee-order-reference mb-1">
                                         <?php
                                         echo htmlspecialchars(
@@ -214,6 +253,7 @@ require BASE_PATH
                                         );
                                         ?>
                                     </p>
+
                                 </div>
 
                                 <span class="user-order-status">
@@ -226,9 +266,14 @@ require BASE_PATH
 
                             </div>
 
+                            <!-- -------------------------------------------------- -->
+                            <!-- informations de la commande -->
+                            <!-- -------------------------------------------------- -->
+
                             <div class="employee-order-information">
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Menu
                                     </span>
@@ -240,9 +285,11 @@ require BASE_PATH
                                         );
                                         ?>
                                     </strong>
+
                                 </div>
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Prestation
                                     </span>
@@ -260,9 +307,11 @@ require BASE_PATH
                                             : '';
                                         ?>
                                     </strong>
+
                                 </div>
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Convives
                                     </span>
@@ -272,9 +321,11 @@ require BASE_PATH
                                         echo (int) $order['people_count'];
                                         ?>
                                     </strong>
+
                                 </div>
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Total
                                     </span>
@@ -290,9 +341,14 @@ require BASE_PATH
                                         ?>
                                         €
                                     </strong>
+
                                 </div>
 
                             </div>
+
+                            <!-- -------------------------------------------------- -->
+                            <!-- actions de la commande -->
+                            <!-- -------------------------------------------------- -->
 
                             <div class="employee-order-actions">
 
@@ -302,10 +358,7 @@ require BASE_PATH
                                                 . '/employee/order/detail?id='
                                                 . (int) $order['id'];
                                             ?>"
-                                    class="
-        btn
-        user-order-detail-button
-    ">
+                                    class="btn user-order-detail-button">
                                     Voir le détail
                                 </a>
 
@@ -319,6 +372,7 @@ require BASE_PATH
 
             <?php else: ?>
 
+                <!-- Affiche un message si aucune commande ne correspond aux filtres. -->
                 <div class="user-orders-empty">
 
                     <h3 class="user-orders-empty-title">

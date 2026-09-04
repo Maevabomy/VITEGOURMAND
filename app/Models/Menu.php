@@ -324,21 +324,21 @@ class Menu
             $statement->execute([
                 'theme_id' => $data['theme_id'],
                 'dietary_type_id' =>
-                    $data['dietary_type_id'],
+                $data['dietary_type_id'],
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'conditions' => $data['conditions'],
                 'minimum_order_days' =>
-                    $data['minimum_order_days'],
+                $data['minimum_order_days'],
                 'available_from' =>
-                    $data['available_from'],
+                $data['available_from'],
                 'available_until' =>
-                    $data['available_until'],
+                $data['available_until'],
                 'minimum_people' =>
-                    $data['minimum_people'],
+                $data['minimum_people'],
                 'base_price' => $data['base_price'],
                 'stock_quantity' =>
-                    $data['stock_quantity'],
+                $data['stock_quantity'],
             ]);
 
             $menuId = (int) $pdo->lastInsertId();
@@ -399,21 +399,21 @@ class Menu
                 'id' => $id,
                 'theme_id' => $data['theme_id'],
                 'dietary_type_id' =>
-                    $data['dietary_type_id'],
+                $data['dietary_type_id'],
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'conditions' => $data['conditions'],
                 'minimum_order_days' =>
-                    $data['minimum_order_days'],
+                $data['minimum_order_days'],
                 'available_from' =>
-                    $data['available_from'],
+                $data['available_from'],
                 'available_until' =>
-                    $data['available_until'],
+                $data['available_until'],
                 'minimum_people' =>
-                    $data['minimum_people'],
+                $data['minimum_people'],
                 'base_price' => $data['base_price'],
                 'stock_quantity' =>
-                    $data['stock_quantity'],
+                $data['stock_quantity'],
             ]);
 
             self::replaceDishes(
@@ -543,14 +543,14 @@ class Menu
                     'title' => $row['title'],
                     'description' => $row['description'],
                     'minimum_people' =>
-                        (int) $row['minimum_people'],
+                    (int) $row['minimum_people'],
                     'base_price' =>
-                        (float) $row['base_price'],
+                    (float) $row['base_price'],
                     'stock_quantity' =>
-                        (int) $row['stock_quantity'],
+                    (int) $row['stock_quantity'],
                     'theme_name' => $row['theme_name'],
                     'dietary_type_name' =>
-                        $row['dietary_type_name'],
+                    $row['dietary_type_name'],
                     'dishes' => [],
                 ];
             }
@@ -575,23 +575,23 @@ class Menu
             'id' => (int) $firstRow['menu_id'],
             'title' => $firstRow['title'],
             'description' =>
-                $firstRow['menu_description'],
+            $firstRow['menu_description'],
             'conditions' => $firstRow['conditions'],
             'minimum_order_days' =>
-                (int) $firstRow['minimum_order_days'],
+            (int) $firstRow['minimum_order_days'],
             'available_from' =>
-                $firstRow['available_from'],
+            $firstRow['available_from'],
             'available_until' =>
-                $firstRow['available_until'],
+            $firstRow['available_until'],
             'minimum_people' =>
-                (int) $firstRow['minimum_people'],
+            (int) $firstRow['minimum_people'],
             'base_price' =>
-                (float) $firstRow['base_price'],
+            (float) $firstRow['base_price'],
             'stock_quantity' =>
-                (int) $firstRow['stock_quantity'],
+            (int) $firstRow['stock_quantity'],
             'theme_name' => $firstRow['theme_name'],
             'dietary_type_name' =>
-                $firstRow['dietary_type_name'],
+            $firstRow['dietary_type_name'],
             'dishes' => [],
         ];
 
@@ -603,7 +603,7 @@ class Menu
                     'id' => $dishId,
                     'name' => $row['dish_name'],
                     'description' =>
-                        $row['dish_description'],
+                    $row['dish_description'],
                     'dish_type' => $row['dish_type'],
                     'allergens' => [],
                 ];

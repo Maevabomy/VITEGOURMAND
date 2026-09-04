@@ -1090,6 +1090,13 @@ class UserController
             return;
         }
 
+        /* Crée le jeton protégeant la modification du profil. */
+        if (empty($_SESSION['profile_csrf_token'])) {
+            $_SESSION['profile_csrf_token'] = bin2hex(
+                random_bytes(32)
+            );
+        }
+
         $errors = [];
         $formData = [
             'first_name' => $user['first_name'],
@@ -1134,6 +1141,24 @@ class UserController
 
             echo '<h1>Erreur 403</h1>';
             echo '<p>Vous ne pouvez pas effectuer cette action.</p>';
+
+            return;
+        }
+
+        /* Vérifie le jeton du formulaire. */
+        $csrfToken = (string) ($_POST['csrf_token'] ?? '');
+
+        if (
+            empty($_SESSION['profile_csrf_token'])
+            || $csrfToken === ''
+            || !hash_equals(
+                $_SESSION['profile_csrf_token'],
+                $csrfToken
+            )
+        ) {
+            http_response_code(403);
+
+            echo 'Le formulaire a expiré. Veuillez recommencer.';
 
             return;
         }
@@ -1239,6 +1264,9 @@ class UserController
 
         $_SESSION['user']['email'] =
             $formData['email'];
+
+        /* Supprime le jeton utilisé après la modification. */
+        unset($_SESSION['profile_csrf_token']);
 
         $_SESSION['user_success'] =
             'Vos informations personnelles ont bien été modifiées.';

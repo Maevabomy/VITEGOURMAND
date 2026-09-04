@@ -1,13 +1,18 @@
--- Met à jour les contraintes de commande des menus existants.
+-- --------------------------------------------------
+-- mise à jour des contraintes des menus
+-- --------------------------------------------------
 
 -- Renomme le thème Pâques en Printemps.
-
 UPDATE themes
 SET name = 'Printemps'
 WHERE name = 'Pâques';
 
--- Menus disponibles toute l'année.
 
+-- --------------------------------------------------
+-- menus disponibles toute l'année
+-- --------------------------------------------------
+
+-- Met à jour les contraintes du menu Terroir.
 UPDATE menus
 SET
     minimum_order_days = 5,
@@ -15,6 +20,7 @@ SET
     available_until = NULL
 WHERE title = 'Terroir';
 
+-- Met à jour les contraintes du menu Primeur.
 UPDATE menus
 SET
     minimum_order_days = 4,
@@ -22,6 +28,7 @@ SET
     available_until = NULL
 WHERE title = 'Primeur';
 
+-- Met à jour les contraintes du menu Millésime.
 UPDATE menus
 SET
     minimum_order_days = 7,
@@ -29,6 +36,7 @@ SET
     available_until = NULL
 WHERE title = 'Millésime';
 
+-- Met à jour les contraintes du menu Éclosion.
 UPDATE menus
 SET
     minimum_order_days = 4,
@@ -36,8 +44,12 @@ SET
     available_until = NULL
 WHERE title = 'Éclosion';
 
--- Menu disponible pendant la période des fêtes.
 
+-- --------------------------------------------------
+-- menu disponible pendant les fêtes
+-- --------------------------------------------------
+
+-- Définit la période de disponibilité du menu Minuit.
 UPDATE menus
 SET
     minimum_order_days = 10,
@@ -45,8 +57,12 @@ SET
     available_until = '2027-01-05'
 WHERE title = 'Minuit';
 
--- Menu disponible au printemps et en été.
 
+-- --------------------------------------------------
+-- menu disponible au printemps et en été
+-- --------------------------------------------------
+
+-- Met à jour la présentation et la disponibilité du menu Floraison.
 UPDATE menus
 SET
     description = 'Une composition printanière fraîche et légère, imaginée pour un déjeuner du printemps et de l’été.',

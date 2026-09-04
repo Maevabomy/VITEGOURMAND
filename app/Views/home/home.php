@@ -1,6 +1,12 @@
+<!-- -------------------------------------------------- -->
+<!-- bannière principale -->
+<!-- -------------------------------------------------- -->
+
 <section class="hero-section">
     <div class="container">
+
         <div class="hero-content">
+
             <p class="hero-subtitle">
                 Traiteur événementiel à Bordeaux
             </p>
@@ -14,32 +20,44 @@
                 et soignées pour vos repas, fêtes et événements.
             </p>
 
-            <a href="<?php echo BASE_URL; ?>/menus" class="btn btn-custom">
+            <a
+                href="<?php echo BASE_URL; ?>/menus"
+                class="btn btn-custom">
                 Découvrir nos menus
             </a>
+
         </div>
+
     </div>
 </section>
+
+<!-- -------------------------------------------------- -->
+<!-- présentation de l'entreprise -->
+<!-- -------------------------------------------------- -->
 
 <section class="presentation-section py-5">
     <div class="container py-4">
 
         <div class="row align-items-center gy-4 gx-lg-5">
 
+            <!-- Illustre une prestation événementielle. -->
             <div class="col-lg-6">
 
                 <div class="presentation-image-wrapper">
+
                     <img
                         src="<?php
-                                echo BASE_URL;
-                                ?>/assets/images/home/event.jpg"
+                            echo BASE_URL;
+                        ?>/assets/images/home/event.jpg"
                         alt="Réception événementielle de nuit sur la Garonne à Bordeaux"
                         class="presentation-image"
                         loading="lazy">
+
                 </div>
 
             </div>
 
+            <!-- Présente l'histoire de Vite & Gourmand. -->
             <div class="col-lg-6">
 
                 <p class="section-subtitle">
@@ -69,9 +87,16 @@
     </div>
 </section>
 
+<!-- -------------------------------------------------- -->
+<!-- savoir-faire et valeurs -->
+<!-- -------------------------------------------------- -->
+
 <section class="values-section py-5">
     <div class="container py-4">
+
+        <!-- Présente la section consacrée au savoir-faire. -->
         <div class="text-center mb-5">
+
             <p class="section-subtitle">
                 Notre savoir-faire
             </p>
@@ -79,53 +104,83 @@
             <h2>
                 Une équipe attentive à chaque détail
             </h2>
+
         </div>
 
         <div class="row gy-4">
+
+            <!-- Expérience de l'entreprise. -->
             <div class="col-md-4">
+
                 <article class="value-card">
-                    <h3>25 ans d'expérience</h3>
+
+                    <h3>
+                        25 ans d'expérience
+                    </h3>
 
                     <p>
                         Une entreprise bordelaise reconnue pour son sérieux
                         et la qualité de ses prestations.
                     </p>
+
                 </article>
+
             </div>
 
+            <!-- Diversité des menus. -->
             <div class="col-md-4">
+
                 <article class="value-card">
-                    <h3>Des menus variés</h3>
+
+                    <h3>
+                        Des menus variés
+                    </h3>
 
                     <p>
                         Des propositions adaptées aux saisons, aux événements
                         et aux différents régimes alimentaires.
                     </p>
+
                 </article>
+
             </div>
 
+            <!-- Accompagnement proposé aux clients. -->
             <div class="col-md-4">
+
                 <article class="value-card">
-                    <h3>Un accompagnement soigné</h3>
+
+                    <h3>
+                        Un accompagnement soigné
+                    </h3>
 
                     <p>
                         Une équipe disponible pour préparer votre réception
                         dans les meilleures conditions.
                     </p>
+
                 </article>
+
             </div>
+
         </div>
+
     </div>
 </section>
+
+<!-- -------------------------------------------------- -->
+<!-- avis clients -->
+<!-- -------------------------------------------------- -->
 
 <section class="reviews-section py-5">
     <div class="container py-4">
 
         <!-- -------------------------------------------------- -->
-        <!-- titre de la section -->
+        <!-- présentation des avis -->
         <!-- -------------------------------------------------- -->
 
         <div class="text-center mb-5">
+
             <p class="section-subtitle">
                 Avis clients
             </p>
@@ -133,6 +188,7 @@
             <h2>
                 Ils nous font confiance
             </h2>
+
         </div>
 
         <!-- -------------------------------------------------- -->
@@ -152,13 +208,26 @@
                 <div class="carousel-indicators">
 
                     <?php foreach ($reviews as $index => $review): ?>
+
                         <button
                             type="button"
                             data-bs-target="#reviews-carousel"
                             data-bs-slide-to="<?php echo $index; ?>"
-                            class="<?php echo $index === 0 ? 'active' : ''; ?>"
-                            aria-current="<?php echo $index === 0 ? 'true' : 'false'; ?>"
-                            aria-label="Afficher l'avis <?php echo $index + 1; ?>"></button>
+                            class="<?php
+                                echo $index === 0
+                                    ? 'active'
+                                    : '';
+                            ?>"
+                            aria-current="<?php
+                                echo $index === 0
+                                    ? 'true'
+                                    : 'false';
+                            ?>"
+                            aria-label="Afficher l'avis <?php
+                                echo $index + 1;
+                            ?>">
+                        </button>
+
                     <?php endforeach; ?>
 
                 </div>
@@ -167,34 +236,57 @@
                 <div class="carousel-inner">
 
                     <?php foreach ($reviews as $index => $review): ?>
-                        <div
-                            class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                            <article class="review-card review-card-carousel mx-auto">
 
+                        <div
+                            class="carousel-item <?php
+                                echo $index === 0
+                                    ? 'active'
+                                    : '';
+                            ?>">
+
+                            <article
+                                class="review-card review-card-carousel mx-auto">
+
+                                <!-- Affiche la note du client sur cinq étoiles. -->
                                 <p class="review-stars">
                                     <?php
-                                    echo str_repeat('★', (int) $review['rating']);
-                                    echo str_repeat('☆', 5 - (int) $review['rating']);
+                                    echo str_repeat(
+                                        '★',
+                                        (int) $review['rating']
+                                    );
+
+                                    echo str_repeat(
+                                        '☆',
+                                        5 - (int) $review['rating']
+                                    );
                                     ?>
                                 </p>
 
+                                <!-- Affiche le commentaire validé. -->
                                 <p class="review-comment">
-                                    « <?php echo htmlspecialchars($review['comment']); ?> »
+                                    « <?php
+                                    echo htmlspecialchars(
+                                        $review['comment']
+                                    );
+                                    ?> »
                                 </p>
 
+                                <!-- Affiche le nom de l'auteur de l'avis. -->
                                 <p class="review-author mb-0">
                                     —
                                     <?php
                                     echo htmlspecialchars(
                                         $review['first_name']
-                                            . ' '
-                                            . $review['last_name']
+                                        . ' '
+                                        . $review['last_name']
                                     );
                                     ?>
                                 </p>
 
                             </article>
+
                         </div>
+
                     <?php endforeach; ?>
 
                 </div>
@@ -205,13 +297,16 @@
                     type="button"
                     data-bs-target="#reviews-carousel"
                     data-bs-slide="prev">
+
                     <span
                         class="carousel-control-prev-icon"
-                        aria-hidden="true"></span>
+                        aria-hidden="true">
+                    </span>
 
                     <span class="visually-hidden">
                         Avis précédent
                     </span>
+
                 </button>
 
                 <!-- Affiche la flèche suivante. -->
@@ -220,19 +315,23 @@
                     type="button"
                     data-bs-target="#reviews-carousel"
                     data-bs-slide="next">
+
                     <span
                         class="carousel-control-next-icon"
-                        aria-hidden="true"></span>
+                        aria-hidden="true">
+                    </span>
 
                     <span class="visually-hidden">
                         Avis suivant
                     </span>
+
                 </button>
 
             </div>
 
         <?php else: ?>
 
+            <!-- Affiche un message lorsqu'aucun avis validé n'est disponible. -->
             <p class="text-center mb-0">
                 Aucun avis client n'est disponible pour le moment.
             </p>

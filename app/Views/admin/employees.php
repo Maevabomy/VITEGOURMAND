@@ -8,6 +8,10 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- présentation de la gestion des employés -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
 
@@ -29,14 +33,20 @@
 
 <?php
 
+/* Charge la navigation de l'espace administrateur. */
 require BASE_PATH
     . '/app/Views/admin/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- gestion des employés -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
+        <!-- Affiche le message de confirmation après une action réussie. -->
         <?php if (!empty($success)): ?>
 
             <div
@@ -47,6 +57,7 @@ require BASE_PATH
 
         <?php endif; ?>
 
+        <!-- Affiche le message d'erreur en cas d'échec. -->
         <?php if (!empty($error)): ?>
 
             <div
@@ -58,6 +69,10 @@ require BASE_PATH
         <?php endif; ?>
 
         <div class="admin-employees-layout">
+
+            <!-- -------------------------------------------------- -->
+            <!-- création d'un compte employé -->
+            <!-- -------------------------------------------------- -->
 
             <section class="employee-dashboard-card">
 
@@ -80,6 +95,7 @@ require BASE_PATH
                             ?>/admin/employee/create"
                     method="post">
 
+                    <!-- Protège le formulaire contre les requêtes CSRF. -->
                     <input
                         type="hidden"
                         name="csrf_token"
@@ -89,6 +105,7 @@ require BASE_PATH
                                 );
                                 ?>">
 
+                    <!-- Adresse mail professionnelle. -->
                     <div class="mb-4">
 
                         <label
@@ -113,6 +130,7 @@ require BASE_PATH
 
                     </div>
 
+                    <!-- Mot de passe du nouveau compte. -->
                     <div class="mb-4">
 
                         <label
@@ -138,6 +156,7 @@ require BASE_PATH
 
                     </div>
 
+                    <!-- Confirmation du mot de passe. -->
                     <div class="mb-4">
 
                         <label
@@ -167,6 +186,10 @@ require BASE_PATH
 
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- liste des comptes employés -->
+            <!-- -------------------------------------------------- -->
+
             <section class="employee-dashboard-card">
 
                 <p class="section-subtitle mb-2">
@@ -187,9 +210,11 @@ require BASE_PATH
                         ): ?>
 
                             <?php
+
+                            /* Indique si le compte employé est actuellement actif. */
                             $isActive =
-                                (bool)
-                                $employee['is_active'];
+                                (bool) $employee['is_active'];
+
                             ?>
 
                             <article
@@ -225,6 +250,7 @@ require BASE_PATH
 
                                 <div class="admin-employee-actions">
 
+                                    <!-- Affiche l'état actuel du compte. -->
                                     <span
                                         class="employee-menu-status<?php
                                                                     echo $isActive
@@ -238,6 +264,7 @@ require BASE_PATH
                                         ?>
                                     </span>
 
+                                    <!-- Active ou désactive le compte sélectionné. -->
                                     <form
                                         action="<?php
                                                 echo BASE_URL;
@@ -296,6 +323,7 @@ require BASE_PATH
 
                 <?php else: ?>
 
+                    <!-- Affiche un message lorsqu'aucun employé n'existe. -->
                     <div class="employee-empty-state">
                         <p class="mb-0">
                             Aucun compte employé n’est enregistré.

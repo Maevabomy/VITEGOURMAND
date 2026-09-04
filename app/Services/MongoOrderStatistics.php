@@ -9,18 +9,13 @@ use Throwable;
 class MongoOrderStatistics
 {
     private const COLLECTION =
-        'menu_order_statistics';
+    'menu_order_statistics';
 
-    /*
-    |--------------------------------------------------------------------------
-    | synchronisation
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* synchronisation */
+    /* -------------------------------------------------- */
 
-    /*
-     * Synchronise le nombre de commandes par menu
-     * dans MongoDB.
-     */
+    /* Synchronise le nombre de commandes par menu dans MongoDB. */
     public static function synchronize(
         array $statistics
     ): bool {
@@ -48,13 +43,13 @@ class MongoOrderStatistics
                         '$set' => [
                             'menu_id' => $menuId,
                             'menu_title' =>
-                                (string)
-                                $statistic['menu_title'],
+                            (string)
+                            $statistic['menu_title'],
                             'order_count' =>
-                                (int)
-                                $statistic['order_count'],
+                            (int)
+                            $statistic['order_count'],
                             'updated_at' =>
-                                date(DATE_ATOM),
+                            date(DATE_ATOM),
                         ],
                     ],
                     [
@@ -74,15 +69,11 @@ class MongoOrderStatistics
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | lecture MongoDB
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* lecture MongoDB */
+    /* -------------------------------------------------- */
 
-    /*
-     * Récupère les statistiques directement depuis MongoDB.
-     */
+    /* Récupère les statistiques directement depuis MongoDB. */
     public static function getAll(): ?array
     {
         try {
@@ -116,11 +107,11 @@ class MongoOrderStatistics
             foreach ($cursor as $document) {
                 $statistics[] = [
                     'menu_id' =>
-                        (int) $document->menu_id,
+                    (int) $document->menu_id,
                     'menu_title' =>
-                        (string) $document->menu_title,
+                    (string) $document->menu_title,
                     'order_count' =>
-                        (int) $document->order_count,
+                    (int) $document->order_count,
                 ];
             }
 

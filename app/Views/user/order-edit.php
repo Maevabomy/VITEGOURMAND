@@ -12,11 +12,21 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- modification de la commande -->
+<!-- -------------------------------------------------- -->
+
 <section class="auth-section py-5">
     <div class="container">
+
         <div class="auth-card mx-auto">
 
+            <!-- -------------------------------------------------- -->
+            <!-- présentation du formulaire -->
+            <!-- -------------------------------------------------- -->
+
             <div class="auth-card-header text-center mb-4">
+
                 <p class="section-subtitle mb-2">
                     Espace personnel
                 </p>
@@ -33,46 +43,88 @@
                     );
                     ?>
                 </p>
+
             </div>
 
-            <div class="alert alert-secondary" role="status">
-                <strong>Menu conservé :</strong>
-                <?php echo htmlspecialchars($menu['title']); ?>
+            <!-- -------------------------------------------------- -->
+            <!-- menu de la commande -->
+            <!-- -------------------------------------------------- -->
+
+            <div
+                class="alert alert-secondary"
+                role="status">
+
+                <strong>
+                    Menu conservé :
+                </strong>
+
+                <?php
+                echo htmlspecialchars(
+                    $menu['title']
+                );
+                ?>
 
                 <br>
 
                 Le choix du menu ne peut pas être modifié.
+
             </div>
+
+            <!-- -------------------------------------------------- -->
+            <!-- messages de validation -->
+            <!-- -------------------------------------------------- -->
 
             <?php if (!empty($errors)): ?>
 
-                <div class="alert alert-danger" role="alert">
-                    <strong>Modification impossible.</strong>
+                <div
+                    class="alert alert-danger"
+                    role="alert">
+
+                    <strong>
+                        Modification impossible.
+                    </strong>
 
                     <ul class="mb-0 mt-2">
+
                         <?php foreach ($errors as $error): ?>
 
                             <li>
-                                <?php echo htmlspecialchars($error); ?>
+                                <?php
+                                echo htmlspecialchars(
+                                    $error
+                                );
+                                ?>
                             </li>
 
                         <?php endforeach; ?>
+
                     </ul>
+
                 </div>
 
             <?php endif; ?>
 
+            <!-- -------------------------------------------------- -->
+            <!-- saisie des modifications -->
+            <!-- -------------------------------------------------- -->
+
             <form
-                action="<?php echo BASE_URL; ?>/user/order/update"
+                action="<?php
+                        echo BASE_URL;
+                        ?>/user/order/update"
                 method="post"
                 class="auth-form"
                 id="order-edit-form">
 
+                <!-- Identifie la commande à modifier. -->
                 <input
                     type="hidden"
                     name="order_id"
-                    value="<?php echo (int) $order['id']; ?>">
+                    value="<?php
+                            echo (int) $order['id'];
+                            ?>">
 
+                <!-- Protège le formulaire contre les requêtes CSRF. -->
                 <input
                     type="hidden"
                     name="csrf_token"
@@ -82,9 +134,14 @@
                             );
                             ?>">
 
+                <!-- -------------------------------------------------- -->
+                <!-- informations du client -->
+                <!-- -------------------------------------------------- -->
+
                 <div class="row g-3">
 
                     <div class="col-md-6">
+
                         <label
                             for="first_name"
                             class="form-label">
@@ -103,9 +160,11 @@
                                     ?>"
                             maxlength="100"
                             required>
+
                     </div>
 
                     <div class="col-md-6">
+
                         <label
                             for="last_name"
                             class="form-label">
@@ -124,12 +183,17 @@
                                     ?>"
                             maxlength="100"
                             required>
+
                     </div>
 
                 </div>
 
+                <!-- Adresse mail du client. -->
                 <div class="mt-3">
-                    <label for="email" class="form-label">
+
+                    <label
+                        for="email"
+                        class="form-label">
                         Adresse mail
                     </label>
 
@@ -145,10 +209,15 @@
                                 ?>"
                         maxlength="255"
                         required>
+
                 </div>
 
+                <!-- Numéro de téléphone du client. -->
                 <div class="mt-3">
-                    <label for="phone" class="form-label">
+
+                    <label
+                        for="phone"
+                        class="form-label">
                         Téléphone
                     </label>
 
@@ -164,9 +233,15 @@
                                 ?>"
                         maxlength="30"
                         required>
+
                 </div>
 
+                <!-- -------------------------------------------------- -->
+                <!-- adresse de livraison -->
+                <!-- -------------------------------------------------- -->
+
                 <div class="mt-3">
+
                     <label
                         for="delivery_address"
                         class="form-label">
@@ -188,6 +263,7 @@
                             autocomplete="street-address"
                             required>
 
+                        <!-- Lance la recherche de l'adresse saisie. -->
                         <button
                             type="button"
                             class="btn btn-custom"
@@ -202,6 +278,7 @@
                         même si vous conservez l’adresse actuelle.
                     </small>
 
+                    <!-- Affiche l'état de la recherche d'adresse. -->
                     <div
                         class="address-search-status mt-2"
                         id="address-search-status"
@@ -209,17 +286,20 @@
                         aria-live="polite">
                     </div>
 
+                    <!-- Affiche les propositions d'adresses. -->
                     <div
                         class="address-search-results mt-2"
                         id="address-search-results"
                         aria-label="Propositions d’adresses">
                     </div>
 
+                    <!-- Stocke la latitude de l'adresse sélectionnée. -->
                     <input
                         type="hidden"
                         id="delivery_latitude"
                         name="delivery_latitude">
 
+                    <!-- Stocke la longitude de l'adresse sélectionnée. -->
                     <input
                         type="hidden"
                         id="delivery_longitude"
@@ -227,9 +307,11 @@
 
                 </div>
 
+                <!-- Code postal et ville de livraison. -->
                 <div class="row g-3 mt-0">
 
                     <div class="col-md-4">
+
                         <label
                             for="delivery_postal_code"
                             class="form-label">
@@ -248,9 +330,11 @@
                                     ?>"
                             maxlength="10"
                             required>
+
                     </div>
 
                     <div class="col-md-8">
+
                         <label
                             for="delivery_city"
                             class="form-label">
@@ -269,13 +353,20 @@
                                     ?>"
                             maxlength="150"
                             required>
+
                     </div>
 
                 </div>
 
+                <!-- -------------------------------------------------- -->
+                <!-- date et horaire de la prestation -->
+                <!-- -------------------------------------------------- -->
+
                 <div class="row g-3 mt-0">
 
+                    <!-- Date de la prestation. -->
                     <div class="col-md-6">
+
                         <label
                             for="event_date"
                             class="form-label">
@@ -292,7 +383,9 @@
                                         $minimumEventDate
                                     );
                                     ?>"
-                            <?php if ($maximumEventDate !== null): ?>
+                            <?php if (
+                                $maximumEventDate !== null
+                            ): ?>
                             max="<?php
                                     echo htmlspecialchars(
                                         $maximumEventDate
@@ -309,15 +402,22 @@
                         <small class="form-text">
                             Le délai minimum du menu reste applicable :
                             <?php
-                            echo (int) $menu['minimum_order_days'];
+                            echo (int)
+                            $menu['minimum_order_days'];
                             ?>
                             jour<?php
-                                echo (int) $menu['minimum_order_days'] > 1 ? 's' : '';
+                                echo (int)
+                                $menu['minimum_order_days'] > 1
+                                    ? 's'
+                                    : '';
                                 ?>.
                         </small>
+
                     </div>
 
+                    <!-- Créneau de livraison. -->
                     <div class="col-md-6">
+
                         <label
                             for="delivery_time"
                             class="form-label">
@@ -334,11 +434,16 @@
                                 Choisir un horaire
                             </option>
 
-                            <?php foreach ($deliveryTimes as $time): ?>
+                            <?php foreach (
+                                $deliveryTimes
+                                as $time
+                            ): ?>
 
                                 <option
                                     value="<?php
-                                            echo htmlspecialchars($time);
+                                            echo htmlspecialchars(
+                                                $time
+                                            );
                                             ?>"
                                     <?php
                                     echo $formData['delivery_time'] === $time
@@ -347,7 +452,11 @@
                                     ?>>
                                     <?php
                                     echo htmlspecialchars(
-                                        str_replace(':', 'h', $time)
+                                        str_replace(
+                                            ':',
+                                            'h',
+                                            $time
+                                        )
                                     );
                                     ?>
                                 </option>
@@ -359,11 +468,15 @@
                         <small class="form-text">
                             Livraison possible de 10h00 à 20h00.
                         </small>
+
                     </div>
 
                 </div>
 
-                <?php if ($availabilityMessage !== null): ?>
+                <!-- Affiche les informations de disponibilité du menu. -->
+                <?php if (
+                    $availabilityMessage !== null
+                ): ?>
 
                     <div
                         class="alert alert-secondary mt-3 mb-0"
@@ -377,7 +490,12 @@
 
                 <?php endif; ?>
 
+                <!-- -------------------------------------------------- -->
+                <!-- nombre de personnes -->
+                <!-- -------------------------------------------------- -->
+
                 <div class="mt-3">
+
                     <label
                         for="people_count"
                         class="form-label">
@@ -390,27 +508,42 @@
                         id="people_count"
                         name="people_count"
                         min="<?php
-                                echo (int) $menu['minimum_people'];
+                                echo (int)
+                                $menu['minimum_people'];
                                 ?>"
-                        max="<?php echo $availableStock; ?>"
+                        max="<?php
+                                echo $availableStock;
+                                ?>"
                         value="<?php
-                                echo (int) $formData['people_count'];
+                                echo (int)
+                                $formData['people_count'];
                                 ?>"
                         data-minimum-people="<?php
-                                                echo (int) $menu['minimum_people'];
+                                                echo (int)
+                                                $menu['minimum_people'];
                                                 ?>"
                         data-base-price="<?php
-                                            echo (float) $menu['base_price'];
+                                            echo (float)
+                                            $menu['base_price'];
                                             ?>"
                         data-current-delivery-fee="<?php
-                                                    echo (float) $order['delivery_price'];
+                                                    echo (float)
+                                                    $order['delivery_price'];
                                                     ?>"
                         required>
 
-                    <p class="form-text order-stock-information">
+                    <!-- Affiche la quantité encore disponible pour cette commande. -->
+                    <p
+                        class="
+                            form-text
+                            order-stock-information
+                        ">
                         Quantité maximale disponible pour cette commande :
+
                         <strong>
-                            <?php echo $availableStock; ?>
+                            <?php
+                            echo $availableStock;
+                            ?>
                             portions
                         </strong>
                     </p>
@@ -418,11 +551,17 @@
                     <small class="form-text">
                         Minimum :
                         <?php
-                        echo (int) $menu['minimum_people'];
+                        echo (int)
+                        $menu['minimum_people'];
                         ?>
                         personnes.
                     </small>
+
                 </div>
+
+                <!-- -------------------------------------------------- -->
+                <!-- récapitulatif du prix -->
+                <!-- -------------------------------------------------- -->
 
                 <div class="order-price-summary mt-4">
 
@@ -430,8 +569,12 @@
                         Nouveau récapitulatif du prix
                     </h2>
 
+                    <!-- Prix calculé pour une personne. -->
                     <div class="order-price-line">
-                        <span>Prix par personne</span>
+
+                        <span>
+                            Prix par personne
+                        </span>
 
                         <strong id="price-per-person">
                             <?php
@@ -445,24 +588,39 @@
                             ?>
                             €
                         </strong>
+
                     </div>
 
+                    <!-- Nombre de personnes actuellement renseigné. -->
                     <div class="order-price-line">
-                        <span>Nombre de personnes</span>
+
+                        <span>
+                            Nombre de personnes
+                        </span>
 
                         <strong id="summary-people-count">
                             <?php
-                            echo (int) $formData['people_count'];
+                            echo (int)
+                            $formData['people_count'];
                             ?>
                         </strong>
+
                     </div>
 
                     <?php
+
+                    /* -------------------------------------------------- */
+                    /* préparation de la réduction */
+                    /* -------------------------------------------------- */
+
+                    /* Vérifie si la réduction de 10 % doit être affichée. */
                     $discountApplies =
                         (int) $formData['people_count']
                         >= (int) $menu['minimum_people'] + 5;
+
                     ?>
 
+                    <!-- Affiche la réduction lorsqu'elle s'applique. -->
                     <div
                         class="order-price-line"
                         id="discount-line"
@@ -471,17 +629,29 @@
                             ? ''
                             : 'hidden';
                         ?>>
-                        <span>Réduction</span>
-                        <strong>- 10 %</strong>
+
+                        <span>
+                            Réduction
+                        </span>
+
+                        <strong>
+                            - 10 %
+                        </strong>
+
                     </div>
 
+                    <!-- Prix actuel du menu. -->
                     <div class="order-price-line">
-                        <span>Prix du menu</span>
+
+                        <span>
+                            Prix du menu
+                        </span>
 
                         <strong id="menu-total-price">
                             <?php
                             echo number_format(
-                                (float) $order['menu_price'],
+                                (float)
+                                $order['menu_price'],
                                 2,
                                 ',',
                                 ' '
@@ -489,34 +659,68 @@
                             ?>
                             €
                         </strong>
+
                     </div>
+
+                    <!-- -------------------------------------------------- -->
+                    <!-- frais de livraison -->
+                    <!-- -------------------------------------------------- -->
 
                     <div
                         class="order-price-delivery"
                         id="delivery-price-details">
 
+                        <!-- Distance routière recalculée. -->
                         <div class="order-price-line">
-                            <span>Distance routière</span>
-                            <strong id="delivery-distance">—</strong>
+
+                            <span>
+                                Distance routière
+                            </span>
+
+                            <strong id="delivery-distance">
+                                —
+                            </strong>
+
                         </div>
 
+                        <!-- Forfait appliqué hors Bordeaux. -->
                         <div class="order-price-line">
-                            <span>Forfait hors Bordeaux</span>
-                            <strong id="delivery-fixed-fee">—</strong>
+
+                            <span>
+                                Forfait hors Bordeaux
+                            </span>
+
+                            <strong id="delivery-fixed-fee">
+                                —
+                            </strong>
+
                         </div>
 
+                        <!-- Montant calculé selon la distance. -->
                         <div class="order-price-line">
-                            <span>Montant kilométrique</span>
-                            <strong id="delivery-distance-fee">—</strong>
+
+                            <span>
+                                Montant kilométrique
+                            </span>
+
+                            <strong id="delivery-distance-fee">
+                                —
+                            </strong>
+
                         </div>
 
+                        <!-- Frais de livraison actuels. -->
                         <div class="order-price-line">
-                            <span>Frais de livraison</span>
+
+                            <span>
+                                Frais de livraison
+                            </span>
 
                             <strong id="delivery-fee">
                                 <?php
                                 echo number_format(
-                                    (float) $order['delivery_price'],
+                                    (float)
+                                    $order['delivery_price'],
                                     2,
                                     ',',
                                     ' '
@@ -524,21 +728,27 @@
                                 ?>
                                 €
                             </strong>
+
                         </div>
 
                     </div>
 
+                    <!-- Montant total actuel de la commande. -->
                     <div
                         class="
                             order-price-line
                             order-price-total
                         ">
-                        <span>Total général</span>
+
+                        <span>
+                            Total général
+                        </span>
 
                         <strong id="order-total-price">
                             <?php
                             echo number_format(
-                                (float) $order['total_price'],
+                                (float)
+                                $order['total_price'],
                                 2,
                                 ',',
                                 ' '
@@ -546,9 +756,14 @@
                             ?>
                             €
                         </strong>
+
                     </div>
 
                 </div>
+
+                <!-- -------------------------------------------------- -->
+                <!-- validation des modifications -->
+                <!-- -------------------------------------------------- -->
 
                 <div class="order-submit mt-4">
 
@@ -562,7 +777,12 @@
 
             </form>
 
+            <!-- -------------------------------------------------- -->
+            <!-- retour à la commande -->
+            <!-- -------------------------------------------------- -->
+
             <div class="text-center mt-4">
+
                 <a
                     href="<?php
                             echo BASE_URL
@@ -572,20 +792,33 @@
                     class="auth-link">
                     Retour au détail de la commande
                 </a>
+
             </div>
 
         </div>
+
     </div>
 </section>
 
+<!-- -------------------------------------------------- -->
+<!-- scripts de la commande -->
+<!-- -------------------------------------------------- -->
+
+<!-- Transmet l'URL de base aux scripts JavaScript. -->
 <script>
     window.BASE_URL = <?php echo json_encode(BASE_URL); ?>;
 </script>
 
-<script src="<?php
-                echo BASE_URL;
-                ?>/assets/js/address-search.js"></script>
+<!-- Gère la recherche et la sélection de l'adresse. -->
+<script
+    src="<?php
+            echo BASE_URL;
+            ?>/assets/js/address-search.js">
+</script>
 
-<script src="<?php
-                echo BASE_URL;
-                ?>/assets/js/order-price.js"></script>
+<!-- Gère le recalcul dynamique du prix de la commande. -->
+<script
+    src="<?php
+            echo BASE_URL;
+            ?>/assets/js/order-price.js">
+</script>

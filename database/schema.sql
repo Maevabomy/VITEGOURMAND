@@ -96,7 +96,7 @@ CREATE TABLE dietary_types (
 
 
 -- --------------------------------------------------
--- menus et images
+-- menus
 -- --------------------------------------------------
 
 -- Enregistre les menus proposés par le traiteur.
@@ -129,6 +129,7 @@ CREATE TABLE menus (
         ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
+
 -- --------------------------------------------------
 -- plats et allergènes
 -- --------------------------------------------------
@@ -139,7 +140,11 @@ CREATE TABLE dishes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL UNIQUE,
     description TEXT NULL,
-    dish_type ENUM('starter', 'main_course', 'dessert') NOT NULL,
+    dish_type ENUM(
+        'starter',
+        'main_course',
+        'dessert'
+    ) NOT NULL,
     photo LONGBLOB NULL,
     photo_mime_type VARCHAR(100) NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE
@@ -156,7 +161,10 @@ CREATE TABLE dish_allergen (
     dish_id INT NOT NULL,
     allergen_id INT NOT NULL,
 
-    PRIMARY KEY (dish_id, allergen_id),
+    PRIMARY KEY (
+        dish_id,
+        allergen_id
+    ),
 
     CONSTRAINT fk_dish_allergen_dish
         FOREIGN KEY (dish_id)
@@ -174,7 +182,10 @@ CREATE TABLE menu_dish (
     menu_id INT NOT NULL,
     dish_id INT NOT NULL,
 
-    PRIMARY KEY (menu_id, dish_id),
+    PRIMARY KEY (
+        menu_id,
+        dish_id
+    ),
 
     CONSTRAINT fk_menu_dish_menu
         FOREIGN KEY (menu_id)
@@ -210,30 +221,24 @@ CREATE TABLE orders (
     user_id INT NOT NULL,
     menu_id INT NOT NULL,
     current_status_id INT NOT NULL,
-
     customer_first_name VARCHAR(100) NOT NULL,
     customer_last_name VARCHAR(100) NOT NULL,
     customer_email VARCHAR(190) NOT NULL,
     customer_phone VARCHAR(20) NOT NULL,
-
     delivery_address VARCHAR(255) NOT NULL,
     delivery_postal_code VARCHAR(10) NOT NULL,
     delivery_city VARCHAR(100) NOT NULL,
     event_date DATE NOT NULL,
     delivery_time TIME NOT NULL,
-
     people_count INT NOT NULL,
     menu_price DECIMAL(10, 2) NOT NULL,
     delivery_price DECIMAL(10, 2) NOT NULL DEFAULT 0,
     total_price DECIMAL(10, 2) NOT NULL,
-
     cancellation_reason TEXT NULL,
     cancellation_contact_method VARCHAR(50) NULL,
-
     equipment_loaned BOOLEAN NOT NULL DEFAULT FALSE,
     equipment_return_deadline DATETIME NULL,
     equipment_returned_at DATETIME NULL,
-
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
@@ -291,8 +296,11 @@ CREATE TABLE reviews (
     user_id INT NOT NULL,
     rating TINYINT NOT NULL,
     comment TEXT NOT NULL,
-    moderation_status ENUM('pending', 'approved', 'refused')
-        NOT NULL DEFAULT 'pending',
+    moderation_status ENUM(
+        'pending',
+        'approved',
+        'refused'
+    ) NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT chk_reviews_rating

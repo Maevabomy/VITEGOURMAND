@@ -9,11 +9,28 @@
 /** @var string|null $success */
 /** @var string|null $error */
 
-$eventDate = date_create($order['event_date']);
-$deliveryTime = date_create($order['delivery_time']);
-$createdAt = date_create($order['created_at']);
+
+/* -------------------------------------------------- */
+/* préparation de l'affichage */
+/* -------------------------------------------------- */
+
+/* Prépare la date de prestation pour l'affichage. */
+$eventDate =
+    date_create($order['event_date']);
+
+/* Prépare l'heure de livraison pour l'affichage. */
+$deliveryTime =
+    date_create($order['delivery_time']);
+
+/* Prépare la date de création de la commande pour l'affichage. */
+$createdAt =
+    date_create($order['created_at']);
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- présentation du détail de la commande -->
+<!-- -------------------------------------------------- -->
 
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
@@ -40,14 +57,24 @@ $createdAt = date_create($order['created_at']);
 
 <?php
 
+/* Charge la navigation de l'espace employé. */
 require BASE_PATH
     . '/app/Views/employee/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- détail de la commande -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
+        <!-- -------------------------------------------------- -->
+        <!-- messages de validation -->
+        <!-- -------------------------------------------------- -->
+
+        <!-- Affiche le message de confirmation après une action réussie. -->
         <?php if (!empty($success)): ?>
 
             <div
@@ -58,6 +85,7 @@ require BASE_PATH
 
         <?php endif; ?>
 
+        <!-- Affiche le message d'erreur en cas d'échec. -->
         <?php if (!empty($error)): ?>
 
             <div
@@ -71,15 +99,17 @@ require BASE_PATH
         <div class="row g-4">
 
             <!-- -------------------------------------------------- -->
-            <!-- résumé -->
+            <!-- résumé de la commande -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-12">
+
                 <section class="employee-dashboard-card">
 
                     <div class="employee-order-detail-heading">
 
                         <div>
+
                             <p class="section-subtitle mb-2">
                                 Commande
                             </p>
@@ -87,6 +117,7 @@ require BASE_PATH
                             <h2 class="employee-dashboard-card-title">
                                 Informations générales
                             </h2>
+
                         </div>
 
                         <span class="user-order-status">
@@ -102,6 +133,7 @@ require BASE_PATH
                     <div class="employee-order-detail-grid">
 
                         <div>
+
                             <span class="user-order-label">
                                 Numéro
                             </span>
@@ -113,9 +145,11 @@ require BASE_PATH
                                 );
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Menu
                             </span>
@@ -127,9 +161,11 @@ require BASE_PATH
                                 );
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Commandée le
                             </span>
@@ -143,35 +179,42 @@ require BASE_PATH
                                     : '';
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Nombre de personnes
                             </span>
 
                             <strong>
                                 <?php
-                                echo (int) $order['people_count'];
+                                echo (int)
+                                $order['people_count'];
                                 ?>
                             </strong>
+
                         </div>
 
                     </div>
 
                 </section>
+
             </div>
+
+            <!-- -------------------------------------------------- -->
+            <!-- changement de statut -->
+            <!-- -------------------------------------------------- -->
 
             <?php if (!empty($allowedNextStatuses)): ?>
 
-                <!-- -------------------------------------------------- -->
-                <!-- changement de statut -->
-                <!-- -------------------------------------------------- -->
-
                 <div class="col-12">
+
                     <section class="employee-dashboard-card">
 
                         <div class="employee-dashboard-card-header">
+
                             <p class="section-subtitle mb-2">
                                 Traitement
                             </p>
@@ -179,6 +222,7 @@ require BASE_PATH
                             <h2 class="employee-dashboard-card-title">
                                 Mettre à jour le statut
                             </h2>
+
                         </div>
 
                         <form
@@ -189,6 +233,7 @@ require BASE_PATH
                             method="post"
                             class="employee-status-form">
 
+                            <!-- Identifie la commande à mettre à jour. -->
                             <input
                                 type="hidden"
                                 name="order_id"
@@ -196,6 +241,7 @@ require BASE_PATH
                                         echo (int) $order['id'];
                                         ?>">
 
+                            <!-- Protège l'action contre les requêtes CSRF. -->
                             <input
                                 type="hidden"
                                 name="csrf_token"
@@ -205,7 +251,9 @@ require BASE_PATH
                                         );
                                         ?>">
 
+                            <!-- Sélection du nouveau statut. -->
                             <div>
+
                                 <label
                                     for="new-status"
                                     class="form-label">
@@ -222,12 +270,10 @@ require BASE_PATH
                                         Sélectionner
                                     </option>
 
-                                    <?php
-                                    foreach (
+                                    <?php foreach (
                                         $allowedNextStatuses
                                         as $allowedStatus
-                                    ):
-                                    ?>
+                                    ): ?>
 
                                         <option
                                             value="<?php
@@ -245,9 +291,12 @@ require BASE_PATH
                                     <?php endforeach; ?>
 
                                 </select>
+
                             </div>
 
+                            <!-- Note interne facultative. -->
                             <div>
+
                                 <label
                                     for="status-note"
                                     class="form-label">
@@ -260,25 +309,26 @@ require BASE_PATH
                                     name="note"
                                     rows="3"
                                     maxlength="1000"
-                                    placeholder="
-                                        Information facultative
-                                        sur ce changement
-                                    "></textarea>
+                                    placeholder="Information facultative sur ce changement"></textarea>
+
                             </div>
 
                             <div class="employee-status-form-action">
+
                                 <button
                                     type="submit"
                                     class="btn btn-custom">
                                     Mettre à jour
                                 </button>
+
                             </div>
 
                         </form>
 
-                        <?php
-                        if ($order['status_name'] === 'Livrée'):
-                        ?>
+                        <!-- Précise les statuts possibles après une livraison. -->
+                        <?php if (
+                            $order['status_name'] === 'Livrée'
+                        ): ?>
 
                             <p class="form-text mt-3 mb-0">
                                 Choisissez « Terminée » si aucun
@@ -290,23 +340,26 @@ require BASE_PATH
                         <?php endif; ?>
 
                     </section>
+
                 </div>
 
             <?php endif; ?>
 
+            <!-- -------------------------------------------------- -->
+            <!-- annulation de la commande -->
+            <!-- -------------------------------------------------- -->
+
             <?php if ($canCancelOrder): ?>
 
-                <!-- -------------------------------------------------- -->
-                <!-- annulation de la commande -->
-                <!-- -------------------------------------------------- -->
-
                 <div class="col-12">
+
                     <section class="
                         employee-dashboard-card
                         employee-cancellation-card
                     ">
 
                         <div class="employee-dashboard-card-header">
+
                             <p class="section-subtitle mb-2">
                                 Action sensible
                             </p>
@@ -314,6 +367,7 @@ require BASE_PATH
                             <h2 class="employee-dashboard-card-title">
                                 Annuler la commande
                             </h2>
+
                         </div>
 
                         <p class="employee-cancellation-warning">
@@ -336,6 +390,7 @@ require BASE_PATH
                                 );
                             ">
 
+                            <!-- Identifie la commande à annuler. -->
                             <input
                                 type="hidden"
                                 name="order_id"
@@ -343,6 +398,7 @@ require BASE_PATH
                                         echo (int) $order['id'];
                                         ?>">
 
+                            <!-- Protège l'action contre les requêtes CSRF. -->
                             <input
                                 type="hidden"
                                 name="csrf_token"
@@ -352,7 +408,9 @@ require BASE_PATH
                                         );
                                         ?>">
 
+                            <!-- Mode utilisé pour contacter le client. -->
                             <div>
+
                                 <label
                                     for="contact-method"
                                     class="form-label">
@@ -378,9 +436,12 @@ require BASE_PATH
                                     </option>
 
                                 </select>
+
                             </div>
 
+                            <!-- Motif de l'annulation. -->
                             <div>
+
                                 <label
                                     for="cancellation-reason"
                                     class="form-label">
@@ -395,13 +456,13 @@ require BASE_PATH
                                     minlength="10"
                                     maxlength="1000"
                                     required
-                                    placeholder="
-                                        Expliquez précisément
-                                        la raison de l’annulation
-                                    "></textarea>
+                                    placeholder="Expliquez précisément la raison de l’annulation"></textarea>
+
                             </div>
 
+                            <!-- Confirme que le client a été contacté avant l'annulation. -->
                             <div class="form-check">
+
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
@@ -416,9 +477,11 @@ require BASE_PATH
                                     Je confirme avoir contacté le client
                                     avant cette annulation.
                                 </label>
+
                             </div>
 
                             <div>
+
                                 <button
                                     type="submit"
                                     class="
@@ -427,23 +490,27 @@ require BASE_PATH
                                     ">
                                     Annuler définitivement
                                 </button>
+
                             </div>
 
                         </form>
 
                     </section>
+
                 </div>
 
             <?php endif; ?>
 
             <!-- -------------------------------------------------- -->
-            <!-- client -->
+            <!-- coordonnées du client -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-lg-6">
+
                 <section class="employee-dashboard-card h-100">
 
                     <div class="employee-dashboard-card-header">
+
                         <p class="section-subtitle mb-2">
                             Client
                         </p>
@@ -451,11 +518,13 @@ require BASE_PATH
                         <h2 class="employee-dashboard-card-title">
                             Coordonnées
                         </h2>
+
                     </div>
 
                     <div class="employee-order-detail-list">
 
                         <div>
+
                             <span class="user-order-label">
                                 Nom complet
                             </span>
@@ -469,9 +538,11 @@ require BASE_PATH
                                 );
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Adresse mail
                             </span>
@@ -488,9 +559,11 @@ require BASE_PATH
                                 );
                                 ?>
                             </a>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Téléphone
                             </span>
@@ -507,21 +580,25 @@ require BASE_PATH
                                 );
                                 ?>
                             </a>
+
                         </div>
 
                     </div>
 
                 </section>
+
             </div>
 
             <!-- -------------------------------------------------- -->
-            <!-- prestation -->
+            <!-- livraison de la prestation -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-lg-6">
+
                 <section class="employee-dashboard-card h-100">
 
                     <div class="employee-dashboard-card-header">
+
                         <p class="section-subtitle mb-2">
                             Prestation
                         </p>
@@ -529,11 +606,13 @@ require BASE_PATH
                         <h2 class="employee-dashboard-card-title">
                             Livraison
                         </h2>
+
                     </div>
 
                     <div class="employee-order-detail-list">
 
                         <div>
+
                             <span class="user-order-label">
                                 Adresse
                             </span>
@@ -553,9 +632,11 @@ require BASE_PATH
                                 );
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Date
                             </span>
@@ -567,9 +648,11 @@ require BASE_PATH
                                     : '';
                                 ?>
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Heure
                             </span>
@@ -581,21 +664,25 @@ require BASE_PATH
                                     : '';
                                 ?>
                             </strong>
+
                         </div>
 
                     </div>
 
                 </section>
+
             </div>
 
             <!-- -------------------------------------------------- -->
-            <!-- prix -->
+            <!-- détail du prix -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-lg-6">
+
                 <section class="employee-dashboard-card h-100">
 
                     <div class="employee-dashboard-card-header">
+
                         <p class="section-subtitle mb-2">
                             Facturation
                         </p>
@@ -603,11 +690,13 @@ require BASE_PATH
                         <h2 class="employee-dashboard-card-title">
                             Détail du prix
                         </h2>
+
                     </div>
 
                     <div class="employee-order-detail-list">
 
                         <div>
+
                             <span class="user-order-label">
                                 Prix du menu
                             </span>
@@ -623,9 +712,11 @@ require BASE_PATH
                                 ?>
                                 €
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Livraison
                             </span>
@@ -641,9 +732,11 @@ require BASE_PATH
                                 ?>
                                 €
                             </strong>
+
                         </div>
 
                         <div>
+
                             <span class="user-order-label">
                                 Total
                             </span>
@@ -659,21 +752,25 @@ require BASE_PATH
                                 ?>
                                 €
                             </strong>
+
                         </div>
 
                     </div>
 
                 </section>
+
             </div>
 
             <!-- -------------------------------------------------- -->
-            <!-- matériel -->
+            <!-- suivi du matériel -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-lg-6">
+
                 <section class="employee-dashboard-card h-100">
 
                     <div class="employee-dashboard-card-header">
+
                         <p class="section-subtitle mb-2">
                             Logistique
                         </p>
@@ -681,11 +778,13 @@ require BASE_PATH
                         <h2 class="employee-dashboard-card-title">
                             Matériel
                         </h2>
+
                     </div>
 
                     <div class="employee-order-detail-list">
 
                         <div>
+
                             <span class="user-order-label">
                                 Matériel prêté
                             </span>
@@ -697,15 +796,16 @@ require BASE_PATH
                                     : 'Non';
                                 ?>
                             </strong>
+
                         </div>
 
-                        <?php
-                        if (
+                        <!-- Affiche le suivi du matériel lorsqu'un prêt est enregistré. -->
+                        <?php if (
                             (int) $order['equipment_loaned'] === 1
-                        ):
-                        ?>
+                        ): ?>
 
                             <div>
+
                                 <span class="user-order-label">
                                     Date limite de retour
                                 </span>
@@ -726,9 +826,11 @@ require BASE_PATH
                                     }
                                     ?>
                                 </strong>
+
                             </div>
 
                             <div>
+
                                 <span class="user-order-label">
                                     Matériel restitué
                                 </span>
@@ -740,6 +842,7 @@ require BASE_PATH
                                         : 'Non';
                                     ?>
                                 </strong>
+
                             </div>
 
                         <?php endif; ?>
@@ -747,23 +850,24 @@ require BASE_PATH
                     </div>
 
                 </section>
+
             </div>
 
             <!-- -------------------------------------------------- -->
-            <!-- annulation -->
+            <!-- informations d'annulation -->
             <!-- -------------------------------------------------- -->
 
-            <?php
-            if (
+            <?php if (
                 !empty($order['cancellation_reason'])
                 || !empty($order['cancellation_contact_method'])
-            ):
-            ?>
+            ): ?>
 
                 <div class="col-12">
+
                     <section class="employee-dashboard-card">
 
                         <div class="employee-dashboard-card-header">
+
                             <p class="section-subtitle mb-2">
                                 Annulation
                             </p>
@@ -771,11 +875,13 @@ require BASE_PATH
                             <h2 class="employee-dashboard-card-title">
                                 Informations d’annulation
                             </h2>
+
                         </div>
 
                         <div class="employee-order-detail-grid">
 
                             <div>
+
                                 <span class="user-order-label">
                                     Mode de contact
                                 </span>
@@ -783,13 +889,16 @@ require BASE_PATH
                                 <strong>
                                     <?php
                                     echo htmlspecialchars(
-                                        $order['cancellation_contact_method'] ?? 'Non renseigné'
+                                        $order['cancellation_contact_method']
+                                            ?? 'Non renseigné'
                                     );
                                     ?>
                                 </strong>
+
                             </div>
 
                             <div>
+
                                 <span class="user-order-label">
                                     Motif
                                 </span>
@@ -798,28 +907,33 @@ require BASE_PATH
                                     <?php
                                     echo nl2br(
                                         htmlspecialchars(
-                                            $order['cancellation_reason'] ?? 'Non renseigné'
+                                            $order['cancellation_reason']
+                                                ?? 'Non renseigné'
                                         )
                                     );
                                     ?>
                                 </strong>
+
                             </div>
 
                         </div>
 
                     </section>
+
                 </div>
 
             <?php endif; ?>
 
             <!-- -------------------------------------------------- -->
-            <!-- historique -->
+            <!-- historique des statuts -->
             <!-- -------------------------------------------------- -->
 
             <div class="col-12">
+
                 <section class="employee-dashboard-card">
 
                     <div class="employee-dashboard-card-header">
+
                         <p class="section-subtitle mb-2">
                             Suivi
                         </p>
@@ -827,21 +941,23 @@ require BASE_PATH
                         <h2 class="employee-dashboard-card-title">
                             Historique des statuts
                         </h2>
+
                     </div>
 
                     <?php if (!empty($statusHistory)): ?>
 
                         <div class="employee-status-history">
 
-                            <?php
-                            foreach (
-                                $statusHistory as $historyItem
-                            ):
-                            ?>
+                            <?php foreach (
+                                $statusHistory
+                                as $historyItem
+                            ): ?>
 
-                                <article class="employee-status-history-item">
+                                <article
+                                    class="employee-status-history-item">
 
                                     <div>
+
                                         <strong>
                                             <?php
                                             echo htmlspecialchars(
@@ -860,13 +976,13 @@ require BASE_PATH
                                             );
                                             ?>
                                         </p>
+
                                     </div>
 
-                                    <?php
-                                    if (
+                                    <!-- Affiche l'employé ayant effectué le changement. -->
+                                    <?php if (
                                         !empty($historyItem['employee_first_name'])
-                                    ):
-                                    ?>
+                                    ): ?>
 
                                         <p class="mb-0">
                                             Modifié par
@@ -881,11 +997,10 @@ require BASE_PATH
 
                                     <?php endif; ?>
 
-                                    <?php
-                                    if (
+                                    <!-- Affiche la note associée au changement de statut. -->
+                                    <?php if (
                                         !empty($historyItem['note'])
-                                    ):
-                                    ?>
+                                    ): ?>
 
                                         <p class="mb-0">
                                             <?php
@@ -907,6 +1022,7 @@ require BASE_PATH
 
                     <?php else: ?>
 
+                        <!-- Affiche un message lorsqu'aucun historique n'existe. -->
                         <p class="mb-0">
                             Aucun historique n’est disponible.
                         </p>
@@ -914,18 +1030,26 @@ require BASE_PATH
                     <?php endif; ?>
 
                 </section>
+
             </div>
 
         </div>
 
+        <!-- -------------------------------------------------- -->
+        <!-- retour à la liste des commandes -->
+        <!-- -------------------------------------------------- -->
+
         <div class="mt-4">
+
             <a
                 href="<?php
-                        echo BASE_URL . '/employee/dashboard';
+                        echo BASE_URL
+                            . '/employee/dashboard';
                         ?>"
                 class="btn employee-filter-reset-button">
                 Retour aux commandes
             </a>
+
         </div>
 
     </div>

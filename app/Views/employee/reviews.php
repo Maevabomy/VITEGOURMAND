@@ -7,6 +7,10 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- présentation de la modération des avis -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
 
@@ -28,14 +32,24 @@
 
 <?php
 
+/* Charge la navigation de l'espace employé. */
 require BASE_PATH
     . '/app/Views/employee/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- modération des avis -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
+        <!-- -------------------------------------------------- -->
+        <!-- messages de validation -->
+        <!-- -------------------------------------------------- -->
+
+        <!-- Affiche le message de confirmation après une action réussie. -->
         <?php if (!empty($success)): ?>
 
             <div
@@ -46,6 +60,7 @@ require BASE_PATH
 
         <?php endif; ?>
 
+        <!-- Affiche le message d'erreur en cas d'échec. -->
         <?php if (!empty($error)): ?>
 
             <div
@@ -55,6 +70,10 @@ require BASE_PATH
             </div>
 
         <?php endif; ?>
+
+        <!-- -------------------------------------------------- -->
+        <!-- avis en attente -->
+        <!-- -------------------------------------------------- -->
 
         <section class="employee-dashboard-card">
 
@@ -72,6 +91,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Affiche le nombre d'avis restant à modérer. -->
                 <span class="employee-order-count">
                     <?php echo count($reviews); ?>
                     avis
@@ -87,9 +107,14 @@ require BASE_PATH
 
                         <article class="employee-review-card">
 
+                            <!-- -------------------------------------------------- -->
+                            <!-- auteur et note -->
+                            <!-- -------------------------------------------------- -->
+
                             <div class="employee-review-header">
 
                                 <div>
+
                                     <h3 class="employee-order-client">
                                         <?php
                                         echo htmlspecialchars(
@@ -107,8 +132,10 @@ require BASE_PATH
                                         );
                                         ?>
                                     </p>
+
                                 </div>
 
+                                <!-- Affiche la note sur cinq étoiles. -->
                                 <div class="employee-review-rating">
                                     <?php
                                     echo str_repeat(
@@ -125,9 +152,14 @@ require BASE_PATH
 
                             </div>
 
+                            <!-- -------------------------------------------------- -->
+                            <!-- informations de l'avis -->
+                            <!-- -------------------------------------------------- -->
+
                             <div class="employee-review-meta">
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Commande
                                     </span>
@@ -139,9 +171,11 @@ require BASE_PATH
                                         );
                                         ?>
                                     </strong>
+
                                 </div>
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Menu
                                     </span>
@@ -153,9 +187,11 @@ require BASE_PATH
                                         );
                                         ?>
                                     </strong>
+
                                 </div>
 
                                 <div>
+
                                     <span class="user-order-label">
                                         Déposé le
                                     </span>
@@ -170,10 +206,12 @@ require BASE_PATH
                                         );
                                         ?>
                                     </strong>
+
                                 </div>
 
                             </div>
 
+                            <!-- Affiche le commentaire laissé par le client. -->
                             <blockquote class="employee-review-comment">
                                 <?php
                                 echo nl2br(
@@ -184,8 +222,13 @@ require BASE_PATH
                                 ?>
                             </blockquote>
 
+                            <!-- -------------------------------------------------- -->
+                            <!-- actions de modération -->
+                            <!-- -------------------------------------------------- -->
+
                             <div class="employee-review-actions">
 
+                                <!-- Formulaire d'approbation de l'avis. -->
                                 <form
                                     action="<?php
                                             echo BASE_URL
@@ -193,6 +236,7 @@ require BASE_PATH
                                             ?>"
                                     method="post">
 
+                                    <!-- Identifie l'avis à modérer. -->
                                     <input
                                         type="hidden"
                                         name="review_id"
@@ -200,11 +244,13 @@ require BASE_PATH
                                                 echo (int) $review['id'];
                                                 ?>">
 
+                                    <!-- Définit le statut comme approuvé. -->
                                     <input
                                         type="hidden"
                                         name="moderation_status"
                                         value="approved">
 
+                                    <!-- Protège l'action contre les requêtes CSRF. -->
                                     <input
                                         type="hidden"
                                         name="csrf_token"
@@ -222,6 +268,7 @@ require BASE_PATH
 
                                 </form>
 
+                                <!-- Formulaire de refus de l'avis. -->
                                 <form
                                     action="<?php
                                             echo BASE_URL
@@ -234,6 +281,7 @@ require BASE_PATH
                                         );
                                     ">
 
+                                    <!-- Identifie l'avis à modérer. -->
                                     <input
                                         type="hidden"
                                         name="review_id"
@@ -241,11 +289,13 @@ require BASE_PATH
                                                 echo (int) $review['id'];
                                                 ?>">
 
+                                    <!-- Définit le statut comme refusé. -->
                                     <input
                                         type="hidden"
                                         name="moderation_status"
                                         value="refused">
 
+                                    <!-- Protège l'action contre les requêtes CSRF. -->
                                     <input
                                         type="hidden"
                                         name="csrf_token"
@@ -276,6 +326,10 @@ require BASE_PATH
 
             <?php else: ?>
 
+                <!-- -------------------------------------------------- -->
+                <!-- absence d'avis -->
+                <!-- -------------------------------------------------- -->
+
                 <div class="user-orders-empty">
 
                     <h3 class="user-orders-empty-title">
@@ -292,14 +346,21 @@ require BASE_PATH
 
         </section>
 
+        <!-- -------------------------------------------------- -->
+        <!-- retour aux commandes -->
+        <!-- -------------------------------------------------- -->
+
         <div class="mt-4">
+
             <a
                 href="<?php
-                        echo BASE_URL . '/employee/dashboard';
+                        echo BASE_URL
+                            . '/employee/dashboard';
                         ?>"
                 class="btn employee-filter-reset-button">
                 Retour aux commandes
             </a>
+
         </div>
 
     </div>

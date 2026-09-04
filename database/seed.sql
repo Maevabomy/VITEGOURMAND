@@ -81,8 +81,7 @@ INSERT INTO order_statuses (name) VALUES
 -- compte administrateur
 -- --------------------------------------------------
 
--- Ajoute un compte administrateur temporaire pour les tests.
--- Le mot de passe devra être généré proprement avec password_hash en PHP.
+-- Ajoute le compte administrateur utilisé pour les démonstrations.
 INSERT INTO users (
     role_id,
     first_name,
@@ -107,11 +106,12 @@ INSERT INTO users (
     TRUE
 );
 
+
 -- --------------------------------------------------
 -- compte employé
 -- --------------------------------------------------
 
--- Ajoute le compte employé de Julie pour les tests.
+-- Ajoute le compte employé de Julie pour les démonstrations.
 INSERT INTO users (
     role_id,
     first_name,
@@ -136,6 +136,8 @@ INSERT INTO users (
     TRUE
 );
 
+
+-- --------------------------------------------------
 -- menus de démonstration
 -- --------------------------------------------------
 
@@ -160,10 +162,10 @@ INSERT INTO menus (
     'Terroir',
     'Une escale raffinée au cœur du Sud-Ouest, entre produits généreux et saveurs délicates.',
     'Commande à effectuer au minimum 5 jours avant la prestation.',
-     5,
-     NULL,
-     NULL,
-     6,
+    5,
+    NULL,
+    NULL,
+    6,
     210.00,
     120,
     TRUE
@@ -215,7 +217,7 @@ INSERT INTO menus (
     1,
     'Minuit',
     'Une parenthèse festive et chaleureuse pour célébrer les fêtes autour d’une table généreuse.',
-    'Commande à effectuer au minimum 10 jours avant la prestation. Disponible uniquement pendant la période des   fêtes.',
+    'Commande à effectuer au minimum 10 jours avant la prestation. Disponible uniquement pendant la période des fêtes.',
     10,
     '2026-12-01',
     '2027-01-05',
@@ -349,6 +351,7 @@ INSERT INTO dishes (
     TRUE
 );
 
+
 -- --------------------------------------------------
 -- allergènes
 -- --------------------------------------------------
@@ -372,6 +375,7 @@ INSERT INTO dish_allergen (
     dish_id,
     allergen_id
 ) VALUES
+
 -- Tartare de saumon aux agrumes.
 (1, 5),
 
@@ -431,6 +435,7 @@ INSERT INTO dish_allergen (
 (16, 2),
 (16, 3);
 
+
 -- --------------------------------------------------
 -- association des menus et plats
 -- --------------------------------------------------
@@ -441,6 +446,7 @@ INSERT INTO menu_dish (
     menu_id,
     dish_id
 ) VALUES
+
 -- Menu Terroir.
 (1, 1),
 (1, 2),
@@ -471,12 +477,12 @@ INSERT INTO menu_dish (
 (6, 16),
 (6, 9);
 
+
 -- --------------------------------------------------
 -- clients de démonstration
 -- --------------------------------------------------
 
--- Ajoute plusieurs clients fictifs pour préparer les tests.
--- Le mot de passe commun sera configuré proprement plus tard.
+-- Ajoute plusieurs clients fictifs utilisés pour les démonstrations.
 INSERT INTO users (
     role_id,
     first_name,
@@ -574,6 +580,7 @@ INSERT INTO users (
     TRUE
 );
 
+
 -- --------------------------------------------------
 -- commandes terminées de démonstration
 -- --------------------------------------------------
@@ -601,7 +608,7 @@ INSERT INTO orders (
 ) VALUES
 (
     'CMD-2026-001',
-    2,
+    3,
     1,
     7,
     'Célia',
@@ -614,14 +621,14 @@ INSERT INTO orders (
     '2026-01-12',
     '12:30:00',
     8,
-    240.00,
+    280.00,
     0.00,
-    240.00,
+    280.00,
     FALSE
 ),
 (
     'CMD-2026-002',
-    3,
+    4,
     2,
     7,
     'Kenza',
@@ -634,14 +641,14 @@ INSERT INTO orders (
     '2026-01-25',
     '19:00:00',
     6,
-    180.00,
+    210.00,
     0.00,
-    180.00,
+    210.00,
     FALSE
 ),
 (
     'CMD-2026-003',
-    4,
+    5,
     3,
     7,
     'Bob',
@@ -654,14 +661,14 @@ INSERT INTO orders (
     '2026-02-08',
     '12:00:00',
     10,
-    350.00,
+    420.00,
     0.00,
-    350.00,
+    420.00,
     FALSE
 ),
 (
     'CMD-2026-004',
-    5,
+    6,
     1,
     7,
     'Evan',
@@ -674,14 +681,14 @@ INSERT INTO orders (
     '2026-02-21',
     '19:30:00',
     12,
-    360.00,
+    378.00,
     0.00,
-    360.00,
+    378.00,
     FALSE
 ),
 (
     'CMD-2026-005',
-    6,
+    7,
     2,
     7,
     'Camille',
@@ -694,14 +701,14 @@ INSERT INTO orders (
     '2026-03-06',
     '13:00:00',
     7,
-    210.00,
+    245.00,
     0.00,
-    210.00,
+    245.00,
     FALSE
 ),
 (
     'CMD-2026-006',
-    7,
+    8,
     1,
     7,
     'Philippe',
@@ -714,14 +721,14 @@ INSERT INTO orders (
     '2026-03-15',
     '12:30:00',
     6,
-    180.00,
+    210.00,
     0.00,
-    180.00,
+    210.00,
     FALSE
 ),
 (
     'CMD-2026-007',
-    8,
+    9,
     3,
     7,
     'Aeko',
@@ -733,10 +740,10 @@ INSERT INTO orders (
     'Bordeaux',
     '2026-04-04',
     '19:00:00',
-    9,
-    315.00,
+    10,
+    420.00,
     0.00,
-    315.00,
+    420.00,
     FALSE
 );
 
@@ -745,7 +752,7 @@ INSERT INTO orders (
 -- historique des commandes
 -- --------------------------------------------------
 
--- Conserve une première trace du statut terminé pour chaque commande fictive.
+-- Ajoute une première trace du statut terminé pour chaque commande fictive.
 INSERT INTO order_status_history (
     order_id,
     status_id,
@@ -775,49 +782,49 @@ INSERT INTO reviews (
 ) VALUES
 (
     1,
-    2,
+    3,
     5,
     'Une prestation très soignée et des plats appréciés par tous nos invités.',
     'approved'
 ),
 (
     2,
-    3,
+    4,
     5,
     'Une équipe disponible, ponctuelle et très professionnelle. Je recommande vivement.',
     'approved'
 ),
 (
     3,
-    4,
+    5,
     4,
     'Le repas était délicieux et les quantités généreuses. Une très belle expérience.',
     'approved'
 ),
 (
     4,
-    5,
+    6,
     5,
     'Nous avons choisi Vite & Gourmand pour un anniversaire et tout était parfait.',
     'approved'
 ),
 (
     5,
-    6,
+    7,
     5,
     'Des plats savoureux, une présentation élégante et une livraison parfaitement organisée.',
     'approved'
 ),
 (
     6,
-    7,
+    8,
     4,
     'Très bon rapport qualité-prix et un accueil chaleureux. Nous referons appel à cette équipe.',
     'approved'
 ),
 (
     7,
-    8,
+    9,
     5,
     'Une prestation de grande qualité qui a beaucoup plu à nos convives.',
     'approved'

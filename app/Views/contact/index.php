@@ -7,10 +7,18 @@
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- formulaire de contact -->
+<!-- -------------------------------------------------- -->
+
 <section class="contact-section py-5">
     <div class="container">
 
         <div class="contact-card mx-auto">
+
+            <!-- -------------------------------------------------- -->
+            <!-- présentation du formulaire -->
+            <!-- -------------------------------------------------- -->
 
             <div class="text-center mb-4">
 
@@ -30,6 +38,11 @@
 
             </div>
 
+            <!-- -------------------------------------------------- -->
+            <!-- messages de validation -->
+            <!-- -------------------------------------------------- -->
+
+            <!-- Affiche les erreurs rencontrées lors de l'envoi. -->
             <?php if (!empty($errors)): ?>
 
                 <div
@@ -63,6 +76,7 @@
 
             <?php endif; ?>
 
+            <!-- Affiche le message de confirmation après l'envoi. -->
             <?php if (!empty($success)): ?>
 
                 <div
@@ -77,22 +91,28 @@
 
             <?php endif; ?>
 
+            <!-- -------------------------------------------------- -->
+            <!-- saisie de la demande -->
+            <!-- -------------------------------------------------- -->
+
             <form
                 action="<?php
-                    echo BASE_URL;
-                ?>/contact"
+                        echo BASE_URL;
+                        ?>/contact"
                 method="post"
                 class="contact-form">
 
+                <!-- Protège le formulaire contre les requêtes CSRF. -->
                 <input
                     type="hidden"
                     name="csrf_token"
                     value="<?php
-                        echo htmlspecialchars(
-                            $csrfToken
-                        );
-                    ?>">
+                            echo htmlspecialchars(
+                                $csrfToken
+                            );
+                            ?>">
 
+                <!-- Adresse mail du visiteur. -->
                 <div class="mb-4">
 
                     <label
@@ -109,15 +129,16 @@
                         maxlength="190"
                         autocomplete="email"
                         value="<?php
-                            echo htmlspecialchars(
-                                $formData['email']
-                                ?? ''
-                            );
-                        ?>"
+                                echo htmlspecialchars(
+                                    $formData['email']
+                                        ?? ''
+                                );
+                                ?>"
                         required>
 
                 </div>
 
+                <!-- Titre de la demande. -->
                 <div class="mb-4">
 
                     <label
@@ -134,15 +155,16 @@
                         minlength="3"
                         maxlength="150"
                         value="<?php
-                            echo htmlspecialchars(
-                                $formData['subject']
-                                ?? ''
-                            );
-                        ?>"
+                                echo htmlspecialchars(
+                                    $formData['subject']
+                                        ?? ''
+                                );
+                                ?>"
                         required>
 
                 </div>
 
+                <!-- Description de la demande. -->
                 <div class="mb-4">
 
                     <label
@@ -159,11 +181,11 @@
                         minlength="10"
                         maxlength="5000"
                         required><?php
-                            echo htmlspecialchars(
-                                $formData['message']
-                                ?? ''
-                            );
-                        ?></textarea>
+                                    echo htmlspecialchars(
+                                        $formData['message']
+                                            ?? ''
+                                    );
+                                    ?></textarea>
 
                     <p class="form-text">
                         Décrivez votre demande en quelques lignes.

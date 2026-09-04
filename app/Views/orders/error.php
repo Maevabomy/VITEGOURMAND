@@ -6,6 +6,11 @@
 /** @var string $returnUrl */
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- erreur de commande -->
+<!-- -------------------------------------------------- -->
+
 <section
     class="order-error-section py-5"
     aria-labelledby="order-error-title">
@@ -17,7 +22,7 @@
             role="alert">
 
             <!-- -------------------------------------------------- -->
-            <!-- en-tête -->
+            <!-- présentation de l'erreur -->
             <!-- -------------------------------------------------- -->
 
             <div class="order-error-header text-center">
@@ -35,20 +40,29 @@
                 <h1
                     class="order-error-title"
                     id="order-error-title">
-                    <?php echo htmlspecialchars($errorTitle); ?>
+                    <?php
+                    echo htmlspecialchars(
+                        $errorTitle
+                    );
+                    ?>
                 </h1>
 
                 <p class="order-error-introduction">
-                    <?php echo htmlspecialchars($errorMessage); ?>
+                    <?php
+                    echo htmlspecialchars(
+                        $errorMessage
+                    );
+                    ?>
                 </p>
 
             </div>
 
             <!-- -------------------------------------------------- -->
-            <!-- erreurs -->
+            <!-- détail des erreurs -->
             <!-- -------------------------------------------------- -->
 
             <?php if (!empty($errors)): ?>
+
                 <div class="order-error-details">
 
                     <h2 class="order-error-subtitle">
@@ -56,26 +70,41 @@
                     </h2>
 
                     <ul class="order-error-list">
+
                         <?php foreach ($errors as $error): ?>
+
                             <li>
-                                <?php echo htmlspecialchars($error); ?>
+                                <?php
+                                echo htmlspecialchars(
+                                    $error
+                                );
+                                ?>
                             </li>
+
                         <?php endforeach; ?>
+
                     </ul>
 
                 </div>
+
             <?php endif; ?>
 
             <!-- -------------------------------------------------- -->
-            <!-- action -->
+            <!-- retour au formulaire -->
             <!-- -------------------------------------------------- -->
 
             <div class="order-error-actions">
+
                 <a
-                    href="<?php echo htmlspecialchars($returnUrl); ?>"
+                    href="<?php
+                            echo htmlspecialchars(
+                                $returnUrl
+                            );
+                            ?>"
                     class="btn btn-custom">
                     Retour au formulaire
                 </a>
+
             </div>
 
         </div>

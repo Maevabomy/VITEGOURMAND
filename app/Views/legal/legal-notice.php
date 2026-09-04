@@ -1,3 +1,7 @@
+<!-- -------------------------------------------------- -->
+<!-- présentation des mentions légales -->
+<!-- -------------------------------------------------- -->
+
 <section class="legal-hero py-5">
     <div class="container py-4">
 
@@ -17,13 +21,24 @@
     </div>
 </section>
 
+<!-- -------------------------------------------------- -->
+<!-- contenu des mentions légales -->
+<!-- -------------------------------------------------- -->
+
 <section class="legal-section py-5">
     <div class="container">
 
         <div class="legal-content">
 
+            <!-- -------------------------------------------------- -->
+            <!-- nature du site -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Nature du site</h2>
+
+                <h2>
+                    Nature du site
+                </h2>
 
                 <p>
                     Vite & Gourmand est un projet fictif
@@ -37,10 +52,18 @@
                     Il ne constitue pas le site officiel
                     d’une entreprise réelle.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- éditeur du site -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Éditeur du site</h2>
+
+                <h2>
+                    Éditeur du site
+                </h2>
 
                 <p>
                     Le présent site a été développé
@@ -55,10 +78,18 @@
                     sont destinés à la démonstration
                     du fonctionnement de l’application.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- hébergement -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Hébergement</h2>
+
+                <h2>
+                    Hébergement
+                </h2>
 
                 <p>
                     Les informations relatives
@@ -66,10 +97,18 @@
                     lors du déploiement définitif
                     de l’application.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- finalité pédagogique -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Finalité pédagogique</h2>
+
+                <h2>
+                    Finalité pédagogique
+                </h2>
 
                 <p>
                     L’application a pour objectif
@@ -81,10 +120,18 @@
                     des données relationnelles et
                     non relationnelles.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- propriété intellectuelle -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Propriété intellectuelle</h2>
+
+                <h2>
+                    Propriété intellectuelle
+                </h2>
 
                 <p>
                     Les éléments présents sur ce site
@@ -98,10 +145,18 @@
                     aux droits de leurs auteurs
                     ou titulaires respectifs.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- données personnelles -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Données personnelles</h2>
+
+                <h2>
+                    Données personnelles
+                </h2>
 
                 <p>
                     Les données saisies dans l’application
@@ -123,10 +178,18 @@
                     de ne pas renseigner de données
                     personnelles sensibles ou réelles.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- responsabilité -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Responsabilité</h2>
+
+                <h2>
+                    Responsabilité
+                </h2>
 
                 <p>
                     Ce site étant un projet étudiant,
@@ -140,10 +203,18 @@
                     et aucune prestation réelle n’est proposée
                     par l’intermédiaire de cette application.
                 </p>
+
             </section>
 
+            <!-- -------------------------------------------------- -->
+            <!-- contact -->
+            <!-- -------------------------------------------------- -->
+
             <section>
-                <h2>Contact</h2>
+
+                <h2>
+                    Contact
+                </h2>
 
                 <p>
                     Pour toute question liée au projet,
@@ -153,6 +224,7 @@
                         Contact
                     </a>.
                 </p>
+
             </section>
 
         </div>

@@ -38,58 +38,71 @@ if (empty($_SESSION['auth_csrf_token'])) {
         bin2hex(random_bytes(32));
 }
 
-/*
-|--------------------------------------------------------------------------
-| constantes principales
-|--------------------------------------------------------------------------
-|
-| BASE_PATH correspond au chemin absolu vers la racine du projet.
-| BASE_URL correspond à l'adresse utilisée dans le navigateur.
-|
-*/
 
-define('BASE_PATH', dirname(__DIR__));
-define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
+/* -------------------------------------------------- */
+/* constantes principales */
+/* -------------------------------------------------- */
 
-/*
-|--------------------------------------------------------------------------
-| chargement automatique des classes
-|--------------------------------------------------------------------------
-|
-| Cette fonction recherche automatiquement les classes présentes
-| dans le dossier app.
-|
-| Exemple :
-| App\Controllers\HomeController
-| devient :
-| app/Controllers/HomeController.php
-|
-*/
+/* Définit les chemins utilisés par l'application. */
+define(
+    'BASE_PATH',
+    dirname(__DIR__)
+);
 
-spl_autoload_register(function (string $className): void {
-    $prefix = 'App\\';
+define(
+    'BASE_URL',
+    rtrim(
+        dirname($_SERVER['SCRIPT_NAME']),
+        '/'
+    )
+);
 
-    if (strpos($className, $prefix) !== 0) {
-        return;
+
+/* -------------------------------------------------- */
+/* chargement automatique des classes */
+/* -------------------------------------------------- */
+
+/* Charge automatiquement les classes du dossier app. */
+spl_autoload_register(
+    function (string $className): void {
+        $prefix = 'App\\';
+
+        if (strpos($className, $prefix) !== 0) {
+            return;
+        }
+
+        $relativeClassName = substr(
+            $className,
+            strlen($prefix)
+        );
+
+        $filePath = BASE_PATH
+            . '/app/'
+            . str_replace(
+                '\\',
+                '/',
+                $relativeClassName
+            )
+            . '.php';
+
+        if (file_exists($filePath)) {
+            require_once $filePath;
+        }
     }
+);
 
-    $relativeClassName = substr($className, strlen($prefix));
 
-    $filePath = BASE_PATH . '/app/' . str_replace('\\', '/', $relativeClassName) . '.php';
+/* -------------------------------------------------- */
+/* démarrage du routeur */
+/* -------------------------------------------------- */
 
-    if (file_exists($filePath)) {
-        require_once $filePath;
-    }
-});
-
-/*
---------------------------------------------------------------------------
-démarrage du routeur
---------------------------------------------------------------------------
-*/
-
+/* Initialise le routeur de l'application. */
 $router = new Router();
 
+/* Charge les routes disponibles. */
 require BASE_PATH . '/routes/web.php';
 
-$router->dispatch($_SERVER['REQUEST_URI']);
+/* Traite la requête HTTP courante. */
+$router->dispatch(
+    $_SERVER['REQUEST_URI']
+);

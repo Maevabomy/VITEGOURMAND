@@ -7,11 +7,9 @@ use PDOException;
 
 class ContactRequest
 {
-    /*
-    |--------------------------------------------------------------------------
-    | création d'une demande
-    |--------------------------------------------------------------------------
-    */
+    /* -------------------------------------------------- */
+    /* Création d'une demande de contact */
+    /* -------------------------------------------------- */
 
     /* Enregistre un message envoyé depuis la page de contact. */
     public static function create(

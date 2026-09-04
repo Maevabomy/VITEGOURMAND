@@ -1,3 +1,8 @@
+<!-- -------------------------------------------------- -->
+<!-- formulaire de réinitialisation du mot de passe -->
+<!-- -------------------------------------------------- -->
+
+
 <section class="auth-section py-5">
     <div class="container">
         <div class="auth-card mx-auto">

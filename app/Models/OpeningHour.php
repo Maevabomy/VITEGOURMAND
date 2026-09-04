@@ -60,13 +60,13 @@ class OpeningHour
             foreach ($openingHours as $openingHour) {
                 $statement->execute([
                     'opening_time' =>
-                        $openingHour['opening_time'],
+                    $openingHour['opening_time'],
                     'closing_time' =>
-                        $openingHour['closing_time'],
+                    $openingHour['closing_time'],
                     'is_closed' =>
-                        $openingHour['is_closed'],
+                    $openingHour['is_closed'],
                     'day_number' =>
-                        $openingHour['day_number'],
+                    $openingHour['day_number'],
                 ]);
             }
 

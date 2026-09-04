@@ -217,10 +217,7 @@ class Order
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*
-     * Récupère les commandes pour l'espace employé.
-     * Les filtres restent facultatifs.
-     */
+    /* Récupère les commandes pour l'espace employé.Les filtres restent facultatifs. */
     public static function findAllForEmployee(
         ?int $statusId = null,
         string $search = ''
@@ -416,10 +413,7 @@ class Order
         return $transitions[$currentStatus] ?? [];
     }
 
-    /*
-     * Change le statut d'une commande et ajoute son historique.
-     * Les transitions sont contrôlées dans la transaction.
-     */
+    /* Change le statut d'une commande et ajoute son historique. Les transitions sont contrôlées dans la transaction. */
     public static function updateStatusByEmployee(
         int $orderId,
         int $employeeId,
@@ -502,10 +496,7 @@ class Order
             $equipmentReturnDeadline = null;
             $equipmentReturnedAt = null;
 
-            /*
-             * Le passage en attente de matériel indique
-             * qu'un équipement a été prêté au client.
-             */
+            /* Le passage en attente de matériel indique qu'un équipement a été prêté au client. */
             if (
                 $newStatus
                 === 'En attente du retour de matériel'
@@ -516,10 +507,7 @@ class Order
                     self::calculateEquipmentReturnDeadline();
             }
 
-            /*
-             * Le passage de l'attente du matériel à Terminée
-             * confirme sa restitution.
-             */
+            /* Le passage de l'attente du matériel à Terminée confirme sa restitution. */
             if (
                 $currentStatus
                 === 'En attente du retour de matériel'
@@ -530,10 +518,7 @@ class Order
                     date('Y-m-d H:i:s');
             }
 
-            /*
-             * Une commande livrée sans prêt de matériel
-             * peut être terminée directement.
-             */
+            /* Une commande livrée sans prêt de matériel peut être terminée directement. */
             if (
                 $currentStatus === 'Livrée'
                 && $newStatus === 'Terminée'
@@ -617,11 +602,7 @@ class Order
         }
     }
 
-        /*
-     * Annule une commande après contact avec le client.
-     * Le statut, le motif, le contact et le stock sont traités
-     * dans une seule transaction.
-     */
+    /* Annule une commande après contact avec le client. Le statut, le motif, le contact et le stock sont traités dans une seule transaction. */
     public static function cancelByEmployee(
         int $orderId,
         int $employeeId,
@@ -662,10 +643,7 @@ class Order
                 return 'not_found';
             }
 
-            /*
-             * Une commande livrée, terminée ou déjà annulée
-             * ne peut plus être annulée.
-             */
+            /* Une commande livrée, terminée ou déjà annulée ne peut plus être annulée. */
             $forbiddenStatuses = [
                 'Livrée',
                 'En attente du retour de matériel',
@@ -752,7 +730,7 @@ class Order
                 'reason' => $reason,
                 'order_id' => $orderId,
                 'current_status_id' =>
-                    (int) $order['current_status_id'],
+                (int) $order['current_status_id'],
             ]);
 
             if ($updateQuery->rowCount() !== 1) {
@@ -771,9 +749,9 @@ class Order
 
             $stockQuery->execute([
                 'people_count' =>
-                    (int) $order['people_count'],
+                (int) $order['people_count'],
                 'menu_id' =>
-                    (int) $order['menu_id'],
+                (int) $order['menu_id'],
             ]);
 
             if ($stockQuery->rowCount() !== 1) {
@@ -782,10 +760,7 @@ class Order
                 return 'error';
             }
 
-            /*
-             * La note reste interne.
-             * Le client verra seulement le statut Annulée.
-             */
+            /* La note reste interne. Le client verra seulement le statut Annulée. */
             $historyNote =
                 'Commande annulée après contact par '
                 . $contactMethod
@@ -970,10 +945,7 @@ class Order
     /* modification d'une commande */
     /* -------------------------------------------------- */
 
-    /*
-     * Modifie une commande en attente et ajuste son stock.
-     * Le menu enregistré dans la commande reste inchangé.
-     */
+    /* Modifie une commande en attente et ajuste son stock. Le menu enregistré dans la commande reste inchangé. */
     public static function updateByUser(
         int $orderId,
         int $userId,
@@ -984,10 +956,7 @@ class Order
         try {
             $connection->beginTransaction();
 
-            /*
-             * Verrouille la commande et revérifie son propriétaire
-             * ainsi que son statut.
-             */
+            /* Verrouille la commande et revérifie son propriétaire ainsi que son statut. */
             $orderQuery = $connection->prepare(
                 'SELECT
                     orders.id,
@@ -1049,10 +1018,7 @@ class Order
                 return 'not_found';
             }
 
-            /*
-             * Le stock actuel ne contient plus les portions déjà
-             * réservées par cette commande.
-             */
+            /* Le stock actuel ne contient plus les portions déjà réservées par cette commande. */
             $peopleDifference =
                 $newPeopleCount - $oldPeopleCount;
 
@@ -1097,9 +1063,7 @@ class Order
                 }
             }
 
-            /*
-             * Le menu_id n'est volontairement jamais modifié.
-             */
+            /* Le menu_id n'est volontairement jamais modifié. */
             $updateQuery = $connection->prepare(
                 'UPDATE orders
                 SET customer_first_name =
@@ -1197,10 +1161,7 @@ class Order
     /* annulation d'une commande */
     /* -------------------------------------------------- */
 
-    /*
-     * Annule une commande en attente et restitue son stock.
-     * Retourne le résultat du traitement au contrôleur.
-     */
+    /* Annule une commande en attente et restitue son stock. Retourne le résultat du traitement au contrôleur */
     public static function cancelByUser(
         int $orderId,
         int $userId
@@ -1210,10 +1171,7 @@ class Order
         try {
             $connection->beginTransaction();
 
-            /*
-             * Verrouille la commande pendant toute l'annulation.
-             * Le propriétaire et le statut sont revérifiés en base.
-             */
+            /* Verrouille la commande pendant toute l'annulation. Le propriétaire et le statut sont revérifiés en base. */
             $orderQuery = $connection->prepare(
                 'SELECT
                     orders.id,
@@ -1275,10 +1233,7 @@ class Order
             $cancelledStatusId =
                 (int) $cancelledStatus['id'];
 
-            /*
-             * Modifie le statut seulement si la commande est toujours
-             * dans son état initial.
-             */
+            /* Modifie le statut seulement si la commande est toujours dans son état initial. */
             $updateQuery = $connection->prepare(
                 'UPDATE orders
                 SET current_status_id = :status_id,

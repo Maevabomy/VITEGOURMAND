@@ -9,6 +9,12 @@
 /** @var string $endDate */
 /** @var string|null $revenueError */
 
+
+/* -------------------------------------------------- */
+/* préparation des statistiques */
+/* -------------------------------------------------- */
+
+/* Recherche le plus grand nombre de commandes pour dimensionner le graphique. */
 $maximumOrderCount = 0;
 
 foreach ($menuOrderStatistics as $statistic) {
@@ -18,6 +24,7 @@ foreach ($menuOrderStatistics as $statistic) {
     );
 }
 
+/* Calcule le chiffre d'affaires total de la sélection. */
 $revenueTotal = 0.0;
 
 foreach ($revenueStatistics as $statistic) {
@@ -26,6 +33,10 @@ foreach ($revenueStatistics as $statistic) {
 }
 
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- présentation des statistiques -->
+<!-- -------------------------------------------------- -->
 
 <section class="employee-dashboard-hero py-5">
     <div class="container py-4">
@@ -48,20 +59,29 @@ foreach ($revenueStatistics as $statistic) {
 
 <?php
 
+/* Charge la navigation de l'espace administrateur. */
 require BASE_PATH
     . '/app/Views/admin/_navigation.php';
 
 ?>
 
+<!-- -------------------------------------------------- -->
+<!-- statistiques administrateur -->
+<!-- -------------------------------------------------- -->
+
 <section class="employee-dashboard-section py-5">
     <div class="container py-3">
 
-        <!-- Nombre de commandes MongoDB -->
+        <!-- -------------------------------------------------- -->
+        <!-- nombre de commandes par menu -->
+        <!-- -------------------------------------------------- -->
+
         <div class="employee-dashboard-card">
 
             <div class="admin-statistics-heading">
 
                 <div>
+
                     <p class="section-subtitle mb-2">
                         Commandes
                     </p>
@@ -69,6 +89,7 @@ require BASE_PATH
                     <h2 class="employee-dashboard-card-title">
                         Nombre de commandes par menu
                     </h2>
+
                 </div>
 
                 <span class="admin-statistics-source">
@@ -77,6 +98,7 @@ require BASE_PATH
 
             </div>
 
+            <!-- Affiche une erreur si les statistiques MongoDB sont indisponibles. -->
             <?php if ($statisticsError !== null): ?>
 
                 <div
@@ -89,6 +111,7 @@ require BASE_PATH
                     ?>
                 </div>
 
+                <!-- Affiche un message si aucune statistique n'est disponible. -->
             <?php elseif (empty($menuOrderStatistics)): ?>
 
                 <div class="employee-empty-state mt-4">
@@ -99,6 +122,7 @@ require BASE_PATH
 
             <?php else: ?>
 
+                <!-- Affiche le graphique comparatif des commandes. -->
                 <div
                     class="admin-statistics-chart"
                     aria-label="Nombre de commandes par menu">
@@ -110,10 +134,11 @@ require BASE_PATH
 
                         <?php
 
+                        /* Récupère le nombre de commandes du menu courant. */
                         $orderCount =
-                            (int)
-                            $statistic['order_count'];
+                            (int) $statistic['order_count'];
 
+                        /* Calcule la largeur de la barre par rapport au maximum. */
                         $percentage =
                             $maximumOrderCount > 0
                             ? (
@@ -126,13 +151,10 @@ require BASE_PATH
 
                         <div class="admin-statistics-row">
 
-                            <div
-                                class="admin-statistics-label">
+                            <div class="admin-statistics-label">
                                 <?php
                                 echo htmlspecialchars(
-                                    $statistic[
-                                        'menu_title'
-                                    ]
+                                    $statistic['menu_title']
                                 );
                                 ?>
                             </div>
@@ -140,29 +162,28 @@ require BASE_PATH
                             <div
                                 class="admin-statistics-bar"
                                 aria-label="<?php
-                                    echo $orderCount;
-                                ?> commande<?php
-                                    echo $orderCount > 1
-                                        ? 's'
-                                        : '';
-                                ?>">
+                                            echo $orderCount;
+                                            ?> commande<?php
+                                            echo $orderCount > 1
+                                                ? 's'
+                                                : '';
+                                            ?>">
 
                                 <div
                                     class="admin-statistics-bar-fill"
                                     style="width: <?php
-                                        echo number_format(
-                                            $percentage,
-                                            2,
-                                            '.',
-                                            ''
-                                        );
-                                    ?>%;">
+                                                    echo number_format(
+                                                        $percentage,
+                                                        2,
+                                                        '.',
+                                                        ''
+                                                    );
+                                                    ?>%;">
                                 </div>
 
                             </div>
 
-                            <strong
-                                class="admin-statistics-value">
+                            <strong class="admin-statistics-value">
                                 <?php echo $orderCount; ?>
                             </strong>
 
@@ -176,7 +197,10 @@ require BASE_PATH
 
         </div>
 
-        <!-- Chiffre d'affaires MariaDB -->
+        <!-- -------------------------------------------------- -->
+        <!-- chiffre d'affaires par menu -->
+        <!-- -------------------------------------------------- -->
+
         <div
             class="employee-dashboard-card mt-4"
             id="revenue">
@@ -184,6 +208,7 @@ require BASE_PATH
             <div class="admin-statistics-heading">
 
                 <div>
+
                     <p class="section-subtitle mb-2">
                         Chiffre d’affaires
                     </p>
@@ -191,6 +216,7 @@ require BASE_PATH
                     <h2 class="employee-dashboard-card-title">
                         Chiffre d’affaires par menu
                     </h2>
+
                 </div>
 
                 <span class="admin-statistics-source">
@@ -204,14 +230,20 @@ require BASE_PATH
                 La période est basée sur la date de prestation.
             </p>
 
+            <!-- -------------------------------------------------- -->
+            <!-- filtres du chiffre d'affaires -->
+            <!-- -------------------------------------------------- -->
+
             <form
                 action="<?php
-                    echo BASE_URL;
-                ?>/admin/statistics#revenue"
+                        echo BASE_URL;
+                        ?>/admin/statistics#revenue"
                 method="get"
                 class="admin-revenue-filters">
 
+                <!-- Filtre les résultats par menu. -->
                 <div>
+
                     <label
                         for="revenue-menu"
                         class="form-label">
@@ -234,8 +266,8 @@ require BASE_PATH
 
                             <option
                                 value="<?php
-                                    echo (int) $menu['id'];
-                                ?>"
+                                        echo (int) $menu['id'];
+                                        ?>"
                                 <?php
                                 echo $selectedMenuId
                                     === (int) $menu['id']
@@ -252,9 +284,12 @@ require BASE_PATH
                         <?php endforeach; ?>
 
                     </select>
+
                 </div>
 
+                <!-- Définit la date de début de la période. -->
                 <div>
+
                     <label
                         for="revenue-start-date"
                         class="form-label">
@@ -267,13 +302,16 @@ require BASE_PATH
                         name="start_date"
                         class="form-control"
                         value="<?php
-                            echo htmlspecialchars(
-                                $startDate
-                            );
-                        ?>">
+                                echo htmlspecialchars(
+                                    $startDate
+                                );
+                                ?>">
+
                 </div>
 
+                <!-- Définit la date de fin de la période. -->
                 <div>
+
                     <label
                         for="revenue-end-date"
                         class="form-label">
@@ -286,10 +324,11 @@ require BASE_PATH
                         name="end_date"
                         class="form-control"
                         value="<?php
-                            echo htmlspecialchars(
-                                $endDate
-                            );
-                        ?>">
+                                echo htmlspecialchars(
+                                    $endDate
+                                );
+                                ?>">
+
                 </div>
 
                 <div class="admin-revenue-filter-actions">
@@ -302,8 +341,8 @@ require BASE_PATH
 
                     <a
                         href="<?php
-                            echo BASE_URL;
-                        ?>/admin/statistics#revenue"
+                                echo BASE_URL;
+                                ?>/admin/statistics#revenue"
                         class="btn btn-outline-light">
                         Réinitialiser
                     </a>
@@ -312,6 +351,7 @@ require BASE_PATH
 
             </form>
 
+            <!-- Affiche une erreur si le calcul du chiffre d'affaires échoue. -->
             <?php if ($revenueError !== null): ?>
 
                 <div
@@ -326,6 +366,7 @@ require BASE_PATH
 
             <?php else: ?>
 
+                <!-- Affiche le chiffre d'affaires total de la sélection. -->
                 <div class="admin-revenue-summary">
 
                     <span>
@@ -345,6 +386,7 @@ require BASE_PATH
 
                 </div>
 
+                <!-- Affiche un message si aucun résultat ne correspond aux filtres. -->
                 <?php if (empty($revenueStatistics)): ?>
 
                     <div class="employee-empty-state mt-4">
@@ -355,12 +397,17 @@ require BASE_PATH
 
                 <?php else: ?>
 
+                    <!-- -------------------------------------------------- -->
+                    <!-- détail du chiffre d'affaires -->
+                    <!-- -------------------------------------------------- -->
+
                     <div class="table-responsive mt-4">
 
                         <table class="admin-revenue-table">
 
                             <thead>
                                 <tr>
+
                                     <th scope="col">
                                         Menu
                                     </th>
@@ -372,6 +419,7 @@ require BASE_PATH
                                     <th scope="col">
                                         Chiffre d’affaires
                                     </th>
+
                                 </tr>
                             </thead>
 
@@ -383,12 +431,11 @@ require BASE_PATH
                                 ): ?>
 
                                     <tr>
+
                                         <td>
                                             <?php
                                             echo htmlspecialchars(
-                                                $statistic[
-                                                    'menu_title'
-                                                ]
+                                                $statistic['menu_title']
                                             );
                                             ?>
                                         </td>
@@ -396,9 +443,7 @@ require BASE_PATH
                                         <td>
                                             <?php
                                             echo (int)
-                                                $statistic[
-                                                    'order_count'
-                                                ];
+                                            $statistic['order_count'];
                                             ?>
                                         </td>
 
@@ -407,9 +452,7 @@ require BASE_PATH
                                                 <?php
                                                 echo number_format(
                                                     (float)
-                                                    $statistic[
-                                                        'revenue'
-                                                    ],
+                                                    $statistic['revenue'],
                                                     2,
                                                     ',',
                                                     ' '
@@ -417,6 +460,7 @@ require BASE_PATH
                                                 ?> €
                                             </strong>
                                         </td>
+
                                     </tr>
 
                                 <?php endforeach; ?>

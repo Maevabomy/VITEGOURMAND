@@ -39,7 +39,7 @@ class Review
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-        /* Récupère les avis à modérer pour l'espace employé. */
+    /* Récupère les avis à modérer pour l'espace employé. */
     public static function findPendingForEmployee(): array
     {
         $connection = Database::getConnection();
@@ -73,10 +73,7 @@ class Review
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*
-     * Modère un avis encore en attente.
-     * Retourne false si l'avis a déjà été traité.
-     */
+    /* Modère un avis encore en attente. Retourne false si l'avis a déjà été traité. */
     public static function moderateByEmployee(
         int $reviewId,
         string $moderationStatus
@@ -150,10 +147,7 @@ class Review
     /* création d'un avis */
     /* -------------------------------------------------- */
 
-    /*
-     * Enregistre un avis uniquement pour une commande terminée
-     * appartenant à l'utilisateur.
-     */
+    /* Enregistre un avis uniquement pour une commande terminée appartenant à l'utilisateur. */
     public static function createForOrder(
         int $orderId,
         int $userId,

@@ -1,16 +1,17 @@
 <?php
-/* Indique les variables préparées par le contrôleur. */
+
 /** @var array $menus */
 /** @var array $themes */
 /** @var array $dietaryTypes */
+
 ?>
+
+<!-- -------------------------------------------------- -->
+<!-- présentation du catalogue -->
+<!-- -------------------------------------------------- -->
 
 <section class="menus-hero-section">
     <div class="container py-5">
-
-        <!-- -------------------------------------------------- -->
-        <!-- titre de la page -->
-        <!-- -------------------------------------------------- -->
 
         <p class="section-subtitle mb-2">
             Notre sélection
@@ -28,6 +29,10 @@
     </div>
 </section>
 
+<!-- -------------------------------------------------- -->
+<!-- catalogue des menus -->
+<!-- -------------------------------------------------- -->
+
 <section class="menus-catalog-section py-5">
     <div class="container py-4">
 
@@ -37,35 +42,51 @@
             <!-- filtres des menus -->
             <!-- -------------------------------------------------- -->
 
-            <section class="menu-filters mb-5" aria-labelledby="filters-title">
+            <section
+                class="menu-filters mb-5"
+                aria-labelledby="filters-title">
 
                 <div class="menu-filters-header">
+
                     <div>
-                        <h2 id="filters-title" class="menu-filters-title">
+
+                        <h2
+                            id="filters-title"
+                            class="menu-filters-title">
                             Affiner votre recherche
                         </h2>
 
                         <p class="menu-filters-description mb-0">
-                            Sélectionnez les critères correspondant à votre événement.
+                            Sélectionnez les critères correspondant
+                            à votre événement.
                         </p>
+
                     </div>
 
+                    <!-- Affiche le nombre de menus correspondant aux filtres. -->
                     <p
                         id="menus-count"
                         class="menus-count mb-0"
                         aria-live="polite">
-                        <?php echo count($menus); ?> menus disponibles
+                        <?php echo count($menus); ?>
+                        menus disponibles
                     </p>
+
                 </div>
 
                 <div class="row g-3 align-items-end mt-1">
 
+                    <!-- Filtre par prix minimum. -->
                     <div class="col-xl-2 col-md-4">
-                        <label for="minimum-price" class="form-label">
+
+                        <label
+                            for="minimum-price"
+                            class="form-label">
                             Prix minimum
                         </label>
 
                         <div class="input-group">
+
                             <input
                                 type="number"
                                 id="minimum-price"
@@ -77,15 +98,22 @@
                             <span class="input-group-text">
                                 €
                             </span>
+
                         </div>
+
                     </div>
 
+                    <!-- Filtre par prix maximum. -->
                     <div class="col-xl-2 col-md-4">
-                        <label for="maximum-price" class="form-label">
+
+                        <label
+                            for="maximum-price"
+                            class="form-label">
                             Prix maximum
                         </label>
 
                         <div class="input-group">
+
                             <input
                                 type="number"
                                 id="maximum-price"
@@ -97,48 +125,96 @@
                             <span class="input-group-text">
                                 €
                             </span>
+
                         </div>
+
                     </div>
 
+                    <!-- Filtre par thème. -->
                     <div class="col-xl-2 col-md-4">
-                        <label for="theme-filter" class="form-label">
+
+                        <label
+                            for="theme-filter"
+                            class="form-label">
                             Thème
                         </label>
 
-                        <select id="theme-filter" class="form-select">
+                        <select
+                            id="theme-filter"
+                            class="form-select">
+
                             <option value="">
                                 Tous les thèmes
                             </option>
 
                             <?php foreach ($themes as $theme): ?>
-                                <option value="<?php echo htmlspecialchars($theme); ?>">
-                                    <?php echo htmlspecialchars($theme); ?>
+
+                                <option
+                                    value="<?php
+                                            echo htmlspecialchars(
+                                                $theme
+                                            );
+                                            ?>">
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $theme
+                                    );
+                                    ?>
                                 </option>
+
                             <?php endforeach; ?>
+
                         </select>
+
                     </div>
 
+                    <!-- Filtre par régime alimentaire. -->
                     <div class="col-xl-2 col-md-4">
-                        <label for="dietary-type-filter" class="form-label">
+
+                        <label
+                            for="dietary-type-filter"
+                            class="form-label">
                             Régime
                         </label>
 
-                        <select id="dietary-type-filter" class="form-select">
+                        <select
+                            id="dietary-type-filter"
+                            class="form-select">
+
                             <option value="">
                                 Tous les régimes
                             </option>
 
-                            <?php foreach ($dietaryTypes as $dietaryType): ?>
+                            <?php foreach (
+                                $dietaryTypes
+                                as $dietaryType
+                            ): ?>
+
                                 <option
-                                    value="<?php echo htmlspecialchars($dietaryType); ?>">
-                                    <?php echo htmlspecialchars($dietaryType); ?>
+                                    value="<?php
+                                            echo htmlspecialchars(
+                                                $dietaryType
+                                            );
+                                            ?>">
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $dietaryType
+                                    );
+                                    ?>
                                 </option>
+
                             <?php endforeach; ?>
+
                         </select>
+
                     </div>
 
+                    <!-- Filtre par nombre de convives. -->
                     <div class="col-xl-2 col-md-4">
-                        <label for="people-filter" class="form-label">
+
+                        <label
+                            for="people-filter"
+                            class="form-label">
                             Nombre de convives
                         </label>
 
@@ -149,43 +225,68 @@
                             min="1"
                             step="1"
                             placeholder="Ex. 8">
+
                     </div>
 
+                    <!-- Réinitialise tous les filtres. -->
                     <div class="col-xl-2 col-md-4">
+
                         <button
                             type="button"
                             id="reset-filters"
                             class="btn btn-filter-reset w-100">
                             Réinitialiser
                         </button>
+
                     </div>
 
                 </div>
+
             </section>
 
             <!-- -------------------------------------------------- -->
             <!-- liste des menus -->
             <!-- -------------------------------------------------- -->
 
-            <div id="menus-list" class="row gy-4">
+            <div
+                id="menus-list"
+                class="row gy-4">
 
                 <?php foreach ($menus as $menu): ?>
 
                     <?php
-                    $pricePerPerson = $menu['base_price']
+
+                    /* Calcule le prix du menu par personne. */
+                    $pricePerPerson =
+                        $menu['base_price']
                         / $menu['minimum_people'];
 
-                    $carouselId = 'menu-carousel-' . $menu['id'];
+                    /* Construit un identifiant unique pour le carrousel du menu. */
+                    $carouselId =
+                        'menu-carousel-'
+                        . $menu['id'];
+
                     ?>
 
                     <div
                         class="col-xl-6 menu-item"
-                        data-price="<?php echo $menu['base_price']; ?>"
-                        data-theme="<?php echo htmlspecialchars($menu['theme_name']); ?>"
+                        data-price="<?php
+                                    echo $menu['base_price'];
+                                    ?>"
+                        data-theme="<?php
+                                    echo htmlspecialchars(
+                                        $menu['theme_name']
+                                    );
+                                    ?>"
                         data-dietary-type="<?php
-                                            echo htmlspecialchars($menu['dietary_type_name']);
+                                            echo htmlspecialchars(
+                                                $menu['dietary_type_name']
+                                            );
                                             ?>"
-                        data-minimum-people="<?php echo $menu['minimum_people']; ?>">
+                        data-minimum-people="<?php
+                                                echo $menu['minimum_people'];
+                                                ?>">
+
                         <article class="menu-card">
 
                             <!-- -------------------------------------------------- -->
@@ -197,17 +298,34 @@
                                 <div
                                     id="<?php echo $carouselId; ?>"
                                     class="carousel slide h-100">
+
                                     <div class="carousel-inner h-100">
 
-                                        <?php foreach ($menu['dishes'] as $index => $dish): ?>
+                                        <?php foreach (
+                                            $menu['dishes']
+                                            as $index => $dish
+                                        ): ?>
 
                                             <div
-                                                class="carousel-item h-100
-                                                <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                class="carousel-item h-100 <?php
+                                                                            echo $index === 0
+                                                                                ? 'active'
+                                                                                : '';
+                                                                            ?>">
+
                                                 <img
-                                                    src="<?php echo BASE_URL; ?>/dish/image?id=<?php echo $dish['id']; ?>"
+                                                    src="<?php
+                                                            echo BASE_URL;
+                                                            ?>/dish/image?id=<?php
+                                                                        echo $dish['id'];
+                                                                        ?>"
                                                     class="menu-card-image"
-                                                    alt="<?php echo htmlspecialchars($dish['name']); ?>">
+                                                    alt="<?php
+                                                            echo htmlspecialchars(
+                                                                $dish['name']
+                                                            );
+                                                            ?>">
+
                                             </div>
 
                                         <?php endforeach; ?>
@@ -218,31 +336,42 @@
                                     <button
                                         class="carousel-control-prev"
                                         type="button"
-                                        data-bs-target="#<?php echo $carouselId; ?>"
+                                        data-bs-target="#<?php
+                                                            echo $carouselId;
+                                                            ?>"
                                         data-bs-slide="prev">
+
                                         <span
                                             class="carousel-control-prev-icon"
-                                            aria-hidden="true"></span>
+                                            aria-hidden="true">
+                                        </span>
 
                                         <span class="visually-hidden">
                                             Photo précédente
                                         </span>
+
                                     </button>
 
                                     <!-- Affiche la flèche suivante. -->
                                     <button
                                         class="carousel-control-next"
                                         type="button"
-                                        data-bs-target="#<?php echo $carouselId; ?>"
+                                        data-bs-target="#<?php
+                                                            echo $carouselId;
+                                                            ?>"
                                         data-bs-slide="next">
+
                                         <span
                                             class="carousel-control-next-icon"
-                                            aria-hidden="true"></span>
+                                            aria-hidden="true">
+                                        </span>
 
                                         <span class="visually-hidden">
                                             Photo suivante
                                         </span>
+
                                     </button>
+
                                 </div>
 
                             </div>
@@ -253,9 +382,15 @@
 
                             <div class="menu-card-content">
 
+                                <!-- Affiche le thème et le régime du menu. -->
                                 <div class="d-flex flex-wrap gap-2 mb-3">
+
                                     <span class="menu-badge menu-badge-theme">
-                                        <?php echo htmlspecialchars($menu['theme_name']); ?>
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $menu['theme_name']
+                                        );
+                                        ?>
                                     </span>
 
                                     <span class="menu-badge menu-badge-diet">
@@ -265,10 +400,15 @@
                                         );
                                         ?>
                                     </span>
+
                                 </div>
 
                                 <h2 class="menu-card-title">
-                                    <?php echo htmlspecialchars($menu['title']); ?>
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $menu['title']
+                                    );
+                                    ?>
                                 </h2>
 
                                 <p class="menu-card-description">
@@ -279,7 +419,12 @@
                                     ?>
                                 </p>
 
+                                <!-- -------------------------------------------------- -->
+                                <!-- prix du menu -->
+                                <!-- -------------------------------------------------- -->
+
                                 <div class="menu-card-price">
+
                                     <strong>
                                         <?php
                                         echo number_format(
@@ -303,13 +448,21 @@
                                         );
                                         ?>
                                         € pour
-                                        <?php echo $menu['minimum_people']; ?>
+                                        <?php
+                                        echo $menu['minimum_people'];
+                                        ?>
                                         personnes
                                     </span>
+
                                 </div>
 
+                                <!-- Accès à la fiche complète du menu. -->
                                 <a
-                                    href="<?php echo BASE_URL; ?>/menus/detail?id=<?php echo $menu['id']; ?>"
+                                    href="<?php
+                                            echo BASE_URL;
+                                            ?>/menus/detail?id=<?php
+                                                        echo $menu['id'];
+                                                        ?>"
                                     class="btn btn-custom mt-3">
                                     Voir le détail
                                 </a>
@@ -317,13 +470,14 @@
                             </div>
 
                         </article>
+
                     </div>
 
                 <?php endforeach; ?>
 
             </div>
 
-            <!-- Affiche un message lorsque la recherche ne donne aucun résultat. -->
+            <!-- Affiche un message lorsque les filtres ne retournent aucun menu. -->
             <p
                 id="no-menu-message"
                 class="no-menu-message d-none text-center mb-0"
@@ -332,6 +486,10 @@
             </p>
 
         <?php else: ?>
+
+            <!-- -------------------------------------------------- -->
+            <!-- absence de menu -->
+            <!-- -------------------------------------------------- -->
 
             <p class="text-center mb-0">
                 Aucun menu n'est disponible pour le moment.
@@ -342,7 +500,13 @@
     </div>
 </section>
 
+<!-- -------------------------------------------------- -->
+<!-- script des filtres -->
+<!-- -------------------------------------------------- -->
+
 <script
-    src="<?php echo BASE_URL; ?>/assets/js/menu-filters.js"
+    src="<?php
+            echo BASE_URL;
+            ?>/assets/js/menu-filters.js"
     defer>
 </script>
