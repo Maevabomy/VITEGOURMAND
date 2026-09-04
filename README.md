@@ -1,224 +1,616 @@
 # Vite & Gourmand
 
-Application web réalisée dans le cadre de l'ECF du titre professionnel Développeur Web et Web Mobile.
+Application web réalisée dans le cadre de l'ECF du titre professionnel **Développeur Web et Web Mobile**.
 
 ## Présentation
 
-Vite & Gourmand est une entreprise de traiteur située à Bordeaux.
+**Vite & Gourmand** est une entreprise fictive de traiteur située à Bordeaux.
 
-L'application permet de présenter les menus proposés par l'entreprise, de faciliter leur consultation et, à terme, de permettre aux clients de passer leurs commandes en ligne.
+L'application permet aux visiteurs de consulter les menus proposés par l'entreprise et aux clients inscrits de commander une prestation en ligne.
 
-Le projet est développé progressivement en respectant une architecture MVC simple et une organisation Git par fonctionnalités.
+Elle comprend également :
+
+- un espace client pour suivre et gérer ses commandes ;
+- un espace employé pour gérer les commandes, menus, plats, horaires et avis ;
+- un espace administrateur pour gérer les comptes employés et consulter les statistiques de l'entreprise.
+
+Le projet repose sur une architecture **MVC en PHP orienté objet**, sans framework back-end.
+
+---
+
+## Fonctionnalités principales
+
+### Partie publique
+
+- présentation de l'entreprise ;
+- affichage des horaires d'ouverture ;
+- affichage des avis clients validés ;
+- catalogue des menus ;
+- filtres dynamiques sans rechargement de page ;
+- filtre par prix ;
+- filtre par thème ;
+- filtre par régime alimentaire ;
+- filtre par nombre de personnes ;
+- détail complet d'un menu ;
+- galerie d'images ;
+- affichage des plats et allergènes ;
+- affichage du délai minimum de commande ;
+- affichage des périodes de disponibilité ;
+- affichage du stock disponible ;
+- formulaire de contact ;
+- mentions légales ;
+- conditions générales de vente.
+
+### Authentification
+
+- création d'un compte client ;
+- connexion ;
+- déconnexion ;
+- contrôle de la robustesse des mots de passe ;
+- réinitialisation du mot de passe par lien temporaire ;
+- gestion des rôles `user`, `employee` et `admin`.
+
+### Commandes
+
+Un client authentifié peut :
+
+- choisir un menu ;
+- rechercher une adresse de livraison ;
+- sélectionner la date de prestation ;
+- sélectionner un créneau de livraison ;
+- indiquer le nombre de personnes ;
+- consulter le calcul du prix en temps réel ;
+- bénéficier d'une réduction de 10 % à partir de 5 personnes supplémentaires par rapport au minimum du menu ;
+- consulter les frais de livraison ;
+- enregistrer sa commande ;
+- recevoir une confirmation de commande.
+
+Les frais de livraison sont calculés selon les règles suivantes :
+
+- livraison à Bordeaux : gratuite ;
+- hors Bordeaux : 5 € de frais fixes ;
+- supplément de 0,59 € par kilomètre.
+
+La recherche d'adresse utilise **OpenStreetMap / Nominatim** et le calcul de distance routière utilise **OSRM**.
+
+### Espace client
+
+Le client peut :
+
+- consulter ses commandes ;
+- consulter le détail d'une commande ;
+- suivre l'évolution de son statut ;
+- modifier une commande encore en attente ;
+- annuler une commande encore en attente ;
+- modifier ses informations personnelles ;
+- laisser un avis après une commande terminée.
+
+### Espace employé
+
+L'employé peut :
+
+- consulter et rechercher les commandes ;
+- filtrer les commandes par statut ;
+- consulter leur détail ;
+- faire évoluer leur statut ;
+- ajouter une note interne ;
+- gérer le prêt et le retour de matériel ;
+- annuler une commande après contact avec le client ;
+- renseigner le moyen de contact et la raison de l'annulation ;
+- gérer les horaires d'ouverture ;
+- créer et modifier les menus ;
+- activer ou désactiver les menus ;
+- créer et modifier les plats ;
+- gérer les allergènes ;
+- activer ou désactiver les plats ;
+- modérer les avis clients.
+
+### Espace administrateur
+
+L'administrateur dispose des fonctionnalités de gestion et peut également :
+
+- créer des comptes employés ;
+- activer ou désactiver un compte employé ;
+- consulter le nombre de commandes par menu ;
+- consulter le chiffre d'affaires par menu ;
+- filtrer le chiffre d'affaires par menu et par période.
+
+Le nombre de commandes par menu est stocké et lu dans **MongoDB**.
+
+Le chiffre d'affaires est calculé à partir des données enregistrées dans **MariaDB**.
+
+---
 
 ## Technologies utilisées
 
 ### Front-end
 
-- HTML5
-- CSS3
-- Bootstrap 5
-- JavaScript
+- HTML5 ;
+- CSS3 ;
+- Bootstrap 5 ;
+- JavaScript natif.
 
 ### Back-end
 
-- PHP natif orienté objet
-- Architecture MVC
-- PDO
+- PHP 8 orienté objet ;
+- architecture MVC ;
+- PDO ;
+- sessions PHP ;
+- cURL.
 
 ### Bases de données
 
-- MariaDB pour les données relationnelles
-- MongoDB pour les statistiques demandées dans l'espace administrateur
+- **MariaDB** pour les données relationnelles ;
+- **MongoDB Atlas** pour les statistiques non relationnelles.
 
-> La partie MongoDB sera ajoutée lors du développement de l'espace administrateur.
+### Services externes
 
-## Prérequis
+- OpenStreetMap / Nominatim pour la recherche d'adresses ;
+- OSRM pour le calcul des distances routières.
 
-Pour utiliser le projet en local, il est nécessaire d'installer :
+### Outils de développement
 
 - XAMPP ;
-- PHP ;
-- MariaDB ;
-- un navigateur web ;
-- Git.
+- phpMyAdmin ;
+- Git ;
+- GitHub ;
+- Visual Studio Code.
 
-Le projet a été développé localement avec XAMPP sur macOS.
+---
 
-## Installation locale avec XAMPP
-
-### 1. Placer le projet dans le dossier XAMPP
-
-Copier le dossier du projet dans :
-
-
-/Applications/XAMPP/xamppfiles/htdocs/VITEGOURMAND
-
-2. Démarrer les services
-
-Depuis XAMPP, démarrer :
-
-Apache ;
-MySQL.
-3. Créer la base de données
-
-Depuis phpMyAdmin, importer le fichier :
-
-database/schema.sql
-
-Ce fichier :
-
-supprime l'ancienne base si elle existe ;
-crée la base vite_gourmand ;
-crée les tables nécessaires.
-4. Importer les données fictives
-
-Depuis phpMyAdmin, importer ensuite :
-
-database/seed.sql
-
-Ce fichier ajoute les données utiles pour tester l'application :
-
-rôles ;
-horaires ;
-thèmes ;
-régimes ;
-utilisateurs fictifs ;
-menus ;
-plats ;
-allergènes ;
-commandes ;
-avis clients.
-5. Importer les images des plats dans MariaDB
-
-Les images des plats sont stockées dans MariaDB sous forme de BLOB.
-
-Depuis la racine du projet, exécuter :
-
-/Applications/XAMPP/xamppfiles/bin/php database/import-dish-images.php
-
-Le script lit les fichiers JPG présents dans :
-
-public/assets/images/menus/
-
-puis les enregistre dans la colonne photo de la table dishes.
-
-6. Ouvrir l'application
-
-Dans le navigateur, ouvrir :
-
-## Routes disponibles
-
-### Page d'accueil
+## Architecture du projet
 
 ```text
-http://localhost/VITEGOURMAND/public/
-```
-
-### Catalogue public des menus
-
-```text
-http://localhost/VITEGOURMAND/public/menus
-```
-
-### Page détail d'un menu
-
-- accès au détail d'un menu depuis le catalogue public ;
-- récupération du menu depuis MariaDB grâce à son identifiant ;
-- affichage de la galerie d'images du menu ;
-- affichage des informations principales du menu ;
-- affichage du thème ;
-- affichage du régime ;
-- affichage de la disponibilité ;
-- affichage du stock disponible ;
-- affichage du prix total minimum ;
-- affichage du prix indicatif par personne ;
-- affichage du nombre minimum de convives ;
-- affichage des conditions de commande ;
-- affichage des plats associés au menu ;
-- affichage des descriptions détaillées des plats ;
-- affichage des allergènes plat par plat ;
-- gestion d'une erreur 404 si le menu demandé n'existe pas ;
-- bouton de commande présent mais désactivé temporairement.
-
-### Affichage d'une image enregistrée en BLOB
-
-```text
-http://localhost/VITEGOURMAND/public/dish/image?id=1
-```
-
-Architecture du projet
 VITEGOURMAND/
 ├── app/
 │   ├── Controllers/
 │   ├── Models/
 │   ├── Services/
 │   └── Views/
+│       ├── admin/
+│       ├── auth/
+│       ├── contact/
+│       ├── employee/
+│       ├── home/
+│       ├── layouts/
+│       ├── legal/
+│       ├── menus/
+│       ├── orders/
+│       └── user/
 ├── config/
 ├── database/
 ├── docs/
 ├── public/
 │   ├── assets/
+│   │   ├── css/
+│   │   ├── images/
+│   │   └── js/
+│   ├── .htaccess
 │   └── index.php
 ├── routes/
 ├── .gitignore
 └── README.md
-Dossiers principaux
-app/Controllers/ : prépare les données et choisit les vues à afficher ;
-app/Models/ : communique avec la base de données ;
-app/Services/ : contient les services partagés, comme la connexion PDO et le routeur ;
-app/Views/ : contient les pages visibles par l'utilisateur ;
-config/ : contient la configuration de la base de données ;
-database/ : contient les scripts SQL et l'import des images ;
-public/ : contient le point d'entrée de l'application et les fichiers accessibles par le navigateur ;
-routes/ : contient les routes de l'application.
-Fonctionnalités développées
-Socle technique
-point d'entrée unique dans public/index.php ;
-autoload simple des classes PHP ;
-routeur ;
-connexion PDO à MariaDB ;
-architecture MVC ;
-layout commun avec header et footer.
-Page d'accueil
-présentation de l'entreprise ;
-mise en avant du savoir-faire ;
-horaires récupérés depuis MariaDB ;
-avis clients validés récupérés depuis MariaDB ;
-carrousel Bootstrap pour les avis.
-Catalogue public des menus
-récupération des menus depuis MariaDB ;
-affichage des plats associés à chaque menu ;
-gestion des plats partagés entre plusieurs menus ;
-stockage des images de plats dans MariaDB sous forme de BLOB ;
-mini-carrousel de photos pour chaque menu ;
-affichage du thème ;
-affichage du régime ;
-affichage du prix total minimum ;
-affichage du prix indicatif par personne ;
-affichage du nombre minimum de convives ;
-filtres dynamiques sans rechargement de page ;
-filtrage par prix minimum et prix maximum ;
-filtrage par thème ;
-filtrage par régime ;
-filtrage selon le nombre de convives ;
-compteur dynamique des résultats ;
-bouton de réinitialisation.
-Organisation Git
+```
 
-Le projet utilise plusieurs branches :
+### Rôle des principaux dossiers
 
+- `app/Controllers/` : reçoit les requêtes et prépare les données ;
+- `app/Models/` : communique avec les bases de données ;
+- `app/Services/` : contient les services partagés de l'application ;
+- `app/Views/` : contient les interfaces affichées aux utilisateurs ;
+- `config/` : contient les paramètres de connexion ;
+- `database/` : contient les scripts de création et d'alimentation de la base ;
+- `public/` : contient le point d'entrée et les ressources publiques ;
+- `routes/` : contient la déclaration des routes ;
+- `docs/` : contient les documents associés au projet.
+
+---
+
+# Installation locale
+
+## Prérequis
+
+Le projet a été développé sous macOS avec XAMPP.
+
+Pour l'utiliser en local, il faut disposer de :
+
+- PHP 8 ;
+- Apache ;
+- MariaDB / MySQL ;
+- XAMPP ou environnement équivalent ;
+- phpMyAdmin ou un autre client SQL ;
+- extension PHP PDO MySQL ;
+- extension PHP cURL ;
+- extension PHP MongoDB ;
+- un navigateur web ;
+- une connexion Internet pour MongoDB Atlas, Nominatim et OSRM ;
+- Git si le projet est récupéré depuis GitHub.
+
+---
+
+## 1. Récupérer le projet
+
+Cloner le dépôt :
+
+```bash
+git clone https://github.com/Maevabomy/VITEGOURMAND.git
+```
+
+Ou copier le dossier du projet dans le dossier `htdocs` de XAMPP.
+
+Sous macOS avec l'installation utilisée pendant le développement :
+
+```text
+/Applications/XAMPP/xamppfiles/htdocs/VITEGOURMAND
+```
+
+---
+
+## 2. Démarrer XAMPP
+
+Démarrer les services :
+
+- Apache ;
+- MySQL.
+
+---
+
+## 3. Créer la base MariaDB
+
+Depuis phpMyAdmin, importer :
+
+```text
+database/schema.sql
+```
+
+Ce fichier :
+
+- supprime la base précédente si elle existe ;
+- crée la base `vite_gourmand` ;
+- crée les tables ;
+- crée les clés étrangères et les contraintes nécessaires.
+
+---
+
+## 4. Importer les données de démonstration
+
+Importer ensuite :
+
+```text
+database/seed.sql
+```
+
+Ce fichier ajoute notamment :
+
+- les rôles ;
+- les horaires ;
+- les thèmes ;
+- les régimes alimentaires ;
+- les statuts de commande ;
+- les comptes de démonstration ;
+- les menus ;
+- les plats ;
+- les allergènes ;
+- les associations entre menus et plats ;
+- les commandes fictives ;
+- les avis clients validés.
+
+---
+
+## 5. Importer les images des plats
+
+Les photos des plats sont enregistrées directement dans MariaDB sous forme de BLOB.
+
+Depuis la racine du projet :
+
+```bash
+/Applications/XAMPP/xamppfiles/bin/php database/import-dish-images.php
+```
+
+Le script utilise les images présentes dans :
+
+```text
+public/assets/images/menus/
+```
+
+et les enregistre dans les colonnes `photo` et `photo_mime_type` de la table `dishes`.
+
+---
+
+## 6. Configurer MongoDB
+
+L'application utilise MongoDB pour les statistiques du nombre de commandes par menu.
+
+Créer un fichier :
+
+```text
+.env
+```
+
+à la racine du projet.
+
+Le fichier `.env` est ignoré par Git et ne doit jamais être envoyé sur le dépôt public.
+
+Exemple de configuration :
+
+```env
+MONGODB_URI=mongodb+srv://UTILISATEUR:MOT_DE_PASSE@CLUSTER/
+MONGODB_DATABASE=vite_gourmand
+MONGODB_ALLOW_INVALID_CERTIFICATES=false
+MONGODB_TLS_CA_FILE=/chemin/vers/cacert.pem
+```
+
+La valeur réelle de `MONGODB_URI` doit correspondre au cluster MongoDB Atlas utilisé.
+
+`MONGODB_ALLOW_INVALID_CERTIFICATES` doit rester à `false` en production.
+
+Dans certains environnements XAMPP locaux rencontrant un problème de validation TLS, cette option peut être activée temporairement pour le développement local uniquement.
+
+Les statistiques sont synchronisées depuis MariaDB vers la collection MongoDB :
+
+```text
+menu_order_statistics
+```
+
+---
+
+## 7. Ouvrir l'application
+
+Dans le navigateur :
+
+```text
+http://localhost/VITEGOURMAND/public/
+```
+
+---
+
+## Routes principales
+
+### Partie publique
+
+```text
+/
+```
+
+Accueil.
+
+```text
+/menus
+```
+
+Catalogue des menus.
+
+```text
+/menus/detail?id=1
+```
+
+Détail d'un menu.
+
+```text
+/contact
+```
+
+Formulaire de contact.
+
+```text
+/mentions-legales
+```
+
+Mentions légales.
+
+```text
+/conditions-generales-vente
+```
+
+Conditions générales de vente.
+
+### Authentification
+
+```text
+/register
+/login
+/forgot-password
+/reset-password
+```
+
+### Espace client
+
+```text
+/user/dashboard
+/user/order/detail
+/user/order/edit
+/user/profile/edit
+```
+
+### Espace employé
+
+```text
+/employee
+/employee/dashboard
+/employee/menus
+/employee/dishes
+/employee/opening-hours
+/employee/reviews
+```
+
+### Espace administrateur
+
+```text
+/admin
+/admin/employees
+/admin/statistics
+```
+
+Les routes employé, administrateur et client sont protégées selon le rôle de l'utilisateur connecté.
+
+---
+
+## Gestion des e-mails
+
+L'application prévoit notamment l'envoi :
+
+- d'un mail de bienvenue ;
+- d'un lien de réinitialisation du mot de passe ;
+- d'une confirmation de commande ;
+- des informations de suivi de commande ;
+- d'une confirmation d'annulation ;
+- d'une invitation à laisser un avis ;
+- d'un message lors de la création d'un compte employé ;
+- des demandes issues du formulaire de contact.
+
+En environnement local, une copie des e-mails générés est enregistrée dans :
+
+```text
+storage/logs/emails.log
+```
+
+Ce fichier est ignoré par Git.
+
+---
+
+## Sécurité
+
+Plusieurs mesures de sécurité sont intégrées :
+
+- requêtes PDO préparées ;
+- mots de passe enregistrés avec `password_hash()` ;
+- vérification avec `password_verify()` ;
+- protection CSRF des formulaires sensibles ;
+- contrôle des rôles ;
+- contrôle des accès aux espaces privés ;
+- régénération de l'identifiant de session lors de la connexion ;
+- cookies de session configurés avec `HttpOnly` et `SameSite=Lax` ;
+- liens de réinitialisation de mot de passe temporaires ;
+- contrôle des fichiers image enregistrés ;
+- échappement des données affichées avec `htmlspecialchars()`.
+
+Les secrets de connexion ne sont pas enregistrés sur GitHub.
+
+---
+
+## Accessibilité
+
+Le projet a été contrôlé avec **Lighthouse** sur les principales pages en affichage mobile et desktop.
+
+Des vérifications complémentaires sont également prévues concernant :
+
+- la navigation au clavier ;
+- la visibilité du focus ;
+- l'utilisation des formulaires sans souris ;
+- le zoom du navigateur ;
+- la structure sémantique des pages.
+
+Ces contrôles participent à la prise en compte des recommandations d'accessibilité du projet.
+
+---
+
+## Gestion du stock
+
+Le stock d'un menu représente le nombre de portions / personnes encore disponibles.
+
+Lors d'une commande :
+
+- le nombre de portions commandées est retiré du stock ;
+- une modification recalcule la différence de stock ;
+- une annulation restitue les portions correspondantes.
+
+---
+
+## Gestion du matériel
+
+Lorsqu'une commande comprend un prêt de matériel :
+
+- le retour du matériel est suivi dans l'espace professionnel ;
+- le délai maximal de restitution est fixé à 10 jours ouvrés après la prestation ;
+- les conditions générales de vente prévoient une pénalité forfaitaire de 600 € en cas de non-restitution dans le délai prévu.
+
+---
+
+## Organisation Git
+
+Le projet utilise une organisation basée sur plusieurs branches :
+
+```text
 main
 develop
-feature/menu-catalog
-Rôle des branches
-main : contient les versions stables principales ;
-develop : regroupe les fonctionnalités terminées et testées ;
-feature/... : permet de développer une fonctionnalité isolée avant sa fusion dans develop.
+feature/...
+```
 
-Chaque fonctionnalité est développée et testée sur une branche dédiée avant d'être fusionnée dans develop.
+### Rôle des branches
 
-# Dépôt GitHub
+- `main` : version stable du projet ;
+- `develop` : intégration des fonctionnalités terminées et testées ;
+- `feature/...` : développement isolé d'une fonctionnalité.
 
-Le dépôt public du projet est disponible à cette adresse :
+Le flux de travail utilisé est :
+
+```text
+feature/... → develop → main
+```
+
+Les fonctionnalités sont développées et vérifiées avant leur intégration dans la branche suivante.
+
+---
+
+## Base de données relationnelle
+
+MariaDB contient notamment les tables :
+
+```text
+roles
+users
+password_reset_tokens
+opening_hours
+themes
+dietary_types
+menus
+dishes
+allergens
+dish_allergen
+menu_dish
+order_statuses
+orders
+order_status_history
+reviews
+contact_requests
+```
+
+---
+
+## Base de données non relationnelle
+
+MongoDB contient la collection :
+
+```text
+menu_order_statistics
+```
+
+Elle permet de stocker le nombre de commandes par menu utilisé dans les statistiques administrateur.
+
+---
+
+## Dépôt GitHub
+
+Le dépôt public du projet est disponible ici :
 
 https://github.com/Maevabomy/VITEGOURMAND
+
+---
+
+## Déploiement
+
+L'application sera déployée sur un hébergement accessible publiquement.
+
+L'URL de production sera ajoutée ici après la mise en ligne.
+
+```text
+URL de production : à renseigner
+```
+
+---
+
+## Contexte du projet
+
+Vite & Gourmand est un projet pédagogique réalisé dans le cadre d'une évaluation de formation.
+
+Les données, personnes, adresses, commandes, avis et informations commerciales utilisées pour les démonstrations sont fictives.
