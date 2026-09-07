@@ -125,6 +125,7 @@ require BASE_PATH
                 <!-- Affiche le graphique comparatif des commandes. -->
                 <div
                     class="admin-statistics-chart"
+                    role="group"
                     aria-label="Nombre de commandes par menu">
 
                     <?php foreach (
@@ -161,13 +162,7 @@ require BASE_PATH
 
                             <div
                                 class="admin-statistics-bar"
-                                aria-label="<?php
-                                            echo $orderCount;
-                                            ?> commande<?php
-                                            echo $orderCount > 1
-                                                ? 's'
-                                                : '';
-                                            ?>">
+                                aria-hidden="true">
 
                                 <div
                                     class="admin-statistics-bar-fill"
@@ -340,10 +335,8 @@ require BASE_PATH
                     </button>
 
                     <a
-                        href="<?php
-                                echo BASE_URL;
-                                ?>/admin/statistics#revenue"
-                        class="btn btn-outline-light">
+                        href="<?php echo BASE_URL; ?>/admin/statistics#revenue"
+                        class="btn employee-filter-reset-button">
                         Réinitialiser
                     </a>
 

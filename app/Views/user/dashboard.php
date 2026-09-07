@@ -389,7 +389,7 @@
 
                             <a
                                 href="<?php echo BASE_URL; ?>/menus"
-                                class="btn btn-primary">
+                                class="btn btn-custom">
                                 Découvrir les menus
                             </a>
 

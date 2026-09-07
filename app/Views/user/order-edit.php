@@ -290,6 +290,7 @@
                     <div
                         class="address-search-results mt-2"
                         id="address-search-results"
+                        role="group"
                         aria-label="Propositions d’adresses">
                     </div>
 

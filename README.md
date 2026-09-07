@@ -490,19 +490,37 @@ Les secrets de connexion ne sont pas enregistrés sur GitHub.
 
 ## Accessibilité
 
-Le projet a été contrôlé avec **Lighthouse** sur les principales pages en affichage mobile et desktop.
+Des contrôles d'accessibilité ont été réalisés sur les principales pages de l'application avec **Lighthouse**, en affichage desktop et mobile.
 
-Des vérifications complémentaires sont également prévues concernant :
+Les pages principales testées ont obtenu un score de **100/100 en accessibilité après correction des anomalies détectées**.
 
-- la navigation au clavier ;
+Les contrôles ont notamment porté sur :
+
+- la page d'accueil ;
+- le catalogue et le détail des menus ;
+- l'inscription et la connexion ;
+- le formulaire de contact ;
+- le parcours de commande ;
+- l'espace client ;
+- l'espace employé ;
+- l'espace administrateur.
+
+Des vérifications manuelles ont également été réalisées concernant :
+
+- la navigation au clavier avec `Tab` et `Shift + Tab` ;
+- l'ordre logique de tabulation ;
 - la visibilité du focus ;
-- l'utilisation des formulaires sans souris ;
-- le zoom du navigateur ;
-- la structure sémantique des pages.
+- l'utilisation des boutons, liens, filtres et formulaires sans souris ;
+- l'association des champs de formulaire avec leurs libellés ;
+- la compréhension des messages d'erreur ;
+- le contraste des textes et des composants ;
+- l'utilisation de la page avec un zoom navigateur à 200 % ;
+- l'affichage responsive sur mobile ;
+- l'utilisation pertinente des attributs ARIA.
 
-Ces contrôles participent à la prise en compte des recommandations d'accessibilité du projet.
+Plusieurs corrections ont été apportées à la suite de ces tests, notamment sur les zones cliquables du carrousel, certains contrastes, le reflow des filtres, les propositions d'adresses et les informations ARIA du graphique de statistiques.
 
----
+Ces contrôles permettent de prendre en compte plusieurs recommandations d'accessibilité, mais **ne constituent pas un audit complet ni une certification de conformité au RGAA**.n
 
 ## Gestion du stock
 
