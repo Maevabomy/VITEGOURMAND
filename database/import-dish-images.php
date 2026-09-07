@@ -99,6 +99,9 @@ $dishImages = [
 
     'Ravioles printanières' =>
     'floraison-plat.jpg',
+
+    'Entremets vanille, sésame noir et framboise' =>
+    'entremet-framboise-dessert.jpg',
 ];
 
 
