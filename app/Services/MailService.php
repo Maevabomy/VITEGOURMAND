@@ -188,8 +188,16 @@ class MailService
                 $contactMessage
             );
 
+        $recipientEmail = trim(
+            (string) getenv('CONTACT_RECIPIENT_EMAIL')
+        );
+
+        if ($recipientEmail === '') {
+            return false;
+        }
+
         return self::send(
-            'contact@vite-et-gourmand.fr',
+            $recipientEmail,
             $subject,
             $message
         );
@@ -199,12 +207,87 @@ class MailService
     /* envoi du mail */
     /* -------------------------------------------------- */
 
-    /* Tente l'envoi et conserve une copie locale en cas d'échec. */
+    /* Envoie le mail avec Brevo en production ou avec PHP en local. */
     private static function send(
         string $recipient,
         string $subject,
         string $message
     ): bool {
+        $apiKey = trim(
+            (string) getenv('BREVO_API_KEY')
+        );
+
+        $senderEmail = trim(
+            (string) getenv('BREVO_SENDER_EMAIL')
+        );
+
+        /* Utilise l'API Brevo lorsque les variables d'environnement sont disponibles. */
+        if ($apiKey !== '' && $senderEmail !== '') {
+            $curl = curl_init(
+                'https://api.brevo.com/v3/smtp/email'
+            );
+
+            if ($curl === false) {
+                self::saveMailToLog(
+                    $recipient,
+                    $subject,
+                    $message,
+                    false
+                );
+
+                return false;
+            }
+
+            $data = [
+                'sender' => [
+                    'name' => 'Vite & Gourmand',
+                    'email' => $senderEmail,
+                ],
+                'to' => [
+                    [
+                        'email' => $recipient,
+                    ],
+                ],
+                'subject' => $subject,
+                'htmlContent' => $message,
+            ];
+
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_TIMEOUT => 10,
+                CURLOPT_HTTPHEADER => [
+                    'accept: application/json',
+                    'api-key: ' . $apiKey,
+                    'content-type: application/json',
+                ],
+                CURLOPT_POSTFIELDS => json_encode(
+                    $data,
+                    JSON_UNESCAPED_UNICODE
+                ),
+            ]);
+
+            $response = curl_exec($curl);
+
+            $statusCode = curl_getinfo(
+                $curl,
+                CURLINFO_HTTP_CODE
+            );
+
+            curl_close($curl);
+
+            $sent =
+                $response !== false
+                && in_array(
+                    $statusCode,
+                    [201, 202],
+                    true
+                );
+
+            return $sent;
+        }
+
+        /* Garde l'ancien fonctionnement pour les tests locaux lorsque Brevo n'est pas configuré.*/
         $headers = [
             'MIME-Version: 1.0',
             'Content-Type: text/html; charset=UTF-8',
@@ -218,7 +301,6 @@ class MailService
             implode("\r\n", $headers)
         );
 
-        /* Conserve une copie du mail pour les tests locaux. */
         self::saveMailToLog(
             $recipient,
             $subject,
@@ -380,7 +462,7 @@ class MailService
         );
 
         $safeResetLink = htmlspecialchars(
-            $resetLink,
+            self::buildAbsoluteUrl($resetLink),
             ENT_QUOTES,
             'UTF-8'
         );
@@ -737,7 +819,7 @@ class MailService
         );
 
         $safeOrderDetailLink = htmlspecialchars(
-            $orderDetailLink,
+            self::buildAbsoluteUrl($orderDetailLink),
             ENT_QUOTES,
             'UTF-8'
         );
@@ -830,6 +912,28 @@ class MailService
             </body>
             </html>
         ';
+    }
+
+    /* Transforme un chemin interne en adresse complète pour les mails. */
+    private static function buildAbsoluteUrl(string $url): string
+    {
+        if (
+            str_starts_with($url, 'http://')
+            || str_starts_with($url, 'https://')
+        ) {
+            return $url;
+        }
+
+        $appUrl = rtrim(
+            (string) getenv('APP_URL'),
+            '/'
+        );
+
+        if ($appUrl === '') {
+            return $url;
+        }
+
+        return $appUrl . '/' . ltrim($url, '/');
     }
 
     /* -------------------------------------------------- */
