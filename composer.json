@@ -2,19 +2,19 @@
     "name": "maevabomy/vitegourmand",
     "description": "Application web de gestion pour le traiteur Vite & Gourmand.",
     "license": "proprietary",
-
     "_comment": [
         "Configuration Composer utilisée pour préparer le déploiement de Vite & Gourmand sur Heroku.",
         "PHP 8.2 ou supérieur est requis pour exécuter l'application.",
         "ext-pdo permet l'utilisation de PDO pour les connexions aux bases de données.",
         "ext-pdo_mysql permet la connexion à la base MariaDB/MySQL.",
-        "ext-mongodb permet la connexion à MongoDB Atlas via le driver MongoDB PHP."
+        "ext-mongodb permet la connexion à MongoDB Atlas via le driver MongoDB PHP.",
+        "ext-mbstring permet l'utilisation des fonctions multioctets utilisées pour les chaînes UTF-8."
     ],
-
     "require": {
         "php": "^8.2",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
-        "ext-mongodb": "*"
+        "ext-mongodb": "*",
+        "ext-mbstring": "*"
     }
 }
