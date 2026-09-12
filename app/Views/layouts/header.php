@@ -13,6 +13,10 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="google-site-verification"
+        content="URr5RK2NrsNPotyUxPmPkUhfeCZ0mEGrpe8dCYtNBas">
+
     <title>
         <?php
         echo htmlspecialchars(
