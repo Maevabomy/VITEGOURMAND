@@ -16,10 +16,15 @@ ini_set('session.use_strict_mode', '1');
 /* Utilise uniquement les cookies pour transmettre l'identifiant de session. */
 ini_set('session.use_only_cookies', '1');
 
-/* Détecte si l'application fonctionne en HTTPS. */
+/* Détecte si l'application fonctionne en HTTPS, y compris derrière Heroku. */
 $isHttps =
-    !empty($_SERVER['HTTPS'])
-    && $_SERVER['HTTPS'] !== 'off';
+    (
+        !empty($_SERVER['HTTPS'])
+        && $_SERVER['HTTPS'] !== 'off'
+    )
+    || (
+        ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https'
+    );
 
 /* Renforce les paramètres du cookie de session. */
 session_set_cookie_params([

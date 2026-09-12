@@ -107,7 +107,7 @@ L'employé peut :
 
 ### Espace administrateur
 
-L'administrateur dispose des fonctionnalités de gestion et peut également :
+L'administrateur dispose des fonctionnalités de gestion d'un employé et peut également :
 
 - créer des comptes employés ;
 - activer ou désactiver un compte employé ;
@@ -132,7 +132,7 @@ Le chiffre d'affaires est calculé à partir des données enregistrées dans **M
 
 ### Back-end
 
-- PHP 8 orienté objet ;
+- PHP 8.2 ou supérieur, orienté objet ;
 - architecture MVC ;
 - PDO ;
 - sessions PHP ;
@@ -154,7 +154,8 @@ Le chiffre d'affaires est calculé à partir des données enregistrées dans **M
 - phpMyAdmin ;
 - Git ;
 - GitHub ;
-- Visual Studio Code.
+- Visual Studio Code ;
+- DBeaver pour l'administration et le contrôle de la base de données de production.
 
 ---
 
@@ -188,6 +189,9 @@ VITEGOURMAND/
 │   ├── .htaccess
 │   └── index.php
 ├── routes/
+├── composer.json
+├── composer.lock
+├── Procfile
 ├── .gitignore
 └── README.md
 ```
@@ -214,14 +218,15 @@ Le projet a été développé sous macOS avec XAMPP.
 
 Pour l'utiliser en local, il faut disposer de :
 
-- PHP 8 ;
+- PHP 8.2 ou supérieur ;
 - Apache ;
 - MariaDB / MySQL ;
 - XAMPP ou environnement équivalent ;
 - phpMyAdmin ou un autre client SQL ;
-- extension PHP PDO MySQL ;
+- extension PHP PDO MySQL (`pdo_mysql`) ;
 - extension PHP cURL ;
 - extension PHP MongoDB ;
+- extension PHP mbstring ;
 - un navigateur web ;
 - une connexion Internet pour MongoDB Atlas, Nominatim et OSRM ;
 - Git si le projet est récupéré depuis GitHub.
@@ -479,7 +484,7 @@ Plusieurs mesures de sécurité sont intégrées :
 - contrôle des rôles ;
 - contrôle des accès aux espaces privés ;
 - régénération de l'identifiant de session lors de la connexion ;
-- cookies de session configurés avec `HttpOnly` et `SameSite=Lax` ;
+- cookies de session configurés avec `HttpOnly`, `SameSite=Lax` et `Secure` lorsque l'application est servie en HTTPS ;
 - liens de réinitialisation de mot de passe temporaires ;
 - contrôle des fichiers image enregistrés ;
 - échappement des données affichées avec `htmlspecialchars()`.
@@ -520,7 +525,7 @@ Des vérifications manuelles ont également été réalisées concernant :
 
 Plusieurs corrections ont été apportées à la suite de ces tests, notamment sur les zones cliquables du carrousel, certains contrastes, le reflow des filtres, les propositions d'adresses et les informations ARIA du graphique de statistiques.
 
-Ces contrôles permettent de prendre en compte plusieurs recommandations d'accessibilité, mais **ne constituent pas un audit complet ni une certification de conformité au RGAA**.n
+Ces contrôles permettent de prendre en compte plusieurs recommandations d'accessibilité, mais **ne constituent pas un audit complet ni une certification de conformité au RGAA**.
 
 ## Gestion du stock
 
@@ -617,13 +622,22 @@ https://github.com/Maevabomy/VITEGOURMAND
 
 ## Déploiement
 
-L'application sera déployée sur un hébergement accessible publiquement.
+L'application est déployée sur **Heroku**.
 
-L'URL de production sera ajoutée ici après la mise en ligne.
+URL de production :
 
-```text
-URL de production : à renseigner
-```
+https://vite-gourmand-ecf-ad74809e59a7.herokuapp.com/
+
+L'environnement de production utilise :
+
+- **Heroku** pour l'hébergement de l'application PHP ;
+- **JawsDB Maria** pour la base de données relationnelle MariaDB ;
+- **MongoDB Atlas** pour la base de données non relationnelle ;
+- des variables d'environnement Heroku pour stocker les informations sensibles de connexion.
+
+Le fichier `Procfile` indique à Heroku de servir l'application depuis le dossier `public/`.
+
+Les identifiants et chaînes de connexion des bases de données ne sont jamais enregistrés dans le dépôt GitHub.
 
 ---
 
