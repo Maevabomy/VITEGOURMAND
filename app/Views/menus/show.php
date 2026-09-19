@@ -556,8 +556,7 @@ $availableUntil = !empty($menu['available_until'])
                                                     menu-detail-no-allergen
                                                     mb-0
                                                 ">
-                                                Aucun allergène obligatoire
-                                                déclaré.
+                                                Néant.
                                             </p>
 
                                         <?php endif; ?>

@@ -482,7 +482,7 @@ INSERT INTO menu_dish (
 -- clients de démonstration
 -- --------------------------------------------------
 
--- Ajoute plusieurs clients fictifs utilisés pour les démonstrations.
+-- Ajoute les comptes clients utilisés pour les démonstrations.
 INSERT INTO users (
     role_id,
     first_name,
@@ -504,88 +504,28 @@ INSERT INTO users (
     '12 rue Sainte-Catherine',
     '33000',
     'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    '$2y$12$z5nwj7pKHm3CL0lYr2.QB.qZfjpWA1bk15uwWPD2pmA97dcyUrUJi',
     TRUE
 ),
 (
     1,
-    'Kenza',
-    'Mares',
-    '0622222222',
-    'kenza.mares@example.com',
-    '8 rue du Palais Gallien',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
-    TRUE
-),
-(
-    1,
-    'Bob',
-    'Souldadier',
-    '0633333333',
-    'bob.souldadier@example.com',
-    '24 rue Fondaudège',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
-    TRUE
-),
-(
-    1,
-    'Evan',
-    'Brandac',
-    '0644444444',
-    'evan.brandac@example.com',
-    '5 cours de Verdun',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
-    TRUE
-),
-(
-    1,
-    'Camille',
-    'Plet',
-    '0655555555',
-    'camille.plet@example.com',
-    '17 rue Judaïque',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
-    TRUE
-),
-(
-    1,
-    'Philippe',
-    'Denard',
-    '0666666666',
-    'philippe.denard@example.com',
-    '31 rue Notre-Dame',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
-    TRUE
-),
-(
-    1,
-    'Aeko',
-    'Nashi',
-    '0677777777',
-    'aeko.nashi@example.com',
-    '4 rue des Remparts',
-    '33000',
-    'Bordeaux',
-    '$2y$12$7etotAFc93WKgtvFL8fU1eGCzkBbQrAMcvLYWfz2RMd5Il5AEW3GW',
+    'Rémy',
+    'Piau',
+    '0650545857',
+    'remypiau@test.fr',
+    '8 rue du Béarnais',
+    '31830',
+    'Plaisance-du-Touch',
+    '$2y$12$z5nwj7pKHm3CL0lYr2.QB.qZfjpWA1bk15uwWPD2pmA97dcyUrUJi',
     TRUE
 );
 
-
 -- --------------------------------------------------
--- commandes terminées de démonstration
+-- commandes de démonstration
 -- --------------------------------------------------
 
--- Ajoute des commandes terminées afin de permettre la création des avis.
+-- Ajoute quelques commandes permettant de tester
+-- les différents espaces de l'application.
 INSERT INTO orders (
     order_number,
     user_id,
@@ -618,7 +558,7 @@ INSERT INTO orders (
     '12 rue Sainte-Catherine',
     '33000',
     'Bordeaux',
-    '2026-01-12',
+    '2026-09-05',
     '12:30:00',
     8,
     280.00,
@@ -629,17 +569,17 @@ INSERT INTO orders (
 (
     'CMD-2026-002',
     4,
-    2,
+    1,
     7,
-    'Kenza',
-    'Mares',
-    'kenza.mares@example.com',
-    '0622222222',
-    '8 rue du Palais Gallien',
-    '33000',
-    'Bordeaux',
-    '2026-01-25',
-    '19:00:00',
+    'Rémy',
+    'Piau',
+    'remypiau@test.fr',
+    '0650545857',
+    '8 rue du Béarnais',
+    '31830',
+    'Plaisance-du-Touch',
+    '2026-09-10',
+    '12:00:00',
     6,
     210.00,
     0.00,
@@ -648,98 +588,18 @@ INSERT INTO orders (
 ),
 (
     'CMD-2026-003',
-    5,
+    4,
     3,
-    7,
-    'Bob',
-    'Souldadier',
-    'bob.souldadier@example.com',
-    '0633333333',
-    '24 rue Fondaudège',
-    '33000',
-    'Bordeaux',
-    '2026-02-08',
-    '12:00:00',
-    10,
-    420.00,
-    0.00,
-    420.00,
-    FALSE
-),
-(
-    'CMD-2026-004',
-    6,
-    1,
-    7,
-    'Evan',
-    'Brandac',
-    'evan.brandac@example.com',
-    '0644444444',
-    '5 cours de Verdun',
-    '33000',
-    'Bordeaux',
-    '2026-02-21',
-    '19:30:00',
-    12,
-    378.00,
-    0.00,
-    378.00,
-    FALSE
-),
-(
-    'CMD-2026-005',
-    7,
-    2,
-    7,
-    'Camille',
-    'Plet',
-    'camille.plet@example.com',
-    '0655555555',
-    '17 rue Judaïque',
-    '33000',
-    'Bordeaux',
-    '2026-03-06',
-    '13:00:00',
-    7,
-    245.00,
-    0.00,
-    245.00,
-    FALSE
-),
-(
-    'CMD-2026-006',
-    8,
-    1,
-    7,
-    'Philippe',
-    'Denard',
-    'philippe.denard@example.com',
-    '0666666666',
-    '31 rue Notre-Dame',
-    '33000',
-    'Bordeaux',
-    '2026-03-15',
-    '12:30:00',
-    6,
-    210.00,
-    0.00,
-    210.00,
-    FALSE
-),
-(
-    'CMD-2026-007',
-    9,
     3,
-    7,
-    'Aeko',
-    'Nashi',
-    'aeko.nashi@example.com',
-    '0677777777',
-    '4 rue des Remparts',
-    '33000',
-    'Bordeaux',
-    '2026-04-04',
-    '19:00:00',
+    'Rémy',
+    'Piau',
+    'remypiau@test.fr',
+    '0650545857',
+    '8 rue du Béarnais',
+    '31830',
+    'Plaisance-du-Touch',
+    '2026-10-10',
+    '11:30:00',
     10,
     420.00,
     0.00,
@@ -752,27 +612,26 @@ INSERT INTO orders (
 -- historique des commandes
 -- --------------------------------------------------
 
--- Ajoute une première trace du statut terminé pour chaque commande fictive.
+-- Ajoute un historique cohérent avec le statut actuel
+-- de chaque commande de démonstration.
 INSERT INTO order_status_history (
     order_id,
     status_id,
     changed_by_user_id,
     note
 ) VALUES
-(1, 7, NULL, 'Commande terminée avec succès.'),
-(2, 7, NULL, 'Commande terminée avec succès.'),
-(3, 7, NULL, 'Commande terminée avec succès.'),
-(4, 7, NULL, 'Commande terminée avec succès.'),
-(5, 7, NULL, 'Commande terminée avec succès.'),
-(6, 7, NULL, 'Commande terminée avec succès.'),
-(7, 7, NULL, 'Commande terminée avec succès.');
+(1, 7, 2, 'Commande terminée avec succès.'),
+(2, 7, 2, 'Commande terminée avec succès.'),
+(3, 1, NULL, 'Commande créée par le client.'),
+(3, 2, 2, 'Commande acceptée.'),
+(3, 3, 2, 'Commande en préparation.');
 
 
 -- --------------------------------------------------
 -- avis clients validés
 -- --------------------------------------------------
 
--- Ajoute plusieurs avis validés pour les afficher sur la page d'accueil.
+-- Ajoute des avis validés visibles sur la page d'accueil.
 INSERT INTO reviews (
     order_id,
     user_id,
@@ -792,40 +651,5 @@ INSERT INTO reviews (
     4,
     5,
     'Une équipe disponible, ponctuelle et très professionnelle. Je recommande vivement.',
-    'approved'
-),
-(
-    3,
-    5,
-    4,
-    'Le repas était délicieux et les quantités généreuses. Une très belle expérience.',
-    'approved'
-),
-(
-    4,
-    6,
-    5,
-    'Nous avons choisi Vite & Gourmand pour un anniversaire et tout était parfait.',
-    'approved'
-),
-(
-    5,
-    7,
-    5,
-    'Des plats savoureux, une présentation élégante et une livraison parfaitement organisée.',
-    'approved'
-),
-(
-    6,
-    8,
-    4,
-    'Très bon rapport qualité-prix et un accueil chaleureux. Nous referons appel à cette équipe.',
-    'approved'
-),
-(
-    7,
-    9,
-    5,
-    'Une prestation de grande qualité qui a beaucoup plu à nos convives.',
     'approved'
 );
