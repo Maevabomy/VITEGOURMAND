@@ -146,7 +146,8 @@ Le chiffre d'affaires est calculé à partir des données enregistrées dans **M
 ### Services externes
 
 - OpenStreetMap / Nominatim pour la recherche d'adresses ;
-- OSRM pour le calcul des distances routières.
+- OSRM pour le calcul des distances routières;
+- Brevo pour l'envoi des e-mails transactionnels en production.
 
 ### Outils de développement
 
@@ -156,6 +157,8 @@ Le chiffre d'affaires est calculé à partir des données enregistrées dans **M
 - GitHub ;
 - Visual Studio Code ;
 - DBeaver pour l'administration et le contrôle de la base de données de production.
+- Trello pour la visualisation du suivi Kanban.
+
 
 ---
 
@@ -299,6 +302,16 @@ Ce fichier ajoute notamment :
 - les associations entre menus et plats ;
 - les commandes fictives ;
 - les avis clients validés.
+
+Le jeu de données de démonstration final contient notamment :
+
+- 4 utilisateurs ;
+- 3 commandes ;
+- 2 avis validés ;
+- 7 menus ;
+- 17 plats.
+
+Le schéma et les données de démonstration ont été testés sur une base vierge afin de vérifier la reconstruction complète de la base.
 
 ---
 
@@ -463,6 +476,7 @@ L'application prévoit notamment l'envoi :
 - d'un message lors de la création d'un compte employé ;
 - des demandes issues du formulaire de contact.
 
+En production, l'envoi réel des e-mails transactionnels est assuré par l'API Brevo.
 En environnement local, une copie des e-mails générés est enregistrée dans :
 
 ```text
@@ -633,11 +647,27 @@ L'environnement de production utilise :
 - **Heroku** pour l'hébergement de l'application PHP ;
 - **JawsDB Maria** pour la base de données relationnelle MariaDB ;
 - **MongoDB Atlas** pour la base de données non relationnelle ;
+- **Brevo** pour l'envoi des e-mails transactionnels ;
 - des variables d'environnement Heroku pour stocker les informations sensibles de connexion.
 
 Le fichier `Procfile` indique à Heroku de servir l'application depuis le dossier `public/`.
 
 Les identifiants et chaînes de connexion des bases de données ne sont jamais enregistrés dans le dépôt GitHub.
+
+---
+
+## Liens utiles
+
+- [Application Vite & Gourmand en production](https://vite-gourmand-ecf-ad74809e59a7.herokuapp.com/)
+- [Dépôt GitHub](https://github.com/Maevabomy/VITEGOURMAND)
+- [Tableau Trello - Gestion de projet](https://trello.com/b/UX1OnscC/vite-gourmand-gestion-de-projet)
+- [Documentation technique](docs/Documentation_technique/Documentation_technique.pdf)
+- [Manuel utilisateur](docs/Manuel_utilisateur/Manuel_utilisateur.pdf)
+- [Documentation de gestion de projet](docs/documentation_gestion_de_projet/Documentation_gestion_de_projet.pdf)
+- [Charte graphique](docs/Charte_graphique/Charte_graphique.pdf)
+- [Wireframes et mockups](docs/Mockups_et_Wireframe/)
+
+Les identifiants des comptes de démonstration sont disponibles dans le manuel utilisateur.
 
 ---
 

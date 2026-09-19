@@ -239,6 +239,20 @@ INSERT INTO menus (
     240.00,
     110,
     TRUE
+),
+(
+    1,
+    1,
+    'Gourmand',
+    'Un menu généreux et raffiné, pensé pour les amateurs de saveurs réconfortantes et de belles associations. Une composition équilibrée entre gourmandise, élégance et produits de saison, idéale pour un repas convivial ou une occasion spéciale.',
+    'Commande à effectuer au minimum 24 h avant la prestation.',
+    1,
+    NULL,
+    NULL,
+    5,
+    140.00,
+    95,
+    TRUE
 );
 
 
@@ -348,6 +362,12 @@ INSERT INTO dishes (
     'Ravioles printanières',
     'Ravioles garnies de légumes printaniers, accompagnées d’une sauce crémeuse au parmesan et de quelques herbes fraîches.',
     'main_course',
+        TRUE
+),
+(
+    'Entremets vanille, sésame noir et framboise',
+    'Entremets individuel composé d’une mousse légère à la vanille, d’un cœur fruité à la framboise et d’un croustillant au sésame noir. Il est surmonté d’un glaçage à la framboise, de fruits frais et d’une fine tuile au sésame pour apporter du contraste et du croquant.',
+    'dessert',
     TRUE
 );
 
@@ -433,7 +453,13 @@ INSERT INTO dish_allergen (
 -- Ravioles printanières.
 (16, 1),
 (16, 2),
-(16, 3);
+(16, 3),
+
+-- Entremets vanille, sésame noir et framboise.
+(17, 1),
+(17, 2),
+(17, 3),
+(17, 6);
 
 
 -- --------------------------------------------------
@@ -475,8 +501,12 @@ INSERT INTO menu_dish (
 -- Menu Floraison.
 (6, 15),
 (6, 16),
-(6, 9);
+(6, 9),
 
+-- Menu Gourmand.
+(7, 4),
+(7, 2),
+(7, 17);
 
 -- --------------------------------------------------
 -- clients de démonstration
