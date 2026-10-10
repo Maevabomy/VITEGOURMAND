@@ -29,13 +29,13 @@ INSERT INTO opening_hours (
     closing_time,
     is_closed
 ) VALUES
-(1, 'Lundi', '09:00:00', '18:00:00', FALSE),
+(1, 'Lundi', NULL, NULL, TRUE),
 (2, 'Mardi', '09:00:00', '18:00:00', FALSE),
 (3, 'Mercredi', '09:00:00', '18:00:00', FALSE),
 (4, 'Jeudi', '09:00:00', '18:00:00', FALSE),
 (5, 'Vendredi', '09:00:00', '18:00:00', FALSE),
 (6, 'Samedi', '09:00:00', '18:00:00', FALSE),
-(7, 'Dimanche', '09:00:00', '18:00:00', FALSE);
+(7, 'Dimanche', NULL, NULL, TRUE);
 
 
 -- --------------------------------------------------

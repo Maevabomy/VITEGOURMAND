@@ -1,0 +1,79 @@
+services:
+  # Application Vite & Gourmand : PHP et Apache
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      BREVO_API_KEY: ${BREVO_API_KEY}
+      BREVO_SENDER_EMAIL: ${BREVO_SENDER_EMAIL}
+      APP_URL: ${APP_URL}
+      CONTACT_RECIPIENT_EMAIL: ${CONTACT_RECIPIENT_EMAIL}
+      MONGODB_URI: ${MONGODB_URI}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      MONGODB_ALLOW_INVALID_CERTIFICATES: ${MONGODB_ALLOW_INVALID_CERTIFICATES}
+      MONGODB_TLS_CA_FILE: ${MONGODB_TLS_CA_FILE}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Base de données MariaDB
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      # Conservation des données
+      - mariadb_data:/var/lib/mysql
+
+      # Initialisation automatique de la base
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period:
+        30s
+
+        # Import automatique des images des plats dans MariaDB
+  import-images:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: php database/import-dish-images.php
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+    # Interface graphique pour administrer MariaDB
+  phpmyadmin:
+    image: phpmyadmin:5.2.2
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mariadb_data:

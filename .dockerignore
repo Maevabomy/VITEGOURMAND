@@ -1,0 +1,31 @@
+
+# Git
+.git
+.gitignore
+
+# Configuration sensible
+.env
+.env.*
+!.env.example
+
+# Dépendances locales
+vendor/
+node_modules/
+
+# Fichiers macOS et IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Documentation non nécessaire à l'image
+docs/
+
+# Cache et journaux locaux
+storage/cache/
+storage/logs/
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.swp
+*.bak

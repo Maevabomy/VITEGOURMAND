@@ -11,7 +11,7 @@
         "ext-mbstring permet l'utilisation des fonctions multioctets utilisées pour les chaînes UTF-8."
     ],
     "require": {
-        "php": "^8.2",
+        "php": "~8.4.0",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-mongodb": "*",

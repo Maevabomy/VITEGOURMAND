@@ -50,9 +50,10 @@ if (!empty($databaseUrl)) {
 /* environnement local */
 /* -------------------------------------------------- */
 
+
 return [
-    /* Serveur MySQL utilisé par XAMPP. */
-    'host' => 'localhost',
+    /* Serveur MySQL : variable d'environnement Docker ou localhost pour XAMPP. */
+    'host' => getenv('DB_HOST') ?: 'localhost',
 
     /* Port de connexion à MySQL. */
     'port' => '3306',
@@ -63,9 +64,9 @@ return [
     /* Encodage utilisé pour les échanges avec la base. */
     'charset' => 'utf8mb4',
 
-    /* Identifiant de connexion MySQL local. */
-    'username' => 'root',
+    /* Identifiant MySQL : variable d'environnement Docker ou root pour XAMPP. */
+    'username' => getenv('DB_USER') ?: 'root',
 
-    /* Mot de passe MySQL de l'environnement local. */
-    'password' => '',
+    /* Mot de passe MySQL : variable d'environnement Docker ou vide pour XAMPP. */
+    'password' => getenv('DB_PASSWORD') ?: '',
 ];

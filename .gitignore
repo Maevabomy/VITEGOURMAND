@@ -12,6 +12,7 @@
 
 # variables sensibles
 .env
+.env.docker
 
 # dépendances éventuelles
 vendor/
