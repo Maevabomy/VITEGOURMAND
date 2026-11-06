@@ -1,3 +1,5 @@
+/* Vite & Gourmand — CSS Mobile First : styles de base mobiles, adaptations via min-width. */
+
 /* ================================================== */
 /* 01. Variables générales */
 /* ================================================== */
@@ -98,7 +100,7 @@ p {
 /* ================================================== */
 
 .hero-section {
-    min-height: 620px;
+    min-height: 520px;
     display: flex;
     align-items: center;
     background:
@@ -113,7 +115,7 @@ p {
 
 .hero-content {
     max-width: 720px;
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .hero-subtitle,
@@ -131,6 +133,18 @@ p {
     color: var(--color-text-soft);
     font-size: 1.15rem;
 }
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .hero-section {
+        min-height: 620px;
+    }
+
+    .hero-content {
+        padding: 5rem 0;
+    }
+}
+
 
 /* ================================================== */
 /* 05. Composants - boutons principaux */
@@ -193,7 +207,7 @@ button.btn-custom:active {
 /* Affiche la photo événementielle avec des proportions régulières. */
 .presentation-image {
     width: 100%;
-    height: 420px;
+    height: 300px;
     display: block;
     object-fit: cover;
     transition: transform 0.4s ease;
@@ -203,6 +217,15 @@ button.btn-custom:active {
 .presentation-image-wrapper:hover .presentation-image {
     transform: scale(1.025);
 }
+
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .presentation-image {
+        height: 420px;
+    }
+}
+
 
 /* ================================================== */
 /* 07. Accueil - valeurs et savoir-faire */
@@ -223,7 +246,7 @@ button.btn-custom:active {
 
 .value-card {
     height: 100%;
-    padding: 1.8rem;
+    padding: 1.4rem;
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-sage);
@@ -246,6 +269,14 @@ button.btn-custom:active {
     color: var(--color-text-soft);
 }
 
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .value-card {
+        padding: 1.8rem;
+    }
+}
+
+
 /* ================================================== */
 /* 08. Accueil - avis clients */
 /* ================================================== */
@@ -265,12 +296,13 @@ button.btn-custom:active {
 
 .review-card {
     height: 100%;
-    padding: 1.8rem;
+    padding: 1.4rem;
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-wine);
     transition: 0.2s ease;
 }
+
 
 .review-card:hover {
     transform: translateY(-4px);
@@ -293,25 +325,34 @@ button.btn-custom:active {
     font-weight: 700;
 }
 
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .review-card {
+        padding: 1.8rem;
+    }
+}
+
+
 /* ================================================== */
 /* 09. Accueil - carrousel des avis */
 /* ================================================== */
 
 #reviews-carousel {
-    padding: 0 5rem 3rem;
+    padding: 0 2.5rem 3rem;
 }
 
 .review-card-carousel {
     max-width: 760px;
-    min-height: 230px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    padding: 1.2rem;
 }
 
 .review-comment {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 #reviews-carousel .carousel-indicators {
@@ -342,7 +383,7 @@ button.btn-custom:active {
 
 #reviews-carousel .carousel-control-prev,
 #reviews-carousel .carousel-control-next {
-    width: 4rem;
+    width: 2.5rem;
 }
 
 #reviews-carousel .carousel-control-prev-icon,
@@ -352,6 +393,32 @@ button.btn-custom:active {
     background-size: 55%;
     border-radius: 50%;
 }
+
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    #reviews-carousel {
+        padding: 0 5rem 3rem;
+    }
+
+    .review-card-carousel {
+        min-height: 230px;
+        padding: 1.8rem;
+    }
+
+    .review-comment {
+        font-size: 1.1rem;
+    }
+
+    #reviews-carousel .carousel-control-next {
+        width: 4rem;
+    }
+
+    #reviews-carousel .carousel-control-prev {
+        width: 4rem;
+    }
+}
+
 
 /* ================================================== */
 /* 10. Pied de page */
@@ -430,10 +497,12 @@ button.btn-custom:active {
 
 .menu-filters-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
 }
+
 
 .menu-filters-title {
     margin-bottom: 0.25rem;
@@ -505,7 +574,7 @@ button.btn-custom:active {
 .menu-card {
     min-height: 340px;
     display: grid;
-    grid-template-columns: minmax(210px, 42%) 1fr;
+    grid-template-columns: 1fr;
     overflow: hidden;
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border);
@@ -521,15 +590,16 @@ button.btn-custom:active {
 }
 
 .menu-card-gallery {
-    min-height: 340px;
+    min-height: 250px;
+    height: 250px;
     overflow: hidden;
     background-color: rgba(12, 10, 11, 1);
 }
 
 .menu-card-image {
     width: 100%;
-    height: 100%;
-    min-height: 340px;
+    min-height: 250px;
+    height: 250px;
     object-fit: cover;
 }
 
@@ -537,8 +607,9 @@ button.btn-custom:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 1.3rem;
 }
+
 
 .menu-badge {
     display: inline-block;
@@ -605,70 +676,35 @@ button.btn-custom:active {
     background-color: var(--color-wine-hover);
 }
 
-/* ================================================== */
-/* 13. Accueil et catalogue - responsive */
-/* ================================================== */
-
-@media screen and (max-width: 768px) {
-
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
     .menu-filters-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .hero-section {
-        min-height: 520px;
-    }
-
-    .hero-content {
-        padding: 4rem 0;
-    }
-
-    /* Réduit la hauteur de la photo de présentation sur mobile. */
-    .presentation-image {
-        height: 300px;
-    }
-
-    .value-card,
-    .review-card {
-        padding: 1.4rem;
-    }
-
-    #reviews-carousel {
-        padding: 0 2.5rem 3rem;
-    }
-
-    .review-card-carousel {
-        min-height: 280px;
-        padding: 1.2rem;
-    }
-
-    .review-comment {
-        font-size: 1rem;
-    }
-
-    #reviews-carousel .carousel-control-prev,
-    #reviews-carousel .carousel-control-next {
-        width: 2.5rem;
+        align-items: center;
+        flex-direction: row;
     }
 
     .menu-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(210px, 42%) 1fr;
     }
 
-    .menu-card-gallery,
+    .menu-card-gallery {
+        height: auto;
+        min-height: 340px;
+    }
+
     .menu-card-image {
-        min-height: 250px;
-        height: 250px;
+        height: 100%;
+        min-height: 340px;
     }
 
     .menu-card-content {
-        padding: 1.3rem;
+        padding: 1.5rem;
     }
 }
 
+
 /* ================================================== */
-/* 14. Menus - détail */
+/* 13. Menus - détail */
 /* ================================================== */
 
 .menu-detail-section {
@@ -686,7 +722,7 @@ button.btn-custom:active {
 
 .menu-detail-main-image {
     width: 100%;
-    height: 520px;
+    height: 330px;
     object-fit: cover;
     border-radius: 0.35rem;
 }
@@ -715,7 +751,7 @@ button.btn-custom:active {
 
 .menu-detail-thumbnail img {
     width: 100%;
-    height: 92px;
+    height: 72px;
     object-fit: cover;
 }
 
@@ -723,7 +759,7 @@ button.btn-custom:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem;
+    padding: 1.35rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid var(--color-border);
     border-left: 3px solid var(--color-wine);
@@ -765,7 +801,7 @@ button.btn-custom:active {
 
 .menu-detail-pricing {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     border-top: 1px solid var(--color-border);
     border-left: 1px solid var(--color-border);
 }
@@ -819,8 +855,9 @@ button.btn-custom:active {
 .menu-detail-dish-image {
     width: 100%;
     height: 100%;
-    min-height: 250px;
+    min-height: 220px;
     object-fit: cover;
+    max-height: 260px;
 }
 
 .menu-detail-dish-content {
@@ -893,36 +930,33 @@ button.btn-custom:active {
     font-size: 1.25rem;
 }
 
-/* ================================================== */
-/* 15. Menus - détail responsive */
-/* ================================================== */
-
-@media screen and (max-width: 768px) {
-
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
     .menu-detail-main-image {
-        height: 330px;
+        height: 520px;
     }
 
     .menu-detail-thumbnail img {
-        height: 72px;
+        height: 92px;
     }
 
     .menu-detail-summary {
-        padding: 1.35rem;
+        padding: 2rem;
     }
 
     .menu-detail-pricing {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .menu-detail-dish-image {
-        min-height: 220px;
-        max-height: 260px;
+        max-height: none;
+        min-height: 250px;
     }
 }
 
+
 /* ================================================== */
-/* 16. Authentification et commande - formulaire */
+/* 14. Authentification et commande - formulaire */
 /* ================================================== */
 
 .auth-section {
@@ -938,7 +972,7 @@ button.btn-custom:active {
 
 .auth-card {
     max-width: 720px;
-    padding: 2rem;
+    padding: 1.35rem;
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-wine);
@@ -1047,13 +1081,17 @@ button.btn-custom:active {
     box-shadow: none;
 }
 
-.auth-form .form-control:focus {
-    border-color: var(--color-wine);
-    box-shadow: 0 0 0 0.2rem rgba(116, 37, 58, 0.18);
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .auth-card {
+        padding: 2rem;
+    }
 }
 
+
 /* ================================================== */
-/* 17. Commande - récapitulatif */
+/* 15. Commande - récapitulatif */
 /* ================================================== */
 
 .order-price-summary {
@@ -1090,18 +1128,7 @@ button.btn-custom:active {
 }
 
 /* ================================================== */
-/* 18. Authentification et commande - responsive */
-/* ================================================== */
-
-@media screen and (max-width: 768px) {
-
-    .auth-card {
-        padding: 1.35rem;
-    }
-}
-
-/* ================================================== */
-/* 19. Commande - confirmation */
+/* 16. Commande - confirmation */
 /* ================================================== */
 
 .order-confirmation-section {
@@ -1117,7 +1144,7 @@ button.btn-custom:active {
 
 .order-confirmation-card {
     max-width: 820px;
-    padding: 2.2rem;
+    padding: 1.35rem;
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-wine);
@@ -1165,6 +1192,7 @@ button.btn-custom:active {
     background-color: rgba(116, 37, 58, 0.12);
     border: 1px solid rgba(116, 37, 58, 0.45);
     border-radius: 0.45rem;
+    flex-direction: column;
 }
 
 .order-confirmation-label {
@@ -1212,8 +1240,8 @@ button.btn-custom:active {
 
 .order-confirmation-row {
     display: grid;
-    grid-template-columns: minmax(150px, 0.8fr) 1.5fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
     padding: 0.65rem 0;
     border-bottom: 1px solid var(--color-border);
 }
@@ -1230,7 +1258,7 @@ button.btn-custom:active {
 .order-confirmation-row dd {
     margin: 0;
     color: var(--color-text);
-    text-align: right;
+    text-align: left;
 }
 
 .order-confirmation-price-line {
@@ -1277,36 +1305,38 @@ button.btn-custom:active {
     margin-top: 1.75rem;
 }
 
-/* ================================================== */
-/* 20. Commande - confirmation responsive */
-/* ================================================== */
+/* Propriétés mobiles complémentaires aux styles de base. */
+.order-confirmation-actions .btn {
+    width: 100%;
+}
 
-@media screen and (max-width: 768px) {
-
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
     .order-confirmation-card {
-        padding: 1.35rem;
+        padding: 2.2rem;
     }
 
     .order-confirmation-reference {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .order-confirmation-row {
-        grid-template-columns: 1fr;
-        gap: 0.3rem;
+        gap: 1rem;
+        grid-template-columns: minmax(150px, 0.8fr) 1.5fr;
     }
 
     .order-confirmation-row dd {
-        text-align: left;
+        text-align: right;
     }
 
     .order-confirmation-actions .btn {
-        width: 100%;
+        width: auto;
     }
 }
 
+
 /* ================================================== */
-/* 21. Commande - erreur */
+/* 17. Commande - erreur */
 /* ================================================== */
 
 .order-error-section {
@@ -1322,7 +1352,7 @@ button.btn-custom:active {
 
 .order-error-card {
     max-width: 760px;
-    padding: 2.2rem;
+    padding: 1.35rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-top: 3px solid var(--color-wine);
@@ -1391,23 +1421,25 @@ button.btn-custom:active {
     margin-top: 1.75rem;
 }
 
-/* ================================================== */
-/* 22. Commande - erreur responsive */
-/* ================================================== */
+/* Propriétés mobiles complémentaires aux styles de base. */
+.order-error-actions .btn {
+    width: 100%;
+}
 
-@media screen and (max-width: 768px) {
-
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
     .order-error-card {
-        padding: 1.35rem;
+        padding: 2.2rem;
     }
 
     .order-error-actions .btn {
-        width: 100%;
+        width: auto;
     }
 }
 
+
 /* ================================================== */
-/* 23. Espace utilisateur - tableau de bord */
+/* 18. Espace utilisateur - tableau de bord */
 /* ================================================== */
 
 .user-dashboard-hero {
@@ -1436,7 +1468,7 @@ button.btn-custom:active {
 }
 
 .user-dashboard-card {
-    padding: 1.75rem;
+    padding: 1.25rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-top: 3px solid var(--color-wine);
@@ -1503,6 +1535,7 @@ button.btn-custom:active {
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.25rem;
+    flex-direction: column;
 }
 
 .user-order-reference {
@@ -1531,7 +1564,7 @@ button.btn-custom:active {
 
 .user-order-information {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -1588,8 +1621,56 @@ button.btn-custom:active {
     font-size: 1.4rem;
 }
 
+/* Propriétés mobiles complémentaires aux styles de base. */
+.user-dashboard-card-actions .btn {
+    width: 100%;
+}
+
+.user-order-actions .btn {
+    width: 100%;
+}
+
+.user-orders-empty .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 481 px. */
+@media screen and (min-width: 481px) {
+    .user-order-information {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .user-dashboard-card {
+        padding: 1.75rem;
+    }
+
+    .user-order-card-header {
+        flex-direction: row;
+    }
+
+    .user-order-information {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .user-dashboard-card-actions .btn {
+        width: auto;
+    }
+
+    .user-order-actions .btn {
+        width: auto;
+    }
+
+    .user-orders-empty .btn {
+        width: auto;
+    }
+}
+
+
 /* ================================================== */
-/* 24. Espace utilisateur - détail d'une commande */
+/* 19. Espace utilisateur - détail d'une commande */
 /* ================================================== */
 
 .user-order-detail-navigation {
@@ -1614,6 +1695,7 @@ button.btn-custom:active {
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 
 .user-order-detail-description {
@@ -1624,7 +1706,7 @@ button.btn-custom:active {
 
 .user-order-detail-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -1691,7 +1773,7 @@ button.btn-custom:active {
 .user-order-error {
     max-width: 720px;
     margin: 0 auto;
-    padding: 3rem;
+    padding: 2rem 1.25rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-wine);
@@ -1699,8 +1781,24 @@ button.btn-custom:active {
     text-align: center;
 }
 
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .user-order-detail-heading {
+        flex-direction: row;
+    }
+
+    .user-order-detail-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .user-order-error {
+        padding: 3rem;
+    }
+}
+
+
 /* ================================================== */
-/* 25. Espace utilisateur - suivi d'une commande */
+/* 20. Espace utilisateur - suivi d'une commande */
 /* ================================================== */
 
 .user-order-timeline {
@@ -1790,12 +1888,12 @@ button.btn-custom:active {
 }
 
 /* ================================================== */
-/* 26. Espace utilisateur - annulation */
+/* 21. Espace utilisateur - annulation */
 /* ================================================== */
 
 .user-order-cancellation-card {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     gap: 2rem;
     padding: 1.5rem;
@@ -1803,6 +1901,7 @@ button.btn-custom:active {
     border: 1px solid rgba(188, 86, 92, 0.35);
     border-left: 3px solid rgba(188, 86, 92, 0.85);
     border-radius: 0.45rem;
+    flex-direction: column;
 }
 
 .user-order-cancellation-title {
@@ -1819,6 +1918,7 @@ button.btn-custom:active {
 
 .user-order-cancellation-form {
     flex-shrink: 0;
+    width: 100%;
 }
 
 .user-order-cancel-button {
@@ -1834,8 +1934,30 @@ button.btn-custom:active {
     border-color: rgba(222, 194, 183, 0.8);
 }
 
+/* Propriétés mobiles complémentaires aux styles de base. */
+.user-order-cancellation-form .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 769 px. */
+@media screen and (min-width: 769px) {
+    .user-order-cancellation-card {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .user-order-cancellation-form {
+        width: auto;
+    }
+
+    .user-order-cancellation-form .btn {
+        width: auto;
+    }
+}
+
+
 /* ================================================== */
-/* 27. Espace utilisateur - profil */
+/* 22. Espace utilisateur - profil */
 /* ================================================== */
 
 .user-profile-edit-button {
@@ -1870,61 +1992,7 @@ button.btn-custom:active {
 }
 
 /* ================================================== */
-/* 28. Espace utilisateur - responsive */
-/* ================================================== */
-
-@media screen and (max-width: 768px) {
-
-    .user-dashboard-card {
-        padding: 1.25rem;
-    }
-
-    .user-order-card-header {
-        flex-direction: column;
-    }
-
-    .user-order-information {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .user-dashboard-card-actions .btn,
-    .user-order-actions .btn,
-    .user-orders-empty .btn {
-        width: 100%;
-    }
-
-    .user-order-detail-heading {
-        flex-direction: column;
-    }
-
-    .user-order-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .user-order-error {
-        padding: 2rem 1.25rem;
-    }
-
-    .user-order-cancellation-card {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .user-order-cancellation-form,
-    .user-order-cancellation-form .btn {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 480px) {
-
-    .user-order-information {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ================================================== */
-/* 29. Espace employé - navigation */
+/* 23. Espace employé - navigation */
 /* ================================================== */
 
 .employee-navigation {
@@ -1934,13 +2002,14 @@ button.btn-custom:active {
 }
 
 .employee-navigation-list {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
     margin: 0;
     padding: 0.85rem 0;
     list-style: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .employee-navigation-link {
@@ -1957,6 +2026,9 @@ button.btn-custom:active {
         color 0.2s ease,
         background-color 0.2s ease,
         border-color 0.2s ease;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
 }
 
 .employee-navigation-link:hover,
@@ -1977,26 +2049,29 @@ button.btn-custom:active {
     cursor: not-allowed;
 }
 
-@media (max-width: 575.98px) {
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .employee-navigation-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        grid-template-columns: none;
     }
 
     .employee-navigation-link {
-        justify-content: center;
-        width: 100%;
-        text-align: center;
+        justify-content: normal;
+        text-align: start;
+        width: auto;
     }
 }
 
+
 /* ================================================== */
-/* 30. Espace employé - accueil */
+/* 24. Espace employé - accueil */
 /* ================================================== */
 
 .employee-management-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.25rem;
 }
 
@@ -2006,7 +2081,7 @@ button.btn-custom:active {
     align-items: flex-start;
     justify-content: space-between;
     gap: 1.5rem;
-    min-height: 260px;
+    min-height: auto;
     padding: 1.75rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.09);
@@ -2047,18 +2122,21 @@ button.btn-custom:active {
     font-weight: 600;
 }
 
-@media (max-width: 767.98px) {
+
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
     .employee-management-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .employee-management-card {
-        min-height: auto;
+        min-height: 260px;
     }
 }
 
+
 /* ================================================== */
-/* 31. Espace employé - horaires */
+/* 25. Espace employé - horaires */
 /* ================================================== */
 
 .employee-opening-hours-list {
@@ -2069,14 +2147,15 @@ button.btn-custom:active {
 
 .employee-opening-hour-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 0.8rem;
     padding: 1.15rem 1.25rem;
     background-color: rgba(255, 255, 255, 0.025);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-left: 3px solid var(--color-wine);
     border-radius: 0.4rem;
+    flex-direction: column;
 }
 
 .employee-opening-hour-day {
@@ -2106,18 +2185,11 @@ button.btn-custom:active {
     border-color: rgba(116, 37, 58, 0.55);
 }
 
-@media (max-width: 575.98px) {
-    .employee-opening-hour-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-}
 
 .employee-opening-hour-fields {
     display: grid;
     grid-template-columns:
-        minmax(140px, 1fr) minmax(140px, 1fr) auto;
+        1fr;
     gap: 1rem;
     align-items: end;
     width: 100%;
@@ -2144,11 +2216,12 @@ fieldset .employee-opening-hour-day {
     align-items: center;
     min-height: 38px;
     padding-bottom: 0.45rem;
+    grid-column: auto;
 }
 
 .employee-opening-hours-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: stretch;
     margin-top: 1.5rem;
 }
 
@@ -2170,7 +2243,20 @@ fieldset .employee-opening-hour-day {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-@media (max-width: 767.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-opening-hours-actions .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
+    .employee-opening-hour-item {
+        align-items: center;
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+
     .employee-opening-hour-fields {
         grid-template-columns: 1fr 1fr;
     }
@@ -2178,28 +2264,30 @@ fieldset .employee-opening-hour-day {
     .employee-opening-hour-closed {
         grid-column: 1 / -1;
     }
+
+    .employee-opening-hours-actions {
+        justify-content: flex-end;
+    }
+
+    .employee-opening-hours-actions .btn {
+        width: auto;
+    }
 }
 
-@media (max-width: 575.98px) {
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
     .employee-opening-hour-fields {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(140px, 1fr) minmax(140px, 1fr) auto;
     }
 
     .employee-opening-hour-closed {
         grid-column: auto;
     }
-
-    .employee-opening-hours-actions {
-        justify-content: stretch;
-    }
-
-    .employee-opening-hours-actions .btn {
-        width: 100%;
-    }
 }
 
+
 /* ================================================== */
-/* 32. Espace employé - commandes */
+/* 26. Espace employé - commandes */
 /* ================================================== */
 
 .employee-dashboard-hero {
@@ -2228,7 +2316,7 @@ fieldset .employee-opening-hour-day {
 }
 
 .employee-dashboard-card {
-    padding: 1.75rem;
+    padding: 1.25rem;
     background-color: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-top: 3px solid var(--color-wine);
@@ -2249,7 +2337,7 @@ fieldset .employee-opening-hour-day {
 .employee-order-filters {
     display: grid;
     grid-template-columns:
-        minmax(180px, 0.75fr) minmax(240px, 1.5fr) auto;
+        1fr;
     align-items: end;
     gap: 1rem;
 }
@@ -2258,6 +2346,8 @@ fieldset .employee-opening-hour-day {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+    flex-direction: column;
+    grid-column: auto;
 }
 
 .employee-filter-reset-button {
@@ -2275,10 +2365,11 @@ fieldset .employee-opening-hour-day {
 
 .employee-orders-heading {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 
 .employee-order-count {
@@ -2311,6 +2402,7 @@ fieldset .employee-opening-hour-day {
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.25rem;
+    flex-direction: column;
 }
 
 .employee-order-reference {
@@ -2334,7 +2426,7 @@ fieldset .employee-opening-hour-day {
 
 .employee-order-information {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
@@ -2353,58 +2445,78 @@ fieldset .employee-opening-hour-day {
     display: flex;
     justify-content: flex-end;
     margin-top: 1.25rem;
+    width: 100%;
 }
 
-@media (max-width: 991.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-order-filter-actions .btn {
+    width: 100%;
+}
+
+.employee-order-actions .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .employee-order-filters {
         grid-template-columns: 1fr 1fr;
     }
 
     .employee-order-filter-actions {
         grid-column: 1 / -1;
+        flex-direction: row;
     }
 
     .employee-order-information {
         grid-template-columns: repeat(2, 1fr);
     }
-}
 
-@media (max-width: 575.98px) {
     .employee-dashboard-card {
-        padding: 1.25rem;
+        padding: 1.75rem;
     }
 
+    .employee-order-filter-actions .btn {
+        width: auto;
+    }
+
+    .employee-order-card-header {
+        flex-direction: row;
+    }
+
+    .employee-orders-heading {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .employee-order-actions {
+        width: auto;
+    }
+
+    .employee-order-actions .btn {
+        width: auto;
+    }
+}
+
+/* Adaptations progressives à partir de 992 px. */
+@media screen and (min-width: 992px) {
     .employee-order-filters {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(180px, 0.75fr) minmax(240px, 1.5fr) auto;
     }
 
     .employee-order-filter-actions {
         grid-column: auto;
-        flex-direction: column;
-    }
-
-    .employee-order-filter-actions .btn {
-        width: 100%;
-    }
-
-    .employee-orders-heading,
-    .employee-order-card-header {
-        align-items: flex-start;
-        flex-direction: column;
     }
 
     .employee-order-information {
-        grid-template-columns: 1fr;
-    }
-
-    .employee-order-actions,
-    .employee-order-actions .btn {
-        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
+
 /* ================================================== */
-/* 33. Espace employé - détail d'une commande */
+/* 27. Espace employé - détail d'une commande */
 /* ================================================== */
 
 .employee-order-detail-heading {
@@ -2413,11 +2525,12 @@ fieldset .employee-opening-hour-day {
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 
 .employee-order-detail-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     gap: 1.25rem;
 }
 
@@ -2450,7 +2563,7 @@ fieldset .employee-opening-hour-day {
 
 .employee-status-history-item {
     display: grid;
-    grid-template-columns: minmax(180px, 0.75fr) 1fr 2fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.025);
@@ -2459,7 +2572,14 @@ fieldset .employee-opening-hour-day {
     border-radius: 0.35rem;
 }
 
-@media (max-width: 991.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-status-history-item> :last-child {
+    grid-column: auto;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .employee-order-detail-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2471,16 +2591,20 @@ fieldset .employee-opening-hour-day {
     .employee-status-history-item> :last-child {
         grid-column: 1 / -1;
     }
+
+    .employee-order-detail-heading {
+        flex-direction: row;
+    }
 }
 
-@media (max-width: 575.98px) {
-    .employee-order-detail-heading {
-        flex-direction: column;
+/* Adaptations progressives à partir de 992 px. */
+@media screen and (min-width: 992px) {
+    .employee-order-detail-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
-    .employee-order-detail-grid,
     .employee-status-history-item {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(180px, 0.75fr) 1fr 2fr;
     }
 
     .employee-status-history-item> :last-child {
@@ -2488,14 +2612,15 @@ fieldset .employee-opening-hour-day {
     }
 }
 
+
 /* ================================================== */
-/* 34. Espace employé - changement de statut */
+/* 28. Espace employé - changement de statut */
 /* ================================================== */
 
 .employee-status-form {
     display: grid;
     grid-template-columns:
-        minmax(220px, 0.75fr) minmax(280px, 1.5fr) auto;
+        1fr;
     align-items: end;
     gap: 1rem;
 }
@@ -2503,21 +2628,33 @@ fieldset .employee-opening-hour-day {
 .employee-status-form-action {
     display: flex;
     align-items: flex-end;
+    width: 100%;
 }
 
-@media (max-width: 767.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-status-form-action .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
     .employee-status-form {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(220px, 0.75fr) minmax(280px, 1.5fr) auto;
     }
 
-    .employee-status-form-action,
+    .employee-status-form-action {
+        width: auto;
+    }
+
     .employee-status-form-action .btn {
-        width: 100%;
+        width: auto;
     }
 }
+
 
 /* ================================================== */
-/* 35. Espace employé - annulation */
+/* 29. Espace employé - annulation */
 /* ================================================== */
 
 .employee-cancellation-card {
@@ -2552,7 +2689,7 @@ fieldset .employee-opening-hour-day {
 }
 
 /* ================================================== */
-/* 36. Espace employé - modération des avis */
+/* 30. Espace employé - modération des avis */
 /* ================================================== */
 
 .employee-review-list {
@@ -2574,6 +2711,7 @@ fieldset .employee-opening-hour-day {
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.25rem;
+    flex-direction: column;
 }
 
 .employee-review-rating {
@@ -2585,7 +2723,7 @@ fieldset .employee-opening-hour-day {
 
 .employee-review-meta {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 1.25rem;
 }
@@ -2608,6 +2746,7 @@ fieldset .employee-opening-hour-day {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+    width: 100%;
 }
 
 .employee-review-refuse-button {
@@ -2623,37 +2762,56 @@ fieldset .employee-opening-hour-day {
     border-color: #bd5968;
 }
 
-@media (max-width: 767.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-review-actions .btn {
+    width: 100%;
+}
+
+.employee-review-actions form {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
     .employee-review-header {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .employee-review-meta {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .employee-review-actions,
-    .employee-review-actions form,
+    .employee-review-actions {
+        width: auto;
+    }
+
     .employee-review-actions .btn {
-        width: 100%;
+        width: auto;
+    }
+
+    .employee-review-actions form {
+        width: auto;
     }
 }
 
+
 /* ================================================== */
-/* 37. Espace employé - plats */
+/* 31. Espace employé - plats */
 /* ================================================== */
 
 .employee-dishes-heading {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 
 .employee-dish-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
     align-items: end;
     margin-bottom: 1rem;
@@ -2688,11 +2846,12 @@ fieldset .employee-opening-hour-day {
 
 .employee-dish-filter-actions {
     display: flex;
+    align-items: stretch;
 }
 
 .employee-dishes-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.25rem;
 }
 
@@ -2809,7 +2968,7 @@ fieldset .employee-opening-hour-day {
 
 .employee-dish-allergen-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.75rem;
 }
 
@@ -2837,62 +2996,80 @@ fieldset .employee-opening-hour-day {
     background-color: #ffffff;
 }
 
-@media (max-width: 767.98px) {
-    .employee-dishes-grid {
-        grid-template-columns: 1fr;
-    }
 
-    .employee-dishes-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-dish-filter-actions .btn {
+    width: 100%;
+}
 
+.employee-dish-form-actions {
+    flex-direction: column-reverse;
+}
+
+.employee-dish-form-actions .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .employee-dish-filters {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .employee-dish-filter-actions {
-        align-items: stretch;
-    }
-
-    .employee-dish-filter-actions .btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 575.98px) {
     .employee-dish-allergen-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .employee-dish-form-actions {
-        flex-direction: column-reverse;
+        flex-direction: row;
     }
 
     .employee-dish-form-actions .btn {
-        width: 100%;
-    }
-
-    .employee-dish-filters {
-        grid-template-columns: 1fr;
+        width: auto;
     }
 }
 
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
+    .employee-dishes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .employee-dishes-heading {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .employee-dish-filters {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .employee-dish-filter-actions {
+        align-items: normal;
+    }
+
+    .employee-dish-filter-actions .btn {
+        width: auto;
+    }
+}
+
+
 /* ================================================== */
-/* 38. Espace employé - menus */
+/* 32. Espace employé - menus */
 /* ================================================== */
 
 .employee-menus-heading {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    flex-direction: column;
 }
 
 .employee-menus-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.25rem;
 }
 
@@ -2962,7 +3139,7 @@ fieldset .employee-opening-hour-day {
 
 .employee-menu-information {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.4rem 1rem;
     margin: 1.25rem 0;
 }
@@ -3033,13 +3210,13 @@ fieldset .employee-opening-hour-day {
 
 .employee-menu-dish-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
 .employee-menu-dish-option {
     display: grid;
-    grid-template-columns: auto 90px 1fr;
+    grid-template-columns: auto 70px 1fr;
     gap: 0.85rem;
     align-items: center;
     padding: 0.85rem;
@@ -3054,8 +3231,8 @@ fieldset .employee-opening-hour-day {
 }
 
 .employee-menu-dish-photo {
-    width: 90px;
-    height: 70px;
+    width: 70px;
+    height: 60px;
     object-fit: cover;
     border-radius: 0.35rem;
 }
@@ -3070,50 +3247,65 @@ fieldset .employee-opening-hour-day {
     color: var(--color-text-soft);
 }
 
-@media (max-width: 767.98px) {
 
-    .employee-menus-grid,
-    .employee-menu-dish-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .employee-menus-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
+/* Propriétés mobiles complémentaires aux styles de base. */
+.employee-menu-form-actions {
+    flex-direction: column-reverse;
 }
 
-@media (max-width: 575.98px) {
+.employee-menu-form-actions .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .employee-menu-information {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .employee-menu-dish-option {
-        grid-template-columns: auto 70px 1fr;
+        grid-template-columns: auto 90px 1fr;
     }
 
     .employee-menu-dish-photo {
-        width: 70px;
-        height: 60px;
+        height: 70px;
+        width: 90px;
     }
 
     .employee-menu-form-actions {
-        flex-direction: column-reverse;
+        flex-direction: row;
     }
 
     .employee-menu-form-actions .btn {
-        width: 100%;
+        width: auto;
     }
 }
 
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
+    .employee-menu-dish-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .employee-menus-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .employee-menus-heading {
+        align-items: center;
+        flex-direction: row;
+    }
+}
+
+
 /* ================================================== */
-/* 39. Espace administrateur - employés */
+/* 33. Espace administrateur - employés */
 /* ================================================== */
 
 .admin-employees-layout {
     display: grid;
     grid-template-columns:
-        minmax(280px, 0.8fr) minmax(400px, 1.2fr);
+        1fr;
     gap: 1.5rem;
     align-items: start;
 }
@@ -3126,7 +3318,7 @@ fieldset .employee-opening-hour-day {
 
 .admin-employee-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1.25rem;
     padding: 1rem 1.1rem;
@@ -3134,6 +3326,7 @@ fieldset .employee-opening-hour-day {
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-left: 3px solid var(--color-wine);
     border-radius: 0.45rem;
+    flex-direction: column;
 }
 
 .admin-employee-item.inactive {
@@ -3159,6 +3352,8 @@ fieldset .employee-opening-hour-day {
     align-items: center;
     gap: 0.75rem;
     flex-shrink: 0;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .admin-employee-item.inactive .employee-menu-status.inactive {
@@ -3208,26 +3403,30 @@ fieldset .employee-opening-hour-day {
         0 0 0 0.2rem rgba(214, 190, 143, 0.12);
 }
 
-@media (max-width: 991.98px) {
-    .admin-employees-layout {
-        grid-template-columns: 1fr;
-    }
-}
 
-@media (max-width: 575.98px) {
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .admin-employee-item {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: center;
+        flex-direction: row;
     }
 
     .admin-employee-actions {
-        justify-content: space-between;
-        width: 100%;
+        justify-content: normal;
+        width: auto;
     }
 }
 
+/* Adaptations progressives à partir de 992 px. */
+@media screen and (min-width: 992px) {
+    .admin-employees-layout {
+        grid-template-columns: minmax(280px, 0.8fr) minmax(400px, 1.2fr);
+    }
+}
+
+
 /* ================================================== */
-/* 40. Espace administrateur - statistiques */
+/* 34. Espace administrateur - statistiques */
 /* ================================================== */
 
 .admin-statistics-heading {
@@ -3235,6 +3434,7 @@ fieldset .employee-opening-hour-day {
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
+    flex-direction: column;
 }
 
 .admin-statistics-source {
@@ -3256,7 +3456,7 @@ fieldset .employee-opening-hour-day {
 .admin-statistics-row {
     display: grid;
     grid-template-columns:
-        minmax(150px, 220px) minmax(150px, 1fr) 45px;
+        1fr auto;
     gap: 1rem;
     align-items: center;
 }
@@ -3272,6 +3472,8 @@ fieldset .employee-opening-hour-day {
     background-color: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
+    grid-column: 1 / -1;
+    grid-row: 2;
 }
 
 .admin-statistics-bar-fill {
@@ -3284,30 +3486,35 @@ fieldset .employee-opening-hour-day {
 .admin-statistics-value {
     color: var(--color-champagne);
     text-align: right;
+    grid-column: 2;
+    grid-row: 1;
 }
 
-@media (max-width: 767.98px) {
+
+/* Adaptations progressives à partir de 768 px. */
+@media screen and (min-width: 768px) {
     .admin-statistics-heading {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .admin-statistics-row {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: minmax(150px, 220px) minmax(150px, 1fr) 45px;
     }
 
     .admin-statistics-bar {
-        grid-column: 1 / -1;
-        grid-row: 2;
+        grid-column: auto;
+        grid-row: auto;
     }
 
     .admin-statistics-value {
-        grid-column: 2;
-        grid-row: 1;
+        grid-column: auto;
+        grid-row: auto;
     }
 }
 
+
 /* ================================================== */
-/* 41. Espace administrateur - chiffre d'affaires */
+/* 35. Espace administrateur - chiffre d'affaires */
 /* ================================================== */
 
 .admin-revenue-help {
@@ -3320,7 +3527,7 @@ fieldset .employee-opening-hour-day {
 .admin-revenue-filters {
     display: grid;
     grid-template-columns:
-        minmax(180px, 1.4fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr) auto;
+        1fr;
     gap: 1rem;
     align-items: end;
     margin-top: 1.5rem;
@@ -3336,11 +3543,12 @@ fieldset .employee-opening-hour-day {
 .admin-revenue-filter-actions {
     display: flex;
     gap: 0.6rem;
+    flex-direction: column;
 }
 
 .admin-revenue-summary {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     margin-top: 2rem;
@@ -3348,6 +3556,7 @@ fieldset .employee-opening-hour-day {
     background-color: rgba(214, 190, 143, 0.06);
     border: 1px solid rgba(214, 190, 143, 0.2);
     border-radius: 0.5rem;
+    flex-direction: column;
 }
 
 .admin-revenue-summary span {
@@ -3384,33 +3593,42 @@ fieldset .employee-opening-hour-day {
     color: var(--color-champagne);
 }
 
-@media (max-width: 991.98px) {
+
+/* Propriétés mobiles complémentaires aux styles de base. */
+.admin-revenue-filter-actions .btn {
+    width: 100%;
+}
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .admin-revenue-filters {
         grid-template-columns: 1fr 1fr;
     }
-}
-
-@media (max-width: 575.98px) {
-    .admin-revenue-filters {
-        grid-template-columns: 1fr;
-    }
 
     .admin-revenue-filter-actions {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .admin-revenue-filter-actions .btn {
-        width: 100%;
+        width: auto;
     }
 
     .admin-revenue-summary {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: center;
+        flex-direction: row;
     }
 }
 
+/* Adaptations progressives à partir de 992 px. */
+@media screen and (min-width: 992px) {
+    .admin-revenue-filters {
+        grid-template-columns: minmax(180px, 1.4fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr) auto;
+    }
+}
+
+
 /* ================================================== */
-/* 42. Page contact */
+/* 36. Page contact */
 /* ================================================== */
 
 .contact-section {
@@ -3426,7 +3644,7 @@ fieldset .employee-opening-hour-day {
 
 .contact-card {
     max-width: 760px;
-    padding: 2rem;
+    padding: 1.4rem;
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--color-wine);
@@ -3480,14 +3698,17 @@ fieldset .employee-opening-hour-day {
     outline-offset: 3px;
 }
 
-@media (max-width: 575.98px) {
+
+/* Adaptations progressives à partir de 576 px. */
+@media screen and (min-width: 576px) {
     .contact-card {
-        padding: 1.4rem;
+        padding: 2rem;
     }
 }
 
+
 /* ================================================== */
-/* 43. Pages légales */
+/* 37. Pages légales */
 /* ================================================== */
 
 .legal-hero {
